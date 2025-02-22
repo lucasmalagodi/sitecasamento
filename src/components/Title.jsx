@@ -2,10 +2,10 @@ import PropTypes from "prop-types";
 const Title = ({ title, subtitle }) => {
   return (
     <div className="text-center">
-      <h2 className="text-[var(--purple)] text-5xl font-bitter-rose">
+      <h2 className="text-[var(--purple)] text-6xl md:text-7xl font-bitter-rose">
         {title}
       </h2>
-      <h1 className="text-[var(--white-100)] text-3xl leading-1 font-bold leading-tight relative mt-1">
+      <h1 className="text-[var(--white-100)] text-3xl md:text-6xl leading-1 font-bold leading-tight relative">
         {subtitle}
       </h1>
     </div>

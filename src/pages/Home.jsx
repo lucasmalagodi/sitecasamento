@@ -13,7 +13,7 @@ const Home = () => {
     </div>
 
     {/* Seção do TÍTULO - Agora centralizado corretamente */}
-    <div className="flex-grow flex items-center justify-center text-center max-w-xs px-4, mt-[-7rem]">
+    <div className="flex-grow flex items-center justify-center text-center w-xs md:w-2xl px-4, mt-[-14rem]">
       <Title title="I See our Love" subtitle="many years before you came" />
     </div>
 
