@@ -6,7 +6,7 @@ const Home = () => {
   return (
     <div className="mx-auto flex flex-col items-center min-h-screen bg-black bg-cover bg-center bg-no-repeat"
     style={{ backgroundImage: "url('/assets/img-paula-e-lucas-home.png')" }}
-  >
+    >
     {/* Seção do LOGO - Adicionando espaçamento sem afetar o alinhamento */}
     <div className="w-full flex justify-center pt-10">
       <Logo />
