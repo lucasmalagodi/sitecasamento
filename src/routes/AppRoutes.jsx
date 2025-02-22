@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "../pages/Home";
 import Casal from "../pages/Casal";
 import Contato from "../pages/Contato";
+import Recepcao from "../pages/Recepcao"
 // import NotFound from "../pages/NotFound";
 import Layout from "../components/Layout";
 
@@ -16,6 +17,7 @@ const AppRoutes = () => {
         <Route element={<Layout />}>
           <Route path="/casal" element={<Casal />} />
           <Route path="/contato" element={<Contato />} />
+          <Route path="/recepcao" element={<Recepcao />} />
         </Route>
       </Routes>
     </Router>
