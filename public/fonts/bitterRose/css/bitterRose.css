@@ -1,0 +1,13 @@
+/**
+* @license
+*
+* Font Family: Bitter Rose
+*
+*/
+@font-face {
+  font-family: 'Bitter-Rose-DEMO';
+  src: url('../fonts/Bitter-Rose-DEMO.woff2') format('woff2');
+  font-weight: normal;
+  font-display: swap;
+  font-style: normal;
+}

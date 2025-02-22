@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+@import url('../public/fonts/chillax/css/chillax.css');
+@import url('../public/fonts/bitterRose/css/bitterRose.css');
+@import "tailwindcss";
+@theme {
+  --white: #fff;
+  --white-100: #F6F2E1;
+  --black: #000000;
+  --black-100: #1E1E1E;
+  --green: #2D433E;
+  --green-100: #889874;
+  --purple: #AA94C2;
+
+  --font-sans: 'Roboto', sans-serif;
+  --font-chillax: 'Chillax-Medium', serif;
+  --font-bitter-rose: 'Bitter-Rose-DEMO', cursive;
+  --font-serif: 'Georgia', serif;
+  --font-mono: 'Courier New', monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--white-100);
+  color: var(--black);
+  -webkit-font-smoothing: antialiased;
+}
+
+body, input, textarea, button {
+  font-family: var(--font-chillax);
+  font-weight: 400;
+  font-size: 1rem;
+}
