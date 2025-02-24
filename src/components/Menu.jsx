@@ -23,18 +23,18 @@ const Menu = () => {
 // 🟢 MENU MOBILE
 const MobileMenu = () => {
   return (
-    <div className="fixed bottom-0 left-0 right-0 flex justify-center pb-4">
+    <div className="bottom-0 left-0 right-0 flex justify-center pb-4">
       <div className="bg-[var(--white-100)] shadow-lg rounded-xl w-11/12 max-w-md flex justify-around items-center px-1 py-5">
         <MenuItem icon={<AiOutlineHome size={24} />} text="Olá" link="/" />
-        <MenuItem icon={<BiDrink size={24} />} text="Recepção" link="/recepcao" />
+        <MenuItem icon={<BiDrink size={24} />} text="Recepção" link="/" />
 
         {/* Ícone Central */}
         <Link to="/casal" className="flex items-center justify-center bg-[var(--green)] w-16 h-16 rounded-full text-white shadow-md">
           <FaHeart size={28} />
         </Link>
 
-        <MenuItem icon={<AiOutlineCalendar size={24} />} text="Presença" link="/presenca" />
-        <MenuItem icon={<AiOutlineGift size={24} />} text="Lista" link="/lista" />
+        <MenuItem icon={<AiOutlineCalendar size={24} />} text="Presença" link="/" />
+        <MenuItem icon={<AiOutlineGift size={24} />} text="Lista" link="/" />
       </div>
     </div>
   );

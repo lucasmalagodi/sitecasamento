@@ -7,7 +7,7 @@ const Modal = ({ isOpen, onClose }) => {
     <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
       <div className="bg-white p-6 rounded-lg shadow-lg text-center max-w-sm w-full">
         <img
-          src="../../public/assets/para-para-para.png" // Substitua pelo caminho real da sua imagem
+          src="../assets/para-para-para.png" // Substitua pelo caminho real da sua imagem
           alt="Informação"
           className="w-full rounded-md"
         />
