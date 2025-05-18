@@ -147,11 +147,11 @@ ${formData.mensagem ? `Mensagem: ${formData.mensagem}` : ''}
       {/* Título da seção */}
       <AnimatedOnScroll animation="fade-in" delay={0.2}>
         <div className="max-w-5xl mx-auto pt-12 pb-6 px-6 text-black text-center content-section">
-          <h2 className="text-3xl font-bold font-[var(--font-bitter-rose)] text-[var(--green)] mb-4 shine">
-            Confirmar Presença
+          <h2 className="text-3xl font-bold font-[var(--font-bitter-rose)] text-[var(--purple)] mb-4 shine">
+            Atenção, aventureiro(a)! 🧙‍♂️
           </h2>
           <div className="space-y-4 text-lg font-[var(--font-chillax-Extralight)] text-with-shadow text-gray-500">
-            <p>Atenção, aventureiro(a)! Toda grande jornada exige comprometimento, e essa não é diferente. 
+            <p> Toda grande jornada exige comprometimento, e essa não é diferente. 
             Sua missão é simples, mas crucial: confirmar presença até o dia 30 de julho!</p>
           </div>
           <div className="section-divider"></div>
@@ -163,7 +163,7 @@ ${formData.mensagem ? `Mensagem: ${formData.mensagem}` : ''}
         <div className="max-w-5xl mx-auto py-8 px-6 content-section">
           <div className="mb-12 text-center">
             <h2 className="text-2xl font-bold font-[var(--font-bitter-rose)] text-[var(--purple)] mb-6 character-title">
-              Por que sua resposta é importante?
+              Por que sua resposta é importante?🤨
             </h2>
           </div>
           <div className="space-y-4 text-base md:text-lg font-[var(--font-chillax-Extralight)] text-with-shadow leading-relaxed text-gray-500">
@@ -180,7 +180,7 @@ ${formData.mensagem ? `Mensagem: ${formData.mensagem}` : ''}
         <div className="max-w-5xl mx-auto py-8 px-6 content-section">
           <div className="mb-12 text-center">
             <h2 className="text-2xl font-bold font-[var(--font-bitter-rose)] text-[var(--purple)] mb-6 character-title">
-              Atenção!
+              Importante! ‼️
             </h2>
           </div>
           <div className="space-y-4 text-base md:text-lg font-[var(--font-chillax-Extralight)] text-with-shadow leading-relaxed text-gray-500">
@@ -197,7 +197,7 @@ ${formData.mensagem ? `Mensagem: ${formData.mensagem}` : ''}
         <div className="max-w-5xl mx-auto py-8 px-6 content-section">
           <div className="bg-white p-8 rounded-lg shadow-lg">
             <h2 className="text-2xl font-bold font-[var(--font-bitter-rose)] text-[var(--purple)] mb-6 text-center">
-              Formulário de Confirmação
+              Confirme aqui sua presença!
             </h2>
             {/* <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScoHirdQzFBA7OU-wF294gqrF9Eh8A4Uoy4Pc1ZbZ9HnIz2zg/viewform?embedded=true" width="100%" height="1500" frameborder="0" marginheight="0" marginwidth="0">Carregando…</iframe> */}
             <form onSubmit={handleSubmit} className="space-y-6">

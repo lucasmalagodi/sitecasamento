@@ -122,7 +122,7 @@ const Lista = () => {
       <AnimatedOnScroll animation="fade-in" delay={0.2}>
         <div className="max-w-5xl mx-auto pt-12 pb-6 px-6 text-black text-center content-section">
           <h2 className="text-3xl font-bold font-[var(--font-bitter-rose)] text-[var(--green)] mb-4">
-            Lista de Presentes
+            Veja os itens que escolhemos com carinho! 💖
           </h2>
           <div className="space-y-4 text-lg font-[var(--font-chillax-Extralight)] text-with-shadow text-gray-500">
             <p>Grandes heróis sempre receberam presentes icônicos: Luke recebeu o Sabre de Luz de Anakin 🔵⚔️, Harry herdou a Capa da Invisibilidade 🧥, Seiya ganhou a Armadura de Pégaso🛡️, Sakura ganhou o Cajado Estrela 🌟, e Link começou sua jornada com nada menos que a Espada Mestra 🗡️.</p>
@@ -138,9 +138,9 @@ const Lista = () => {
       <div className="max-w-7xl mx-auto py-8 px-6 content-section">
         <div className="mb-12 text-center">
           <h2 className="text-2xl font-bold font-[var(--font-bitter-rose)] text-[var(--green)] mb-6 character-title">
-            A lista de presentes está disponível abaixo. 
+            Para contribuir, basta escolher a opção que mais combina com sua vibe! 
           </h2>
-          <p>Para contribuir, basta escolher a opção que mais combina com sua vibe!</p>
+          <p>Seja qual for sua escolha, saiba que ficaremos imensamente gratos – e prometemos não gastar tudo em poções de cura e skins novas para o jogo da vida!💍</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {presentesOptions.map((option, index) => {
@@ -158,11 +158,11 @@ const Lista = () => {
       </div>
 
       {/* Mensagem Final */}
-      <div className="max-w-5xl mx-auto py-10 px-6 text-center">
+      {/* <div className="max-w-5xl mx-auto py-10 px-6 text-center">
         <p className="text-lg font-[var(--font-chillax-Extralight)] text-with-shadow text-gray-500">
           Seja qual for sua escolha, saiba que ficaremos imensamente gratos – e prometemos não gastar tudo em poções de cura e skins novas para o jogo da vida! 🎮💍
         </p>
-      </div>
+      </div> */}
     </div>
   );
 };

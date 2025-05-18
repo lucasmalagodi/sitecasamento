@@ -23,7 +23,7 @@ const PresenteOption = ({ title, image, onClick }) => {
         className="w-full bg-[var(--green)] text-white py-2 rounded hover:opacity-90 transition-colors mt-auto"
         onClick={onClick}
       >
-        Contribuir
+        Comprar
       </button>
     </div>
   );

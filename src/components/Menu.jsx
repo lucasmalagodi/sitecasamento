@@ -14,21 +14,13 @@ const Menu = () => {
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
-      // Atualiza a posição do menu quando a tela é redimensionada
-      if (menuRef.current) {
-        setMenuPosition(menuRef.current.offsetTop);
-      }
     };
 
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
-      setIsScrolled(scrollPosition >= menuPosition);
+      const headerHeight = document.querySelector('header')?.offsetHeight || 0;
+      setIsScrolled(scrollPosition > headerHeight);
     };
-
-    // Inicializa a posição do menu
-    if (menuRef.current) {
-      setMenuPosition(menuRef.current.offsetTop);
-    }
 
     window.addEventListener("resize", handleResize);
     window.addEventListener("scroll", handleScroll);
@@ -37,7 +29,7 @@ const Menu = () => {
       window.removeEventListener("resize", handleResize);
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [menuPosition]);
+  }, []);
 
   return isMobile ? <MobileMenu isScrolled={isScrolled} /> : <DesktopMenu isScrolled={isScrolled} menuRef={menuRef} />;
 };
