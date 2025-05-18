@@ -5,6 +5,8 @@ import Menu from "../components/Menu";
 import Modal from "../components/Modal";
 import AnimatedOnScroll from "../components/AnimatedOnScroll";
 
+// import PaulaLucasPont from "../assets/home/paulaLucasPont.png";
+
 const Home = () => {
   const [isScrollEnabled, setIsScrollEnabled] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false); // 🔥 Modal começa fechado
@@ -197,7 +199,7 @@ const Home = () => {
               <div className="relative w-full max-w-3xl mx-auto h-64 md:h-80 mb-8 rounded-lg overflow-hidden shadow-xl">
                 <div className="w-full h-full bg-[var(--green-100)] bg-opacity-30 flex items-center justify-center couple-float" style={{ backgroundImage: "url('/assets/profile/casal-profile.jpg')", backgroundSize: "cover", backgroundPosition: "center" }}>
                   {/* Aqui pode colocar uma imagem do casal juntos */}
-                  <span className="font-bold text-white text-xl">Foto do Casal</span>
+                  <img src="/assets/home/paulaLucasPonte.png" alt="Foto do Casal" className="w-full h-full object-cover" />
                 </div>
               </div>
               <div className="space-y-4 text-lg font-[var(--font-chillax-Extralight)] text-with-shadow max-w-3xl mx-auto text-gray-500">
