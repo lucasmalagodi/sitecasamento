@@ -192,7 +192,7 @@ const Home = () => {
           <div className="max-w-5xl mx-auto py-10 px-6">
             <div className="text-center">
               <h2 className="text-2xl font-bold font-[var(--font-bitter-rose)] text-[var(--green)] mb-6 shine">
-                Juntos, eles formam uma party imbatível! 🎮💍✨
+                <p>Juntos, eles formam uma party imbatível, prontos para embarcar na maior aventura de todas: o casamento! 🎮💍✨</p>
               </h2>
               <div className="relative w-full max-w-3xl mx-auto h-64 md:h-80 mb-8 rounded-lg overflow-hidden shadow-xl">
                 <div className="w-full h-full bg-[var(--green-100)] bg-opacity-30 flex items-center justify-center couple-float" style={{ backgroundImage: "url('/assets/profile/casal-profile.jpg')", backgroundSize: "cover", backgroundPosition: "center" }}>
@@ -201,7 +201,6 @@ const Home = () => {
                 </div>
               </div>
               <div className="space-y-4 text-lg font-[var(--font-chillax-Extralight)] text-with-shadow max-w-3xl mx-auto text-gray-500">
-                <p>Prontos para embarcar na maior aventura de todas: o casamento! 🎮💍✨</p>
                 <p>Agora que você conhece os protagonistas, prepare-se para explorar esse portal feito exclusivamente para você, convidado especial. Interaja com o menu para saber de todas as informações que precisa para fazer parte da nossa quest e divirta-se!</p>
                 <p className="italic mt-8 text-[var(--green)] font-semibold bounce">E lembrem-se: "Que a Força esteja com você"</p>
               </div>
