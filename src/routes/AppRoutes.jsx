@@ -1,23 +1,25 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "../pages/Home";
-import Casal from "../pages/Casal";
-import Contato from "../pages/Contato";
-import Recepcao from "../pages/Recepcao"
+import Recepcao from "../pages/recepcao";
+import { Presenca } from "../pages/Presenca";
+import Lista from "../pages/Lista";
 // import NotFound from "../pages/NotFound";
 import Layout from "../components/Layout";
+import ScrollToTop from "../components/ScrollToTop";
 
 const AppRoutes = () => {
   return (
     <Router>
+      <ScrollToTop />
       <Routes>
         {/* Página Home SEM Header e Footer */}
         <Route path="/" element={<Home />} />
 
         {/* Agrupando as páginas que precisam do Layout */}
         <Route element={<Layout />}>
-          <Route path="/casal" element={<Casal />} />
-          <Route path="/contato" element={<Contato />} />
           <Route path="/recepcao" element={<Recepcao />} />
+          <Route path="/presenca" element={<Presenca />} />
+          <Route path="/lista" element={<Lista />} />
         </Route>
       </Routes>
     </Router>

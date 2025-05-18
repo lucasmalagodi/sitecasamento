@@ -5,13 +5,16 @@
 @theme {
   --white: #fff;
   --white-100: #F6F2E1;
+  --white-200: #F8F5E8;
   --black: #000000;
   --black-100: #1E1E1E;
   --green: #2D433E;
   --green-100: #889874;
   --purple: #AA94C2;
+  --purple-100: #D4C5E5;
   --red: #FF0000;
   --red-300: #df4d4d;
+  --red-100: #ff8080;
 
   --font-sans: 'Roboto', sans-serif;
   --font-chillax: 'Chillax-Medium', serif;
