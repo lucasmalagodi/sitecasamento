@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { AiOutlineHome, AiOutlineCalendar, AiOutlineGift } from "react-icons/ai";
 import { BiDrink } from "react-icons/bi";
@@ -7,23 +7,45 @@ import PropTypes from "prop-types";
 
 const Menu = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const menuRef = useRef(null);
+  const [menuPosition, setMenuPosition] = useState(0);
 
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
+      // Atualiza a posição do menu quando a tela é redimensionada
+      if (menuRef.current) {
+        setMenuPosition(menuRef.current.offsetTop);
+      }
     };
 
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      setIsScrolled(scrollPosition >= menuPosition);
+    };
 
-  return isMobile ? <MobileMenu /> : <DesktopMenu />;
+    // Inicializa a posição do menu
+    if (menuRef.current) {
+      setMenuPosition(menuRef.current.offsetTop);
+    }
+
+    window.addEventListener("resize", handleResize);
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [menuPosition]);
+
+  return isMobile ? <MobileMenu isScrolled={isScrolled} /> : <DesktopMenu isScrolled={isScrolled} menuRef={menuRef} />;
 };
 
 // 🟢 MENU MOBILE
-const MobileMenu = () => {
+const MobileMenu = ({ isScrolled }) => {
   return (
-    <div className="bottom-0 left-0 right-0 flex justify-center pb-4">
+    <div className={`fixed bottom-0 left-0 right-0 flex justify-center pb-4 transition-all duration-300 ${isScrolled ? 'bg-white/80 backdrop-blur-sm shadow-lg' : ''}`}>
       <div className="bg-[var(--white-100)] shadow-lg rounded-xl w-11/12 max-w-md flex justify-around items-center px-1 py-5">
         <MenuItem icon={<AiOutlineHome size={24} />} text="Olá" link="/" />
         <MenuItem icon={<BiDrink size={24} />} text="Recepção" link="/" />
@@ -41,16 +63,25 @@ const MobileMenu = () => {
 };
 
 // 🖥️ MENU DESKTOP
-const DesktopMenu = () => {
+const DesktopMenu = ({ isScrolled, menuRef }) => {
   return (
-    <nav className="rounded-full max-w-xl flex justify-center p-4 bg-[var(--white-100)] shadow-md mb-5">
-      <ul className="flex space-x-8">
-        <MenuItem text="Olá" link="/" />
-        <MenuItem text="Recepção" link="/recepcao" />
-        <MenuItem text="Casal" link="/casal" />
-        <MenuItem text="Presença" link="/presenca" />
-        <MenuItem text="Lista" link="/lista" />
-      </ul>
+    <nav 
+      ref={menuRef}
+      className={`transition-all duration-300 ${
+        isScrolled 
+          ? 'fixed top-0 left-1/2 transform -translate-x-1/2 z-50' 
+          : 'relative'
+      }`}
+    >
+      <div className="rounded-full max-w-xl flex justify-center p-4 bg-[var(--white-100)] shadow-md">
+        <ul className="flex space-x-8">
+          <MenuItem text="Olá" link="/" />
+          <MenuItem text="Recepção" link="/recepcao" />
+          <MenuItem text="Casal" link="/casal" />
+          <MenuItem text="Presença" link="/presenca" />
+          <MenuItem text="Lista" link="/lista" />
+        </ul>
+      </div>
     </nav>
   );
 };
@@ -77,7 +108,7 @@ const MenuItem = ({ icon, text, link }) => {
 
 // Validação das props
 MenuItem.propTypes = {
-  icon: PropTypes.element.isRequired,
+  icon: PropTypes.element,
   text: PropTypes.string.isRequired,
   link: PropTypes.string.isRequired,
 };

@@ -1,18 +1,230 @@
+import { useRef } from "react";
+import AnimatedOnScroll from "../components/AnimatedOnScroll";
+import Logo from "../components/Logo";
+import Title from "../components/Title";
+import Menu from "../components/Menu";
 
 const Recepcao = () => {
+  const sectionRef = useRef(null);
+
   return (
-    <div className="flex flex-row items-center justify-center">
-      <div className="w-7xl p-6">
-        <h2 className="text-2xl">Fogão Mineiro</h2>
-        <div className="text-[var(--black-100)] text-sm/7 text-justify font-chillax-regular mt-4">
-          <p>Inaugurado em 2004, em Sousas, é referência em terras paulistas no que há de melhor da culinária brasileira. O cardápio variado,oferece opções típicas deliciosas, como o Tutu especial, composto por picanha, tutu de feijão, couve refogada, ovos fritos, linguiça caseira, torresmo, vinagrete, banana à milanesa e arroz. O estabelecimento agrada ainda com escondidinhos, peixes, saladas, grelhados e pratos executivos. Além do serviço à la carte, oferece um buffet completo – à vontade – aos sábados, domingos e feriados no almoço.
-          </p>
-          <p>O fogão a lenha dá o sabor e o ambiente transforma o clima do restaurante na melhor experiência que a gastronomia é capaz de promover. A moda de viola ao vivo propõe jantares ainda mais especiais às sextas e sábados. O espaço pet friendly e a área kids com monitores e atividades recreativas garantem a diversão de toda a família. 
-          </p> 
-          <p>Destino certo em Sousas, o Fogão Mineiro é também uma ótima alternativa para quem está em busca de um lugar especial para cerimônias e comemorações intimistas. Com uma capela encantadora e parceiros que facilitam todos os detalhes do evento, o restaurante proporciona ainda mais praticidade para esse tipo de ocasião.</p>
-        </div>
+    <>
+      {/* 🔥 CONTEÚDO PRINCIPAL */}
+      <div
+        ref={sectionRef}
+        className="w-full mx-auto bg-white"
+      >
+        {/* Elemento decorativo no topo */}
+        <div className="w-full h-16 bg-gradient-to-b from-[var(--white-100)] to-white"></div>
+        
+        {/* Título da seção */}
+        <AnimatedOnScroll animation="fade-in" delay={0.2}>
+          <div className="max-w-5xl mx-auto pt-12 pb-6 px-6 text-black text-center content-section">
+            <h2 className="text-3xl font-bold font-[var(--font-bitter-rose)] text-[var(--green)] mb-4 shine">
+              A cerimônia e a recepção: Restaurante Fogão Mineiro
+            </h2>
+            <div className="space-y-4 text-lg font-[var(--font-chillax-Extralight)] text-with-shadow text-gray-500">
+              <p>Agora que você já sabe tudo sobre os protagonistas, vamos falar sobre o palco dessa grande celebração! E não, não será em um castelo medieval ou numa taverna de RPG (embora a gente adorasse essa ideia), mas sim em um restaurante icônico em Sousas. Inaugurado em 2004, o espaço é uma verdadeira joia da culinária brasileira, oferecendo pratos que fariam até um Hobbit pedir repeteco! 🍛</p>
+            </div>
+            <div className="section-divider"></div>
+          </div>
+        </AnimatedOnScroll>
+
+        {/* Informações sobre o Fogão Mineiro */}
+        <AnimatedOnScroll animation="slide-in-left" delay={0.3}>
+          <div className="max-w-5xl mx-auto py-8 px-6 content-section">
+            <div className="mb-12 text-center">
+              <h2 className="text-2xl font-bold font-[var(--font-bitter-rose)] text-[var(--purple)] mb-6 character-title text-center">
+                O Restaurante 🍽️
+              </h2>
+            </div>
+            <div className="flex flex-col md:flex-row items-center gap-8">
+              <div className="w-full md:w-1/2">
+                <div className="p-4 md:p-6">
+                  <div className="space-y-4 text-base md:text-lg font-[var(--font-chillax-Extralight)] text-with-shadow leading-relaxed text-gray-500">
+                    <p>Inaugurado em 2004, em Sousas, é referência em terras paulistas no que há de melhor da culinária brasileira. O cardápio variado oferece opções típicas deliciosas, como o Tutu especial, composto por picanha, tutu de feijão, couve refogada, ovos fritos, linguiça caseira, torresmo, vinagrete, banana à milanesa e arroz.</p>
+                    <p>O fogão a lenha dá o sabor e o ambiente transforma o clima do restaurante na melhor experiência que a gastronomia é capaz de promover. A moda de viola ao vivo propõe jantares ainda mais especiais às sextas e sábados. O espaço pet friendly e a área kids com monitores e atividades recreativas garantem a diversão de toda a família.</p>
+                    <p>Destino certo em Sousas, o Fogão Mineiro é também uma ótima alternativa para quem está em busca de um lugar especial para cerimônias e comemorações intimistas. Com uma capela encantadora e parceiros que facilitam todos os detalhes do evento, o restaurante proporciona ainda mais praticidade para esse tipo de ocasião.</p>
+                  </div>
+                </div>
+              </div>
+              <div className="w-full md:w-1/2 flex justify-center">
+                <div className="w-full h-64 md:h-80 rounded-lg overflow-hidden shadow-xl" style={{ backgroundImage: "url('/assets/recepcao/fogao-mineiro.jpg')", backgroundSize: "cover", backgroundPosition: "center" }}>
+                  {/* Imagem do restaurante */}
+                  <div className="w-full h-full flex items-center justify-center bg-[var(--green-100)] bg-opacity-30">
+                    <span className="font-bold text-white text-xl">Fogão Mineiro</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </AnimatedOnScroll>
+
+        {/* Detalhes do evento */}
+        <AnimatedOnScroll animation="slide-in-right" delay={0.5}>
+          <div className="max-w-5xl mx-auto py-8 px-6 content-section mt-30">
+            <div className="mb-12 text-center">
+              <h2 className="text-2xl font-bold font-[var(--font-bitter-rose)] text-[var(--purple)] mb-6 character-title text-center">
+                O Casamento 💍
+              </h2>
+            </div>
+            <div className="flex flex-col items-center gap-8">
+              {/* Imagem agora fica em cima */}
+              <div className="w-full flex justify-center">
+                <div className="w-full max-w-3xl h-64 md:h-80 rounded-lg overflow-hidden shadow-xl" style={{ backgroundImage: "url('/assets/recepcao/comida-mineira.jpg')", backgroundSize: "cover", backgroundPosition: "center" }}>
+                  {/* Imagem da comida */}
+                  <div className="w-full h-full flex items-center justify-center bg-[var(--purple-100)] bg-opacity-30">
+                    <span className="font-bold text-white text-xl">Comida Mineira</span>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Texto agora fica embaixo */}
+              <div className="w-full">
+                <div className="p-4 md:p-6">
+                  <div className="space-y-4 text-base md:text-lg font-[var(--font-chillax-Extralight)] text-with-shadow leading-relaxed text-gray-500">
+                    <p>O casamento acontecerá no espaço do restaurante, e o serviço será buffet à vontade, com um cardápio digno de um banquete real. Entre as delícias servidas, destacam-se:</p>
+                    <ul className="list-none space-y-3 pl-4 mt-4">
+                      <li className="flex items-start">
+                        <span className="text-[var(--purple)] mr-2 text-xl">🥩</span> 
+                        <span>Tutu especial (picanha, tutu de feijão, couve refogada, ovos fritos, linguiça caseira, torresmo, vinagrete, banana à milanesa e arroz)</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="text-[var(--purple)] mr-2 text-xl">🍲</span> 
+                        <span>Escondidinhos e pratos executivos para agradar todos os paladares</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="text-[var(--purple)] mr-2 text-xl">🐟</span> 
+                        <span>Opções de peixes, saladas e grelhados para os aventureiros gastronômicos</span>
+                      </li>
+                    </ul>
+                    <p className="mt-4">Agora vem aquele detalhe importante: <strong className="text-red-500 uppercase">cada convidado pagará seu buffet</strong>.</p>
+                    <div className="bg-[var(--white-200)] p-4 rounded-lg mt-4 border-l-4 border-[var(--purple)]">
+                      <p className="font-semibold">💵 Valor: R$ 110 por pessoa (bebidas à parte) | Crianças até 8 anos: R$ 50</p>
+                    </div>
+                    <p>Sim, amigos, é tipo um evento em MMO: você entra, paga sua entrada e aproveita o loot gastronômico à vontade! 🎮🍽️</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </AnimatedOnScroll>
+
+        {/* Data, Horário e Local */}
+        <AnimatedOnScroll animation="fade-in" delay={0.7}>
+          <div className="max-w-5xl mx-auto py-8 px-6 p-[30px] bg-[var(--white-100)] rounded-lg shadow-inner mx-8 mt-30">
+            <div className="mb-12 text-center">
+              <h2 className="text-2xl font-bold font-[var(--font-bitter-rose)] text-[var(--purple)] mb-6 character-title text-center">
+                O grande dia e horário ⏳
+              </h2>
+            </div>
+            <div className="space-y-4 text-base md:text-lg font-[var(--font-chillax-Extralight)] text-with-shadow leading-relaxed text-gray-500 text-center">
+              <p>Anote na sua agenda, grave um lembrete no celular e avise ao seu eu do futuro:</p>
+              <div className="flex flex-col md:flex-row justify-center items-stretch gap-2 mt-6 px-2">
+                <div className="bg-white p-6 rounded-lg shadow-md w-full md:w-1/3 border-t-4 border-[var(--purple)] flex flex-col justify-between">
+                  <div>
+                    <span className="text-3xl mb-2 block">📅</span>
+                    <h3 className="text-xl font-bold text-[var(--green)] mb-2">Data</h3>
+                  </div>
+                  <p>30 de agosto de 2025</p>
+                </div>
+                <div className="bg-white p-6 rounded-lg shadow-md w-full md:w-1/3 border-t-4 border-[var(--green)] flex flex-col justify-between">
+                  <div>
+                    <span className="text-3xl mb-2 block">⏰</span>
+                    <h3 className="text-xl font-bold text-[var(--green)] mb-2">Horário</h3>
+                  </div>
+                  <p>Das 11hrs até às 16hrs</p>
+                </div>
+                <div className="bg-white p-6 rounded-lg shadow-md w-full md:w-1/3 border-t-4 border-[var(--purple)] flex flex-col justify-between">
+                  <div>
+                    <span className="text-3xl mb-2 block">📍</span>
+                    <h3 className="text-xl font-bold text-[var(--green)] mb-2">Local</h3>
+                  </div>
+                  <p>Espaço reservado do restaurante</p>
+                </div>
+              </div>
+              <p className="mt-6 font-semibold text-[var(--red)]">E aqui vai um alerta importante: não seja o vacilão que se atrasa! ⏳ A única pessoa que tem direito a chegar depois da hora marcada é a noiva – e acredite, ela vai usar esse direito! 😆</p>
+              <div className="mt-6 bg-white p-4 rounded-lg shadow-md inline-block mx-2">
+                <h3 className="text-xl font-bold text-[var(--purple)] mb-2">Endereço:</h3>
+                <p>R. Cel Alfredo Augusto do Nascimento, 1052 - Sousas, Campinas - SP, 13106-001</p>
+              </div>
+            </div>
+          </div>
+        </AnimatedOnScroll>
+
+        {/* Traje */}
+        <AnimatedOnScroll animation="slide-in-left" delay={0.9}>
+          <div className="max-w-5xl mx-auto py-10 px-6 content-section mt-30">
+            <div className="mb-12 text-center">
+              <h2 className="text-2xl font-bold font-[var(--font-bitter-rose)] text-[var(--purple)] mb-6 character-title text-center">
+                Traje 👔👗
+              </h2>
+            </div>
+            <div className="space-y-4 text-base md:text-lg font-[var(--font-chillax-Extralight)] text-with-shadow leading-relaxed text-gray-500">
+              <p className="text-center">Sabemos que escolher um outfit digno de um evento épico pode ser uma tarefa difícil, então vamos facilitar:</p>
+              
+              <div className="bg-[var(--white-200)] p-6 rounded-lg mt-6 border-l-4 border-[var(--green)]">
+                <h3 className="text-xl font-bold text-[var(--green)] mb-4">🟢 Regras básicas:</h3>
+                <p>Escolha algo fresco, arrumado, mas nada chique demais. Pense em um look confortável para que possa aproveitar o buffet como um hobbit, pois não estamos indo para um baile da realeza de Bridgerton.</p>
+              </div>
+              
+              <div className="bg-[var(--white-200)] p-6 rounded-lg mt-4 border-l-4 border-[var(--purple)]">
+                <h3 className="text-xl font-bold text-[var(--red-300)] mb-4">⚪ Regra de ouro:</h3>
+                <p>Apenas a noiva usa branco! Então, qualquer outra cor está liberada.</p>
+              </div>
+              
+              <div className="mt-8">
+                <h3 className="text-xl font-bold text-[var(--green)] mb-4 text-center">🎭 Referências memoráveis para inspirar seu traje:</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                  <div className="bg-white p-4 rounded-lg shadow-md">
+                    <p>Algo no estilo Hobbit que vai para a festa de aniversário de Bilbo Bolseiro? Um look confortável e rústico, mas elegante! 🍂</p>
+                  </div>
+                  <div className="bg-white p-4 rounded-lg shadow-md">
+                    <p>Um Lannister sempre paga suas dívidas... e veste ouro e vermelho. 🦁🔥</p>
+                  </div>
+                  <div className="bg-white p-4 rounded-lg shadow-md">
+                    <p>Inspiração Matrix? Um look monocromático e estiloso, com óculos de sol pode funcionar. 🕶️</p>
+                  </div>
+                  <div className="bg-white p-4 rounded-lg shadow-md">
+                    <p>Casual geek no estilo Tony Stark: um blazer descolado, porque classe e conforto andam juntos! 🕶️</p>
+                  </div>
+                  <div className="bg-white p-4 rounded-lg shadow-md">
+                    <p>Naruto vibes? Um laranja discreto pode ser a escolha ousada do dia. 🍜</p>
+                  </div>
+                  <div className="bg-white p-4 rounded-lg shadow-md">
+                    <p>Se quiser chegar no espírito Jogos Vorazes, uma roupa revolucionária com penteado estonteante nunca decepciona. 🔥🏹</p>
+                  </div>
+                  <div className="bg-white p-4 rounded-lg shadow-md">
+                    <p>The Office style? Um terno ou vestido social despretensioso e confortável! 📄</p>
+                  </div>
+                  <div className="bg-white p-4 rounded-lg shadow-md">
+                    <p>Stranger Things? Um visual retrô anos 80 com jaquetas coloridas ou camisas estampadas cairia bem. 🚲⚡</p>
+                  </div>
+                  <div className="bg-white p-4 rounded-lg shadow-md">
+                    <p>Peaky Blinders? Suspensórios, coletes e boinas para os senhores, vestidos vintage para as damas. 🏴‍☠️🍷</p>
+                  </div>
+                  <div className="bg-white p-4 rounded-lg shadow-md">
+                    <p>Se Ruptura te chama mais a atenção, traga um ar misterioso e corporativo com um look formal minimalista e monocromático. 🏢💼</p>
+                  </div>
+                </div>
+              </div>
+              
+              <p className="text-center mt-8 text-[var(--purple)] font-semibold">Então solte sua criatividade e venha vestido para celebrar, mas sem sofrer como uma heroína de algum romance de Jane Austen! 🎉</p>
+            </div>
+          </div>
+        </AnimatedOnScroll>
+
+        {/* Conclusão */}
+        <AnimatedOnScroll animation="fade-in" delay={1.1}>
+          <div className="max-w-5xl mx-auto py-10 px-6 text-center">
+            <div className="space-y-4 text-lg font-[var(--font-chillax-Extralight)] text-with-shadow text-gray-500 max-w-3xl mx-auto">
+              <p>Então preparem-se para celebrar com comida farta, drinks para todos os gostos e, claro, muito amor!</p>
+              <p className="italic mt-8 text-[var(--green)] font-semibold bounce">Nos vemos no grande dia!</p>
+            </div>
+          </div>
+        </AnimatedOnScroll>
       </div>
-    </div>
+    </>
   );
 };
 
