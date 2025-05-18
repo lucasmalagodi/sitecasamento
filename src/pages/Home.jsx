@@ -82,7 +82,7 @@ const Home = () => {
             <div className="space-y-4 text-lg font-[var(--font-chillax-Extralight)] text-gray-500">
               <p>Seja bem-vindo à Plataforma 9¾ oficial do casamento de Paula e Lucas! 🏰✨</p>
               <p>Como você já deve imaginar, esse não é um portal de casamento muito tradicional... e é exatamente assim que a gente gosta. 😏</p>
-              <p>Quem se aventura a atravessar essa parede (seja correndo 🏃‍♂️ ou andando 🚶‍♀️) certamente está movido por dois grandes sentimentos: amor e curiosidade. 💖 Amor pelo casal e curiosidade para saber como essa dupla nerd decidiu juntar os controles de videogame 🎮 e chegou até este momento épico de suas vidas.</p>
+              <p>Quem se aventurar a atravessar essa parede (seja correndo 🏃‍♂️ ou andando 🚶‍♀️) certamente está movido por dois grandes sentimentos: amor e curiosidade. 💖 Amor pelo casal e curiosidade para saber como essa dupla nerd decidiu juntar os controles de videogame 🎮 e chegou até este momento épico de suas vidas.</p>
               <p>Mas antes de mergulhar nesse mundo mágico, conheça um pouco dos protagonistas dessa história que estarão em missão juntos até depois do final de One Piece 🏴‍☠️ e da Ordem Jedi cair… de novo. 🌌⚔️</p>
             </div>
             <div className="section-divider"></div>
@@ -201,7 +201,7 @@ const Home = () => {
                 </div>
               </div>
               <div className="space-y-4 text-lg font-[var(--font-chillax-Extralight)] text-with-shadow max-w-3xl mx-auto text-gray-500">
-                <p>Juntos, eles formam uma party imbatível, prontos para embarcar na maior aventura de todas: o casamento! 🎮💍✨</p>
+                <p>Prontos para embarcar na maior aventura de todas: o casamento! 🎮💍✨</p>
                 <p>Agora que você conhece os protagonistas, prepare-se para explorar esse portal feito exclusivamente para você, convidado especial. Interaja com o menu para saber de todas as informações que precisa para fazer parte da nossa quest e divirta-se!</p>
                 <p className="italic mt-8 text-[var(--green)] font-semibold bounce">E lembrem-se: "Que a Força esteja com você"</p>
               </div>
