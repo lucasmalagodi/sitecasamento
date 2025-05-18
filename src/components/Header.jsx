@@ -8,7 +8,7 @@ const Header = () => {
 
   // 🔥 Definindo os títulos e subtítulos dinâmicos por página
   const pageTitles = {
-    "/recepcao": { title: "Agosto 30-2025", subtitle: "Fogão Mineiro" },
+    "/recepcao": { title: "30 Agosto 2025", subtitle: "Fogão Mineiro" },
     "/presenca": { title: "Confirme sua presença", subtitle: "Sua presença é essencial!" },
     "/lista": { title: "Lista de Presentes", subtitle: "Veja os itens que escolhemos com carinho" },
     "/contato": { title: "Entre em Contato", subtitle: "Fale com a gente!" },

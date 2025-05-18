@@ -30,36 +30,6 @@ const Recepcao = () => {
           </div>
         </AnimatedOnScroll>
 
-        {/* Informações sobre o Fogão Mineiro */}
-        <AnimatedOnScroll animation="slide-in-left" delay={0.3}>
-          <div className="max-w-5xl mx-auto py-8 px-6 content-section">
-            <div className="mb-12 text-center">
-              <h2 className="text-2xl font-bold font-[var(--font-bitter-rose)] text-[var(--purple)] mb-6 character-title text-center">
-                O Restaurante 🍽️
-              </h2>
-            </div>
-            <div className="flex flex-col md:flex-row items-center gap-8">
-              <div className="w-full md:w-1/2">
-                <div className="p-4 md:p-6">
-                  <div className="space-y-4 text-base md:text-lg font-[var(--font-chillax-Extralight)] text-with-shadow leading-relaxed text-gray-500">
-                    <p>Inaugurado em 2004, em Sousas, é referência em terras paulistas no que há de melhor da culinária brasileira. O cardápio variado oferece opções típicas deliciosas, como o Tutu especial, composto por picanha, tutu de feijão, couve refogada, ovos fritos, linguiça caseira, torresmo, vinagrete, banana à milanesa e arroz.</p>
-                    <p>O fogão a lenha dá o sabor e o ambiente transforma o clima do restaurante na melhor experiência que a gastronomia é capaz de promover. A moda de viola ao vivo propõe jantares ainda mais especiais às sextas e sábados. O espaço pet friendly e a área kids com monitores e atividades recreativas garantem a diversão de toda a família.</p>
-                    <p>Destino certo em Sousas, o Fogão Mineiro é também uma ótima alternativa para quem está em busca de um lugar especial para cerimônias e comemorações intimistas. Com uma capela encantadora e parceiros que facilitam todos os detalhes do evento, o restaurante proporciona ainda mais praticidade para esse tipo de ocasião.</p>
-                  </div>
-                </div>
-              </div>
-              <div className="w-full md:w-1/2 flex justify-center">
-                <div className="w-full h-64 md:h-80 rounded-lg overflow-hidden shadow-xl" style={{ backgroundImage: "url('/assets/recepcao/fogao-mineiro.jpg')", backgroundSize: "cover", backgroundPosition: "center" }}>
-                  {/* Imagem do restaurante */}
-                  <div className="w-full h-full flex items-center justify-center bg-[var(--green-100)] bg-opacity-30">
-                    <span className="font-bold text-white text-xl">Fogão Mineiro</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </AnimatedOnScroll>
-
         {/* Detalhes do evento */}
         <AnimatedOnScroll animation="slide-in-right" delay={0.5}>
           <div className="max-w-5xl mx-auto py-8 px-6 content-section mt-30">
@@ -98,11 +68,11 @@ const Recepcao = () => {
                         <span>Opções de peixes, saladas e grelhados para os aventureiros gastronômicos</span>
                       </li>
                     </ul>
-                    <p className="mt-4">Agora vem aquele detalhe importante: <strong className="text-red-500 uppercase">cada convidado pagará seu buffet</strong>.</p>
+                    <p className="mt-4">Agora vem aquele detalhe importante: <strong className="text-[var(--purple)] uppercase">cada convidado pagará seu buffet</strong>.</p>
                     <div className="bg-[var(--white-200)] p-4 rounded-lg mt-4 border-l-4 border-[var(--purple)]">
-                      <p className="font-semibold">💵 Valor: R$ 110 por pessoa (bebidas à parte) | Crianças até 8 anos: R$ 50</p>
+                      <p className="font-semibold">💵 Valor: R$ 99,50 por pessoa (bebidas à parte) | Crianças de 7 a 12 anos: R$ 49,75 e crianças com 6 anos ou menos não pagam</p>
                     </div>
-                    <p>Sim, amigos, é tipo um evento em MMO: você entra, paga sua entrada e aproveita o loot gastronômico à vontade! 🎮🍽️</p>
+                    <p className="text-xl">Sim, amigos, é tipo um evento em MMO: você entra, paga sua entrada e aproveita o loot gastronômico à vontade! 🍽️</p>
                   </div>
                 </div>
               </div>
@@ -143,10 +113,22 @@ const Recepcao = () => {
                   <p>Espaço reservado do restaurante</p>
                 </div>
               </div>
-              <p className="mt-6 font-semibold text-[var(--red)]">E aqui vai um alerta importante: não seja o vacilão que se atrasa! ⏳ A única pessoa que tem direito a chegar depois da hora marcada é a noiva – e acredite, ela vai usar esse direito! 😆</p>
+              <p className="mt-6 font-semibold text-xl text-[var(--green-100)]">E aqui vai um alerta importante: não seja o vacilão que se atrasa! ⏳ A única pessoa que tem direito a chegar depois da hora marcada é a noiva – e acredite, ela vai usar esse direito! 😆</p>
               <div className="mt-6 bg-white p-4 rounded-lg shadow-md inline-block mx-2">
                 <h3 className="text-xl font-bold text-[var(--purple)] mb-2">Endereço:</h3>
                 <p>R. Cel Alfredo Augusto do Nascimento, 1052 - Sousas, Campinas - SP, 13106-001</p>
+                <div className="mt-4">
+                  <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3675.948631750189!2d-46.957917599999995!3d-22.878355899999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94c8d03ff4425c43%3A0xdb21366a383d68eb!2sRestaurante%20Fog%C3%A3o%20Mineiro!5e0!3m2!1spt-BR!2sbr!4v1747583952431!5m2!1spt-BR!2sbr"
+                    width="100%"
+                    height="300"
+                    style={{border: 0}}
+                    allowFullScreen=""
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    className="rounded-lg"
+                  ></iframe>
+                </div>
               </div>
             </div>
           </div>
