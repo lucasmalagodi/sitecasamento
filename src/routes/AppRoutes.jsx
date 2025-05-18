@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "../pages/Home";
-import Recepcao from "../pages/recepcao";
+import Recepcao from "../pages/Recepcao"; // Recepcao
 import { Presenca } from "../pages/Presenca";
 import Lista from "../pages/Lista";
 // import NotFound from "../pages/NotFound";
