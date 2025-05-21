@@ -26,5 +26,5 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           port: ${{ secrets.VPS_PORT }}
           key: ${{ secrets.VPS_KEY }}
-          source: "dist/*"       # ou "build/*", se for Create React App
+          source: "dist"       # ou "build/*", se for Create React App
           target: "/var/www/paulaelucas"
