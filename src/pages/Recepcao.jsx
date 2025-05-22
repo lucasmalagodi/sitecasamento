@@ -1,14 +1,73 @@
 import { useRef } from "react";
 import AnimatedOnScroll from "../components/AnimatedOnScroll";
-import Logo from "../components/Logo";
-import Title from "../components/Title";
-import Menu from "../components/Menu";
+
+// Importa todas as imagens da pasta trajes
+const images = import.meta.glob('../assets/trajes/*.{png,jpg,jpeg,webp}', { eager: true });
+
+// Função para obter a imagem pelo nome
+const getImage = (imageName) => {
+  const imagePath = `../assets/trajes/${imageName}`;
+  return images[imagePath]?.default || null;
+};
+
+const referenciasTrajes = [
+  {
+    img: getImage("hobbit.png"),
+    alt: "Hobbit",
+    texto: "Algo no estilo Hobbit que vai para a festa de aniversário de Bilbo Bolseiro? Um look confortável e rústico, mas elegante! 🍂"
+  },
+  {
+    img: getImage("lannister.png"),
+    alt: "Lannister",
+    texto: "Um Lannister sempre paga suas dívidas... e veste ouro e vermelho. 🦁🔥"
+  },
+  {
+    img: getImage("matrix.png"),
+    alt: "Matrix",
+    texto: "Inspiração Matrix? Um look monocromático e estiloso, com óculos de sol pode funcionar. 🕶️"
+  },
+  {
+    img: getImage("tony-stark.png"),
+    alt: "Tony Stark",
+    texto: "Casual geek no estilo Tony Stark: um blazer descolado, porque classe e conforto andam juntos! 🕶️"
+  },
+  {
+    img: getImage("naruto.png"),
+    alt: "Naruto",
+    texto: "Naruto vibes? Um laranja discreto pode ser a escolha ousada do dia. 🍜"
+  },
+  {
+    img: getImage("jogos-vorazes.png"),
+    alt: "Jogos Vorazes",
+    texto: "Se quiser chegar no espírito Jogos Vorazes, uma roupa revolucionária com penteado estonteante nunca decepciona. 🔥🏹"
+  },
+  {
+    img: getImage("the-office.png"),
+    alt: "The Office",
+    texto: "The Office style? Um terno ou vestido social despretensioso e confortável! 📄"
+  },
+  {
+    img: getImage("stranger-things.png"),
+    alt: "Stranger Things",
+    texto: "Stranger Things? Um visual retrô anos 80 com jaquetas coloridas ou camisas estampadas cairia bem. 🚲⚡"
+  },
+  {
+    img: getImage("peaky-blinders.png"),
+    alt: "Peaky Blinders",
+    texto: "Peaky Blinders? Suspensórios, coletes e boinas para os senhores, vestidos vintage para as damas. 🏴‍☠️🍷"
+  },
+  {
+    img: getImage("ruptura.png"),
+    alt: "Ruptura",
+    texto: "Se Ruptura te chama mais a atenção, traga um ar misterioso e corporativo com um look formal minimalista e monocromático. 🏢💼"
+  }
+];
 
 const Recepcao = () => {
   const sectionRef = useRef(null);
 
   return (
-    <div className="min-h-screen w-full bg-white">
+    <div className="min-h-screen bg-white">
       {/* 🔥 CONTEÚDO PRINCIPAL */}
       <div
         ref={sectionRef}
@@ -155,36 +214,32 @@ const Recepcao = () => {
               <div className="mt-8">
                 <h3 className="text-xl font-bold text-[var(--green)] mb-4 text-center">🎭 Referências memoráveis para inspirar seu traje:</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-                  <div className="bg-white p-4 rounded-lg shadow-md">
-                    <p>Algo no estilo Hobbit que vai para a festa de aniversário de Bilbo Bolseiro? Um look confortável e rústico, mas elegante! 🍂</p>
-                  </div>
-                  <div className="bg-white p-4 rounded-lg shadow-md">
-                    <p>Um Lannister sempre paga suas dívidas... e veste ouro e vermelho. 🦁🔥</p>
-                  </div>
-                  <div className="bg-white p-4 rounded-lg shadow-md">
-                    <p>Inspiração Matrix? Um look monocromático e estiloso, com óculos de sol pode funcionar. 🕶️</p>
-                  </div>
-                  <div className="bg-white p-4 rounded-lg shadow-md">
-                    <p>Casual geek no estilo Tony Stark: um blazer descolado, porque classe e conforto andam juntos! 🕶️</p>
-                  </div>
-                  <div className="bg-white p-4 rounded-lg shadow-md">
-                    <p>Naruto vibes? Um laranja discreto pode ser a escolha ousada do dia. 🍜</p>
-                  </div>
-                  <div className="bg-white p-4 rounded-lg shadow-md">
-                    <p>Se quiser chegar no espírito Jogos Vorazes, uma roupa revolucionária com penteado estonteante nunca decepciona. 🔥🏹</p>
-                  </div>
-                  <div className="bg-white p-4 rounded-lg shadow-md">
-                    <p>The Office style? Um terno ou vestido social despretensioso e confortável! 📄</p>
-                  </div>
-                  <div className="bg-white p-4 rounded-lg shadow-md">
-                    <p>Stranger Things? Um visual retrô anos 80 com jaquetas coloridas ou camisas estampadas cairia bem. 🚲⚡</p>
-                  </div>
-                  <div className="bg-white p-4 rounded-lg shadow-md">
-                    <p>Peaky Blinders? Suspensórios, coletes e boinas para os senhores, vestidos vintage para as damas. 🏴‍☠️🍷</p>
-                  </div>
-                  <div className="bg-white p-4 rounded-lg shadow-md">
-                    <p>Se Ruptura te chama mais a atenção, traga um ar misterioso e corporativo com um look formal minimalista e monocromático. 🏢💼</p>
-                  </div>
+                  {referenciasTrajes.map((ref, idx) => (
+                    <div key={idx} className="bg-white p-4 rounded-lg shadow-md flex flex-col items-center">
+                      <div className="w-full h-[300px] relative bg-[var(--white-100)] rounded-lg overflow-hidden mb-2">
+                        {ref.img ? (
+                          <img 
+                            src={ref.img} 
+                            alt={ref.alt} 
+                            className="w-full h-full object-cover"
+                            onError={(e) => {
+                              e.target.style.display = 'none';
+                              e.target.parentElement.innerHTML = `
+                                <div class="w-full h-full flex items-center justify-center text-center p-4">
+                                  <span class="text-[var(--purple)] font-semibold">${ref.alt}</span>
+                                </div>
+                              `;
+                            }}
+                          />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center text-center p-4">
+                            <span className="text-[var(--purple)] font-semibold">{ref.alt}</span>
+                          </div>
+                        )}
+                      </div>
+                      <p>{ref.texto}</p>
+                    </div>
+                  ))}
                 </div>
               </div>
               
