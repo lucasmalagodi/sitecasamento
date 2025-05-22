@@ -39,8 +39,16 @@ jobs:
           key: ${{ secrets.VPS_KEY }}
           script: |
             cd /var/www/paulaelucas
+            # Backup dos arquivos de configuração
             if [ -f .env ]; then cp .env .env.backup; fi
             if [ -f docker-compose.yml ]; then cp docker-compose.yml docker-compose.yml.backup; fi
+            if [ -f docker-compose.prod.yml ]; then cp docker-compose.prod.yml docker-compose.prod.yml.backup; fi
+            if [ -f nginx.conf ]; then cp nginx.conf nginx.conf.backup; fi
+            
+            # Backup da pasta mysql
+            if [ -d mysql ]; then
+              tar -czf mysql.backup.tar.gz mysql/
+            fi
 
       # Deploy Frontend
       - name: 🚀 Enviar Frontend para VPS
@@ -79,9 +87,31 @@ jobs:
           port: ${{ secrets.VPS_PORT }}
           key: ${{ secrets.VPS_KEY }}
           script: |
+            # Instalar Node.js se não estiver instalado
+            if ! command -v node &> /dev/null; then
+              curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+              sudo apt-get install -y nodejs
+            fi
+
+            # Instalar PM2 globalmente se não estiver instalado
+            if ! command -v pm2 &> /dev/null; then
+              sudo npm install -g pm2
+            fi
+
+            # Restaurar arquivos e configurar API
             cd /var/www/paulaelucas
+            # Restaurar arquivos de configuração
             if [ -f .env.backup ]; then mv .env.backup .env; fi
             if [ -f docker-compose.yml.backup ]; then mv docker-compose.yml.backup docker-compose.yml; fi
+            if [ -f docker-compose.prod.yml.backup ]; then mv docker-compose.prod.yml.backup docker-compose.prod.yml; fi
+            if [ -f nginx.conf.backup ]; then mv nginx.conf.backup nginx.conf; fi
+            
+            # Restaurar pasta mysql
+            if [ -f mysql.backup.tar.gz ]; then
+              rm -rf mysql
+              tar -xzf mysql.backup.tar.gz
+              rm mysql.backup.tar.gz
+            fi
             
             cd /var/www/paulaelucas/api
             npm install --production
