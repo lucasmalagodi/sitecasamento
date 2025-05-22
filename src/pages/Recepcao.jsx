@@ -191,7 +191,7 @@ const Recepcao = () => {
         </AnimatedOnScroll>
 
         {/* Traje */}
-        <AnimatedOnScroll animation="slide-in-left" delay={0.9}>
+        <AnimatedOnScroll animation="slide-in-left" delay={0.7}>
           <div className="max-w-5xl mx-auto py-10 px-6 content-section mt-30">
             <div className="mb-12 text-center">
               <h2 className="text-2xl font-bold font-[var(--font-bitter-rose)] text-[var(--purple)] mb-6 character-title text-center">
@@ -211,34 +211,36 @@ const Recepcao = () => {
                 <p>Apenas a noiva usa branco! Então, qualquer outra cor está liberada.</p>
               </div>
               
-              <div className="mt-8">
+              <div className="mt-8 w-full">
                 <h3 className="text-xl font-bold text-[var(--green)] mb-4 text-center">🎭 Referências memoráveis para inspirar seu traje:</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 w-full">
                   {referenciasTrajes.map((ref, idx) => (
-                    <div key={idx} className="bg-white p-4 rounded-lg shadow-md flex flex-col items-center">
-                      <div className="w-full h-[300px] relative bg-[var(--white-100)] rounded-lg overflow-hidden mb-2">
-                        {ref.img ? (
-                          <img 
-                            src={ref.img} 
-                            alt={ref.alt} 
-                            className="w-full h-full object-cover"
-                            onError={(e) => {
-                              e.target.style.display = 'none';
-                              e.target.parentElement.innerHTML = `
-                                <div class="w-full h-full flex items-center justify-center text-center p-4">
-                                  <span class="text-[var(--purple)] font-semibold">${ref.alt}</span>
-                                </div>
-                              `;
-                            }}
-                          />
-                        ) : (
-                          <div className="w-full h-full flex items-center justify-center text-center p-4">
-                            <span className="text-[var(--purple)] font-semibold">{ref.alt}</span>
-                          </div>
-                        )}
+                    <AnimatedOnScroll key={idx} animation="fade-in" delay={0.2 + (idx * 0.1)}>
+                      <div className="bg-white p-4 rounded-lg shadow-md flex flex-col items-center w-full">
+                        <div className="w-full h-[250px] sm:h-[300px] relative bg-[var(--white-100)] rounded-lg overflow-hidden mb-2">
+                          {ref.img ? (
+                            <img 
+                              src={ref.img} 
+                              alt={ref.alt} 
+                              className="w-full h-full object-cover"
+                              onError={(e) => {
+                                e.target.style.display = 'none';
+                                e.target.parentElement.innerHTML = `
+                                  <div class="w-full h-full flex items-center justify-center text-center p-4">
+                                    <span class="text-[var(--purple)] font-semibold">${ref.alt}</span>
+                                  </div>
+                                `;
+                              }}
+                            />
+                          ) : (
+                            <div className="w-full h-full flex items-center justify-center text-center p-4">
+                              <span className="text-[var(--purple)] font-semibold">{ref.alt}</span>
+                            </div>
+                          )}
+                        </div>
+                        <p className="text-center w-full">{ref.texto}</p>
                       </div>
-                      <p>{ref.texto}</p>
-                    </div>
+                    </AnimatedOnScroll>
                   ))}
                 </div>
               </div>

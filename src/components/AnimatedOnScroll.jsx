@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 const AnimatedOnScroll = ({ 
   children, 
   animation = 'fade-in', 
-  threshold = 0.2,
+  threshold = 0.1,
   delay = 0,
   triggerOnce = true
 }) => {
@@ -14,20 +14,21 @@ const AnimatedOnScroll = ({
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setIsVisible(true);
+          setTimeout(() => {
+            setIsVisible(true);
+          }, delay * 1000);
+          
           if (triggerOnce) {
-            // Se triggerOnce for verdadeiro, desconecta o observer após detectar
             observer.disconnect();
           }
         } else if (!triggerOnce) {
-          // Se não for triggerOnce, resetamos a visibilidade quando sair da tela
           setIsVisible(false);
         }
       },
       {
-        root: null, // viewport
-        rootMargin: '0px',
-        threshold: threshold // Porcentagem do elemento que precisa estar visível
+        root: null,
+        rootMargin: '50px',
+        threshold: threshold
       }
     );
 
@@ -40,16 +41,12 @@ const AnimatedOnScroll = ({
         observer.unobserve(ref.current);
       }
     };
-  }, [threshold, triggerOnce]);
-
-  // Estilo inline para o delay de animação
-  const style = delay ? { animationDelay: `${delay}s` } : {};
+  }, [threshold, triggerOnce, delay]);
 
   return (
     <div
       ref={ref}
-      className={isVisible ? animation : 'opacity-0'}
-      style={style}
+      className={`transition-all duration-500 ${isVisible ? animation : 'opacity-0'}`}
     >
       {children}
     </div>
