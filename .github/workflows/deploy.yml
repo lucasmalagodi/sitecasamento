@@ -29,4 +29,18 @@ jobs:
           source: "dist/*,api"
           target: "/var/www/paulaelucas"
           overwrite: true
-          strip_components: 0 
+          strip_components: 0
+
+      - name: 🚀 Configurar e iniciar API
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          port: ${{ secrets.VPS_PORT }}
+          key: ${{ secrets.VPS_KEY }}
+          script: |
+            cd /var/www/paulaelucas/api
+            npm install --production
+            pm2 delete api || true
+            pm2 start index.js --name api
+            pm2 save 
