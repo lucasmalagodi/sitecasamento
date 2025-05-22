@@ -29,4 +29,4 @@ jobs:
           source: "dist/*,api"
           target: "/var/www/paulaelucas"
           overwrite: true
-          strip_components: 0
+          strip_components: 0 
