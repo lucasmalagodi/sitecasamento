@@ -65,29 +65,53 @@ export function Presenca() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // Formata os dados para o arquivo
+    // Formata os dados para a API
     const dataConfirmacao = formatarData();
     const acompanhantes = parseInt(formData.acompanhantes);
     const nomesAcompanhantes = formData.nomesAcompanhantes
       .slice(0, acompanhantes)
-      .filter(nome => nome.trim() !== '')
-      .join(', ');
+      .filter(nome => nome.trim() !== '');
 
-    const conteudo = `
-Data da Confirmação: ${dataConfirmacao}
-Nome: ${formData.nome}
-Email: ${formData.email}
-Celular: ${formData.celular}
-Confirmação: ${formData.confirmacao === 'sim' ? 'Sim' : 'Não'}
-${acompanhantes > 0 ? `Quantidade de Acompanhantes: ${acompanhantes}
-Nomes dos Acompanhantes: ${nomesAcompanhantes}` : ''}
-${formData.mensagem ? `Mensagem: ${formData.mensagem}` : ''}
---------------------------------------------------
-`;
+    const dadosParaAPI = {
+      nome: formData.nome,
+      email: formData.email,
+      celular: formData.celular,
+      confirmacao: formData.confirmacao,
+      acompanhantes: acompanhantes,
+      nomesAcompanhantes: nomesAcompanhantes,
+      mensagem: formData.mensagem,
+      dataConfirmacao: new Date()
+    };
 
     try {
-      // Salva o arquivo
-      salvarArquivo(conteudo);
+      // Envia os dados para a API
+      const response = await fetch('http://localhost:3000/api/presenca', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(dadosParaAPI)
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Erro ao enviar confirmação');
+      }
+
+      // Salva o arquivo localmente também
+      const conteudo = `
+              Data da Confirmação: ${dataConfirmacao}
+              Nome: ${formData.nome}
+              Email: ${formData.email}
+              Celular: ${formData.celular}
+              Confirmação: ${formData.confirmacao === 'sim' ? 'Sim' : 'Não'}
+              ${acompanhantes > 0 ? `Quantidade de Acompanhantes: ${acompanhantes}
+              Nomes dos Acompanhantes: ${nomesAcompanhantes.join(', ')}` : ''}
+              ${formData.mensagem ? `Mensagem: ${formData.mensagem}` : ''}
+              --------------------------------------------------
+              `;
+      // salvarArquivo(conteudo);
       
       // Limpa o formulário após o envio
       setFormData({

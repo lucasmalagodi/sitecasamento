@@ -26,7 +26,7 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           port: ${{ secrets.VPS_PORT }}
           key: ${{ secrets.VPS_KEY }}
-          source: "dist"       # ou "build/*", se for Create React App
+          source: "dist,api"       # ou "build/*", se for Create React App
           target: "/var/www/paulaelucas"
           rm: true              # Apaga arquivos antigos no destino
           overwrite: true       # Sobrescreve arquivos com mesmo nome
