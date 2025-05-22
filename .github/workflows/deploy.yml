@@ -38,16 +38,19 @@ jobs:
           port: ${{ secrets.VPS_PORT }}
           key: ${{ secrets.VPS_KEY }}
           script: |
+            # Criar diretório temporário para backup
+            mkdir -p /tmp/paulaelucas_backup
+            
             cd /var/www/paulaelucas
             # Backup dos arquivos de configuração
-            if [ -f .env ]; then cp .env .env.backup; fi
-            if [ -f docker-compose.yml ]; then cp docker-compose.yml docker-compose.yml.backup; fi
-            if [ -f docker-compose.prod.yml ]; then cp docker-compose.prod.yml docker-compose.prod.yml.backup; fi
-            if [ -f nginx.conf ]; then cp nginx.conf nginx.conf.backup; fi
+            if [ -f .env ]; then cp .env /tmp/paulaelucas_backup/.env; fi
+            if [ -f docker-compose.yml ]; then cp docker-compose.yml /tmp/paulaelucas_backup/docker-compose.yml; fi
+            if [ -f docker-compose.prod.yml ]; then cp docker-compose.prod.yml /tmp/paulaelucas_backup/docker-compose.prod.yml; fi
+            if [ -f nginx.conf ]; then cp nginx.conf /tmp/paulaelucas_backup/nginx.conf; fi
             
             # Backup da pasta mysql
             if [ -d mysql ]; then
-              tar -czf mysql.backup.tar.gz mysql/
+              cp -r mysql /tmp/paulaelucas_backup/
             fi
 
       # Deploy Frontend
@@ -101,17 +104,19 @@ jobs:
             # Restaurar arquivos e configurar API
             cd /var/www/paulaelucas
             # Restaurar arquivos de configuração
-            if [ -f .env.backup ]; then mv .env.backup .env; fi
-            if [ -f docker-compose.yml.backup ]; then mv docker-compose.yml.backup docker-compose.yml; fi
-            if [ -f docker-compose.prod.yml.backup ]; then mv docker-compose.prod.yml.backup docker-compose.prod.yml; fi
-            if [ -f nginx.conf.backup ]; then mv nginx.conf.backup nginx.conf; fi
+            if [ -f /tmp/paulaelucas_backup/.env ]; then cp /tmp/paulaelucas_backup/.env .env; fi
+            if [ -f /tmp/paulaelucas_backup/docker-compose.yml ]; then cp /tmp/paulaelucas_backup/docker-compose.yml docker-compose.yml; fi
+            if [ -f /tmp/paulaelucas_backup/docker-compose.prod.yml ]; then cp /tmp/paulaelucas_backup/docker-compose.prod.yml docker-compose.prod.yml; fi
+            if [ -f /tmp/paulaelucas_backup/nginx.conf ]; then cp /tmp/paulaelucas_backup/nginx.conf nginx.conf; fi
             
             # Restaurar pasta mysql
-            if [ -f mysql.backup.tar.gz ]; then
+            if [ -d /tmp/paulaelucas_backup/mysql ]; then
               rm -rf mysql
-              tar -xzf mysql.backup.tar.gz
-              rm mysql.backup.tar.gz
+              cp -r /tmp/paulaelucas_backup/mysql .
             fi
+            
+            # Limpar backup temporário
+            rm -rf /tmp/paulaelucas_backup
             
             cd /var/www/paulaelucas/api
             npm install --production
