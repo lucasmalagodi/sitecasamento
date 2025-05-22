@@ -63,7 +63,6 @@ jobs:
           key: ${{ secrets.VPS_KEY }}
           source: "dist/*"
           target: "/var/www/paulaelucas"
-          rm: true
           overwrite: true
           strip_components: 1
 
@@ -77,7 +76,6 @@ jobs:
           key: ${{ secrets.VPS_KEY }}
           source: "api/*"
           target: "/var/www/paulaelucas/api"
-          rm: true
           overwrite: true
           strip_components: 0
 
@@ -101,23 +99,22 @@ jobs:
               sudo npm install -g pm2
             fi
 
-            # Restaurar arquivos e configurar API
             cd /var/www/paulaelucas
-            # Restaurar arquivos de configuração
-            if [ -f /tmp/paulaelucas_backup/.env ]; then cp /tmp/paulaelucas_backup/.env .env; fi
-            if [ -f /tmp/paulaelucas_backup/docker-compose.yml ]; then cp /tmp/paulaelucas_backup/docker-compose.yml docker-compose.yml; fi
-            if [ -f /tmp/paulaelucas_backup/docker-compose.prod.yml ]; then cp /tmp/paulaelucas_backup/docker-compose.prod.yml docker-compose.prod.yml; fi
-            if [ -f /tmp/paulaelucas_backup/nginx.conf ]; then cp /tmp/paulaelucas_backup/nginx.conf nginx.conf; fi
-            
-            # Restaurar pasta mysql
-            if [ -d /tmp/paulaelucas_backup/mysql ]; then
-              rm -rf mysql
+
+            # Restaurar arquivos de configuração apenas se não existirem
+            [ ! -f .env ] && [ -f /tmp/paulaelucas_backup/.env ] && cp /tmp/paulaelucas_backup/.env .env
+            [ ! -f docker-compose.yml ] && [ -f /tmp/paulaelucas_backup/docker-compose.yml ] && cp /tmp/paulaelucas_backup/docker-compose.yml docker-compose.yml
+            [ ! -f docker-compose.prod.yml ] && [ -f /tmp/paulaelucas_backup/docker-compose.prod.yml ] && cp /tmp/paulaelucas_backup/docker-compose.prod.yml docker-compose.prod.yml
+            [ ! -f nginx.conf ] && [ -f /tmp/paulaelucas_backup/nginx.conf ] && cp /tmp/paulaelucas_backup/nginx.conf nginx.conf
+
+            # Restaurar pasta mysql apenas se não existir
+            if [ ! -d mysql ] && [ -d /tmp/paulaelucas_backup/mysql ]; then
               cp -r /tmp/paulaelucas_backup/mysql .
             fi
-            
+
             # Limpar backup temporário
             rm -rf /tmp/paulaelucas_backup
-            
+
             cd /var/www/paulaelucas/api
             npm install --production
             pm2 delete api || true
