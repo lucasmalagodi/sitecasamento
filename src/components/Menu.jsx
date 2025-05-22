@@ -37,15 +37,15 @@ const Menu = () => {
 // 🟢 MENU MOBILE
 const MobileMenu = ({ isScrolled }) => {
   return (
-    <div className={`fixed bottom-0 left-0 right-0 flex justify-center pb-4 transition-all duration-300 ${isScrolled ? 'bg-white/80 backdrop-blur-sm shadow-lg' : ''}`}>
+    <div className={`fixed bottom-0 left-0 right-0 flex justify-center pb-4 transition-all duration-300 z-50 ${isScrolled ? 'bg-white/80 backdrop-blur-sm shadow-lg' : ''}`}>
       <div className="bg-[var(--white-100)] shadow-lg rounded-xl w-11/12 max-w-md flex justify-around items-center px-1 py-5">
         <MenuItem icon={<AiOutlineHome size={24} />} text="Olá" link="/" />
         <MenuItem icon={<BiDrink size={24} />} text="Recepção" link="/" />
 
         {/* Ícone Central */}
-        <Link to="/casal" className="flex items-center justify-center bg-[var(--green)] w-16 h-16 rounded-full text-white shadow-md">
+        {/* <Link to="/casal" className="flex items-center justify-center bg-[var(--green)] w-16 h-16 rounded-full text-white shadow-md">
           <FaHeart size={28} />
-        </Link>
+        </Link> */}
 
         <MenuItem icon={<AiOutlineCalendar size={24} />} text="Presença" link="/presenca" />
         <MenuItem icon={<AiOutlineGift size={24} />} text="Lista" link="/lista" />
@@ -59,9 +59,9 @@ const DesktopMenu = ({ isScrolled, menuRef }) => {
   return (
     <nav 
       ref={menuRef}
-      className={`transition-all duration-300 ${
+      className={`w-full flex justify-center transition-all duration-300 ${
         isScrolled 
-          ? 'fixed top-0 left-1/2 transform -translate-x-1/2 z-50' 
+          ? 'fixed top-0 left-0 right-0 z-50' 
           : 'relative'
       }`}
     >

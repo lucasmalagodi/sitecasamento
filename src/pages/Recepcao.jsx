@@ -8,15 +8,12 @@ const Recepcao = () => {
   const sectionRef = useRef(null);
 
   return (
-    <>
+    <div className="min-h-screen w-full bg-white">
       {/* 🔥 CONTEÚDO PRINCIPAL */}
       <div
         ref={sectionRef}
-        className="w-full mx-auto bg-white"
+        className="w-full mx-auto transition-opacity duration-500 bg-white pb-32"
       >
-        {/* Elemento decorativo no topo */}
-        <div className="w-full h-16 bg-gradient-to-b from-[var(--white-100)] to-white"></div>
-        
         {/* Título da seção */}
         <AnimatedOnScroll animation="fade-in" delay={0.2}>
           <div className="max-w-5xl mx-auto pt-12 pb-6 px-6 text-black text-center content-section">
@@ -206,7 +203,7 @@ const Recepcao = () => {
           </div>
         </AnimatedOnScroll>
       </div>
-    </>
+    </div>
   );
 };
 

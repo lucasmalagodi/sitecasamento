@@ -22,14 +22,16 @@ const Header = () => {
       className="shadow-md bg-black bg-cover bg-center bg-no-repeat"
       style={{ backgroundImage: "url('/assets/img-paula-e-lucas-home.png')" }}
     >
-      <div className="container mx-auto h-200 text-center flex flex-col items-center p-4">
-        <div className="w-full pt-10">
+      <div className="container-mobile mx-auto h-200 text-center flex flex-col items-center p-4">
+        <div className="w-full pt-4 md:pt-10">
           <Logo />
         </div>
-        <div className="flex-grow flex items-center justify-center text-center w-xs md:w-2xl px-4 mt-[3rem]">
+        <div className="flex-grow flex items-center justify-center text-center w-full md:w-2xl px-4 mt-[2rem] md:mt-[3rem]">
           <Title title={currentPage.title} subtitle={currentPage.subtitle} />
         </div>
-        <Menu />
+        <div className="w-full">
+          <Menu />
+        </div>
       </div>
     </header>
   );

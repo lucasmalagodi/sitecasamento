@@ -29,7 +29,7 @@
 }
 
 body {
-  background-color: var(--white-100);
+  /* background-color: var(--white-100); */
   color: var(--black);
   -webkit-font-smoothing: antialiased;
 }
@@ -347,4 +347,56 @@ h2.character-title::after {
 /* Corrigir potenciais conflitos de animação */
 .float-animation, .float-animation-reverse, .couple-float {
   will-change: transform;
+}
+
+/* Classes utilitárias para responsividade */
+.container-mobile {
+  /* padding-left: 1rem; */
+  /* padding-right: 1rem; */
+}
+
+@media (max-width: 768px) {
+  .content-section {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+}
+
+.text-container {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .text-container {
+    max-width: 768px;
+    padding: 0 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .text-container {
+    max-width: 1024px;
+  }
+}
+
+/* Ajustes para imagens responsivas */
+.responsive-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* Ajustes para cards em dispositivos móveis */
+.mobile-card {
+  margin: 0.5rem;
+  padding: 1rem;
+}
+
+@media (min-width: 768px) {
+  .mobile-card {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
 }

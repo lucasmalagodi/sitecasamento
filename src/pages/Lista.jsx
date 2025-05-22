@@ -142,16 +142,14 @@ const Lista = () => {
   };
 
   const handleSubmitContribuicao = (data) => {
-    console.log('Dados da contribuição:', data);
+    // console.log('Dados da contribuição:', data);
     // Aqui você pode adicionar a lógica para enviar os dados para o backend
     handleCloseModal();
   };
 
   return (
-    <div className="w-full mx-auto bg-white">
-      {/* Elemento decorativo no topo */}
-      <div className="w-full h-16 bg-gradient-to-b from-[var(--white-100)] to-white"></div>
-      
+    <div className="w-full mx-auto transition-opacity duration-500 bg-white pb-32">
+
       {/* Título da seção */}
       <AnimatedOnScroll animation="fade-in" delay={0.2}>
         <div className="max-w-5xl mx-auto pt-12 pb-6 px-6 text-black text-center content-section">
@@ -169,8 +167,8 @@ const Lista = () => {
       </AnimatedOnScroll>
 
       {/* Navegação das Categorias */}
-      <div className="max-w-7xl mx-auto py-8 px-6">
-        <div className="flex justify-center space-x-4 mb-8 overflow-x-auto pb-4">
+      <div className="max-w-7xl mx-auto py-8 px-2 md:px-6">
+        <div className="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4 mb-8 w-full pb-4">
           {Object.entries(categorias).map(([key, categoria]) => (
             <button
               key={key}

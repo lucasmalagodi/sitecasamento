@@ -70,14 +70,14 @@ const Home = () => {
         ref={sectionRef}
         className={`w-full mx-auto transition-opacity duration-500 bg-white ${
           isScrollEnabled ? "block opacity-100 overflow-auto" : "hidden opacity-0 overflow-hidden"
-        }`}
+        } pb-32`}
       >
         {/* Elemento decorativo no topo */}
         <div className="w-full h-16 bg-gradient-to-b from-[var(--white-100)] to-white"></div>
         
         {/* Boas-vindas */}
         <AnimatedOnScroll animation="fade-in" delay={0.2}>
-          <div className="max-w-5xl mx-auto pt-12 pb-6 px-6 text-black text-center content-section">
+          <div className="max-w-5xl mx-auto pt-12 pb-6 text-black text-center content-section">
             <h2 className="text-3xl font-bold font-[var(--font-bitter-rose)] text-[var(--green)] mb-4 shine">
               Olá!
             </h2>

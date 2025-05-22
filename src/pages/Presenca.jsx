@@ -140,10 +140,8 @@ ${formData.mensagem ? `Mensagem: ${formData.mensagem}` : ''}
   };
 
   return (
-    <div className="w-full mx-auto bg-white">
-      {/* Elemento decorativo no topo */}
-      <div className="w-full h-16 bg-gradient-to-b from-[var(--white-100)] to-white"></div>
-      
+    <div className="w-full mx-auto transition-opacity duration-500 bg-white pb-32">
+
       {/* Título da seção */}
       <AnimatedOnScroll animation="fade-in" delay={0.2}>
         <div className="max-w-5xl mx-auto pt-12 pb-6 px-6 text-black text-center content-section">
