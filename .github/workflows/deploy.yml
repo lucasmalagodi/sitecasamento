@@ -26,7 +26,7 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           port: ${{ secrets.VPS_PORT }}
           key: ${{ secrets.VPS_KEY }}
-          source: "dist/*,api/*"
+          source: "dist/*,api"
           target: "/var/www/paulaelucas"
           overwrite: true
-          strip_components: 1
+          strip_components: 0
