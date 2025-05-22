@@ -13,25 +13,24 @@ jobs:
       - name: 📦 Clonar repositório
         uses: actions/checkout@v3
 
-      - name: 🧱 Instalar dependências
+      # Frontend
+      - name: 🧱 Instalar dependências do Frontend
         run: npm install
 
-      - name: 🏗️ Buildar projeto
+      - name: 🏗️ Buildar Frontend
         run: npm run build
 
-      - name: 🚀 Enviar arquivos para VPS
-        uses: appleboy/scp-action@v0.1.4
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          port: ${{ secrets.VPS_PORT }}
-          key: ${{ secrets.VPS_KEY }}
-          source: "dist/*,api"
-          target: "/var/www/paulaelucas"
-          overwrite: true
-          strip_components: 0
+      # API
+      - name: 🧱 Instalar dependências da API
+        working-directory: ./api
+        run: npm install
 
-      - name: 🚀 Configurar e iniciar API
+      - name: 🏗️ Buildar API
+        working-directory: ./api
+        run: npm run build
+
+      # Backup de arquivos importantes
+      - name: 🔄 Backup de arquivos importantes
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.VPS_HOST }}
@@ -39,8 +38,53 @@ jobs:
           port: ${{ secrets.VPS_PORT }}
           key: ${{ secrets.VPS_KEY }}
           script: |
+            cd /var/www/paulaelucas
+            if [ -f .env ]; then cp .env .env.backup; fi
+            if [ -f docker-compose.yml ]; then cp docker-compose.yml docker-compose.yml.backup; fi
+
+      # Deploy Frontend
+      - name: 🚀 Enviar Frontend para VPS
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          port: ${{ secrets.VPS_PORT }}
+          key: ${{ secrets.VPS_KEY }}
+          source: "dist/*"
+          target: "/var/www/paulaelucas"
+          rm: true
+          overwrite: true
+          strip_components: 1
+
+      # Deploy API
+      - name: 🚀 Enviar API para VPS
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          port: ${{ secrets.VPS_PORT }}
+          key: ${{ secrets.VPS_KEY }}
+          source: "api/*"
+          target: "/var/www/paulaelucas/api"
+          rm: true
+          overwrite: true
+          strip_components: 0
+
+      # Restaurar arquivos importantes e configurar API
+      - name: 🔄 Restaurar arquivos e configurar API
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          port: ${{ secrets.VPS_PORT }}
+          key: ${{ secrets.VPS_KEY }}
+          script: |
+            cd /var/www/paulaelucas
+            if [ -f .env.backup ]; then mv .env.backup .env; fi
+            if [ -f docker-compose.yml.backup ]; then mv docker-compose.yml.backup docker-compose.yml; fi
+            
             cd /var/www/paulaelucas/api
             npm install --production
             pm2 delete api || true
-            pm2 start index.js --name api
+            pm2 start src/server.js --name api
             pm2 save 
