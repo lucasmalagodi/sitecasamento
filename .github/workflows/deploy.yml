@@ -75,7 +75,7 @@ jobs:
           port: ${{ secrets.VPS_PORT }}
           key: ${{ secrets.VPS_KEY }}
           source: "api/*"
-          target: "/var/www/paulaelucas"
+          target: "/var/www/paulaelucas/api"
           overwrite: true
           strip_components: 0
 
