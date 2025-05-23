@@ -79,6 +79,19 @@ jobs:
           overwrite: true
           strip_components: 1
 
+      # Deploy MySQL
+      - name: 🚀 Enviar pasta MySQL para VPS
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          port: ${{ secrets.VPS_PORT }}
+          key: ${{ secrets.VPS_KEY }}
+          source: "mysql/*"
+          target: "/var/www/paulaelucas/mysql"
+          overwrite: true
+          strip_components: 1
+
       # Restaurar arquivos importantes e configurar API
       - name: 🔄 Restaurar arquivos e configurar API
         uses: appleboy/ssh-action@v1.0.3
