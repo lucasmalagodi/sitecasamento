@@ -77,7 +77,7 @@ jobs:
           source: "api/*"
           target: "/var/www/paulaelucas/api"
           overwrite: true
-          strip_components: 0
+          strip_components: 1
 
       # Restaurar arquivos importantes e configurar API
       - name: 🔄 Restaurar arquivos e configurar API
