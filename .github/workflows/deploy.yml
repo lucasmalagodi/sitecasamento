@@ -74,8 +74,8 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           port: ${{ secrets.VPS_PORT }}
           key: ${{ secrets.VPS_KEY }}
-          source: "api"
-          target: "/var/www/paulaelucas"
+          source: "api/*"
+          target: "/var/www/paulaelucas/api"
           strip_components: 1
 
       # Deploy MySQL
