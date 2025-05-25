@@ -15,11 +15,14 @@ const AdminLogin = () => {
     setLoading(true);
 
     try {
+      console.log('Tentando login com:', { email, password });
       const data = await api.login(email, password);
+      console.log('Resposta do login:', data);
       localStorage.setItem('adminToken', data.token);
       localStorage.setItem('adminName', data.admin.name);
       navigate('/admin/confirmacoes');
     } catch (err) {
+      console.error('Erro no login:', err);
       setError(err.message || 'Erro ao fazer login');
     } finally {
       setLoading(false);

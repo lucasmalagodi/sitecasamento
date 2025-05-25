@@ -2,6 +2,9 @@ const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
 
 export const api = {
   async login(email, password) {
+    console.log('URL da API:', API_URL);
+    console.log('Tentando login em:', `${API_URL}/api/admin/login`);
+    
     const response = await fetch(`${API_URL}/api/admin/login`, {
       method: 'POST',
       headers: {
@@ -10,7 +13,10 @@ export const api = {
       body: JSON.stringify({ email, password }),
     });
 
+    console.log('Status da resposta:', response.status);
     const data = await response.json();
+    console.log('Resposta do servidor:', data);
+    
     if (!response.ok) {
       throw new Error(data.error || 'Erro ao fazer login');
     }
