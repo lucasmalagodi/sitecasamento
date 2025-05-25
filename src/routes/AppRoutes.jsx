@@ -8,6 +8,7 @@ import Casal from "../pages/Casal";
 import AdminLogin from "../pages/AdminLogin";
 import AdminConfirmacoes from "../pages/AdminConfirmacoes";
 import AdminPerfil from '../pages/AdminPerfil';
+import AdminUsuarios from '../pages/AdminUsuarios';
 // import NotFound from "../pages/NotFound";
 import Layout from "../components/Layout";
 import AdminLayout from "../components/AdminLayout";
@@ -42,6 +43,7 @@ const AppRoutes = () => {
                   <Routes>
                     <Route path="confirmacoes" element={<AdminConfirmacoes />} />
                     <Route path="profile" element={<AdminPerfil />} />
+                    <Route path="usuarios" element={<AdminUsuarios />} />
                   </Routes>
                 </AdminLayout>
               </ProtectedRoute>

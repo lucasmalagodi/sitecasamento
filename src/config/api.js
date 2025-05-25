@@ -4,9 +4,6 @@ const API_URL = import.meta.env.PROD
 
 export const api = {
   async login(email, password) {
-    console.log('URL da API:', API_URL);
-    console.log('Tentando login em:', `${API_URL}/admin/login`);
-    
     const response = await fetch(`${API_URL}/admin/login`, {
       method: 'POST',
       headers: {
@@ -15,15 +12,11 @@ export const api = {
       body: JSON.stringify({ email, password }),
     });
 
-    console.log('Status da resposta:', response.status);
-    const data = await response.json();
-    console.log('Resposta do servidor:', data);
-    
     if (!response.ok) {
-      throw new Error(data.error || 'Erro ao fazer login');
+      throw new Error(await response.json().then(data => data.error) || 'Erro ao fazer login');
     }
 
-    return data;
+    return await response.json();
   },
 
   async getProfile() {
@@ -38,12 +31,11 @@ export const api = {
       },
     });
 
-    const data = await response.json();
     if (!response.ok) {
-      throw new Error(data.error || 'Erro ao buscar perfil');
+      throw new Error(await response.json().then(data => data.error) || 'Erro ao buscar perfil');
     }
 
-    return data;
+    return await response.json();
   },
 
   async updateProfile(profileData) {
@@ -61,12 +53,11 @@ export const api = {
       body: JSON.stringify(profileData),
     });
 
-    const data = await response.json();
     if (!response.ok) {
-      throw new Error(data.error || 'Erro ao atualizar perfil');
+      throw new Error(await response.json().then(data => data.error) || 'Erro ao atualizar perfil');
     }
 
-    return data;
+    return await response.json();
   },
 
   async register(name, email, password) {
@@ -78,12 +69,11 @@ export const api = {
       body: JSON.stringify({ name, email, password }),
     });
 
-    const data = await response.json();
     if (!response.ok) {
-      throw new Error(data.error || 'Erro ao registrar');
+      throw new Error(await response.json().then(data => data.error) || 'Erro ao registrar');
     }
 
-    return data;
+    return await response.json();
   },
 
   // Métodos para confirmações
@@ -99,12 +89,11 @@ export const api = {
       },
     });
 
-    const data = await response.json();
     if (!response.ok) {
-      throw new Error(data.error || 'Erro ao buscar confirmações');
+      throw new Error(await response.json().then(data => data.error) || 'Erro ao buscar confirmações');
     }
 
-    return data.data;
+    return (await response.json()).data;
   },
 
   async confirmarPresenca(id, confirmacao) {
@@ -122,12 +111,11 @@ export const api = {
       body: JSON.stringify({ confirmacao: confirmacao ? 1 : 0 }),
     });
 
-    const data = await response.json();
     if (!response.ok) {
-      throw new Error(data.error || 'Erro ao confirmar presença');
+      throw new Error(await response.json().then(data => data.error) || 'Erro ao confirmar presença');
     }
 
-    return data;
+    return await response.json();
   },
 
   async excluirConfirmacao(id) {
@@ -143,12 +131,11 @@ export const api = {
       },
     });
 
-    const data = await response.json();
     if (!response.ok) {
-      throw new Error(data.error || 'Erro ao excluir confirmação');
+      throw new Error(await response.json().then(data => data.error) || 'Erro ao excluir confirmação');
     }
 
-    return data;
+    return await response.json();
   },
 
   async getConfirmacaoDetalhes(id) {
@@ -163,12 +150,69 @@ export const api = {
       },
     });
 
-    const data = await response.json();
     if (!response.ok) {
-      throw new Error(data.error || 'Erro ao buscar detalhes da confirmação');
+      throw new Error(await response.json().then(data => data.error) || 'Erro ao buscar detalhes da confirmação');
     }
 
-    return data.data;
+    return (await response.json()).data;
+  },
+
+  async getAdmins() {
+    const token = localStorage.getItem('adminToken');
+    
+    if (!token) {
+      throw new Error('Não autorizado');
+    }
+
+    const response = await fetch(`${API_URL}/admin/admins`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(await response.json().then(data => data.error) || 'Erro ao buscar usuários administradores');
+    }
+
+    // Verificando se data.data existe, se não, retorna o próprio data
+    const result = (await response.json()).data || await response.json();
+    return result;
+  },
+
+  async updateAdminStatus(id, active) {
+    const token = localStorage.getItem('adminToken');
+    if (!token) {
+      throw new Error('Não autorizado');
+    }
+    const response = await fetch(`${API_URL}/admin/admins/${id}/status`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify({ active }),
+    });
+    if (!response.ok) {
+      throw new Error(await response.json().then(data => data.error) || 'Erro ao atualizar status do usuário');
+    }
+    return await response.json();
+  },
+
+  async deleteAdmin(id) {
+    const token = localStorage.getItem('adminToken');
+    if (!token) {
+      throw new Error('Não autorizado');
+    }
+    const response = await fetch(`${API_URL}/admin/admins/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+    if (!response.ok) {
+      throw new Error(await response.json().then(data => data.error) || 'Erro ao excluir usuário');
+    }
+    return await response.json();
   },
 };
 

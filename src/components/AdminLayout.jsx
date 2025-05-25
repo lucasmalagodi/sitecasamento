@@ -15,6 +15,11 @@ const AdminLayout = ({ children }) => {
       icon: '📋'
     },
     {
+      name: 'Usuários',
+      path: '/admin/usuarios',
+      icon: '👥'
+    },
+    {
       name: 'Meu Perfil',
       path: '/admin/profile',
       icon: '👤'

@@ -116,9 +116,64 @@ const updateProfile = async (req, res) => {
   }
 };
 
+const listAdmins = async (req, res) => {
+  try {
+    const admins = await Admin.findAll({
+      attributes: ['id', 'name', 'email', 'active', 'createdAt', 'updatedAt'],
+      // where: { active: true }
+    });
+    res.json(admins);
+  } catch (error) {
+    res.status(500).json({ error: 'Erro ao listar admins' });
+  }
+};
+
+const updateAdminStatus = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { active } = req.body;
+
+    const admin = await Admin.findByPk(id);
+    if (!admin) {
+      return res.status(404).json({ error: 'Usuário não encontrado' });
+    }
+
+    // Não permite desativar o próprio usuário
+    if (admin.id === req.admin.id) {
+      return res.status(400).json({ error: 'Não é possível desativar seu próprio usuário' });
+    }
+
+    await admin.update({ active });
+    res.json({ message: 'Status atualizado com sucesso' });
+  } catch (error) {
+    res.status(500).json({ error: 'Erro ao atualizar status do usuário' });
+  }
+};
+
+const deleteAdmin = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const admin = await Admin.findByPk(id);
+    if (!admin) {
+      return res.status(404).json({ error: 'Usuário não encontrado' });
+    }
+    // Não permite deletar o próprio usuário
+    if (admin.id === req.admin.id) {
+      return res.status(400).json({ error: 'Não é possível excluir seu próprio usuário' });
+    }
+    await admin.destroy();
+    res.json({ message: 'Usuário excluído com sucesso' });
+  } catch (error) {
+    res.status(500).json({ error: 'Erro ao excluir usuário' });
+  }
+};
+
 module.exports = {
   login,
   register,
   getProfile,
-  updateProfile
+  updateProfile,
+  listAdmins,
+  updateAdminStatus,
+  deleteAdmin
 }; 

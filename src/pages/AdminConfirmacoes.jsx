@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { api } from '../config/api';
+import DataGrid from '../components/DataGrid';
 
 const AdminConfirmacoes = () => {
   const [confirmacoes, setConfirmacoes] = useState([]);
@@ -7,11 +8,6 @@ const AdminConfirmacoes = () => {
   const [error, setError] = useState('');
   const [selectedConfirmacao, setSelectedConfirmacao] = useState(null);
   const [confirmacaoParaExcluir, setConfirmacaoParaExcluir] = useState(null);
-  const [filtroNome, setFiltroNome] = useState('');
-  const [ordenacao, setOrdenacao] = useState({
-    coluna: 'dataConfirmacao',
-    direcao: 'desc'
-  });
 
   useEffect(() => {
     loadConfirmacoes();
@@ -21,7 +17,6 @@ const AdminConfirmacoes = () => {
     try {
       setLoading(true);
       const data = await api.getConfirmacoes();
-      // Ordena os dados por data de confirmação decrescente
       const dadosOrdenados = data.sort((a, b) => 
         new Date(b.dataConfirmacao) - new Date(a.dataConfirmacao)
       );
@@ -58,37 +53,74 @@ const AdminConfirmacoes = () => {
     }
   };
 
-  const handleOrdenacao = (coluna) => {
-    setOrdenacao(prev => ({
-      coluna,
-      direcao: prev.coluna === coluna && prev.direcao === 'asc' ? 'desc' : 'asc'
-    }));
+  const handleAction = (type, row) => {
+    switch (type) {
+      case 'view':
+        handleViewDetails(row);
+        break;
+      case 'toggle':
+        handleCancelarConfirmacao(row.id);
+        break;
+      case 'delete':
+        setConfirmacaoParaExcluir(row);
+        break;
+      default:
+        break;
+    }
   };
 
-  const confirmacoesFiltradasEOrdenadas = confirmacoes
-    .filter(confirmacao => 
-      confirmacao.nome.toLowerCase().includes(filtroNome.toLowerCase())
-    )
-    .sort((a, b) => {
-      const valorA = a[ordenacao.coluna];
-      const valorB = b[ordenacao.coluna];
-      
-      if (ordenacao.coluna === 'dataConfirmacao') {
-        return ordenacao.direcao === 'asc' 
-          ? new Date(valorA) - new Date(valorB)
-          : new Date(valorB) - new Date(valorA);
-      }
-      
-      if (typeof valorA === 'string') {
-        return ordenacao.direcao === 'asc'
-          ? valorA.localeCompare(valorB)
-          : valorB.localeCompare(valorA);
-      }
-      
-      return ordenacao.direcao === 'asc'
-        ? valorA - valorB
-        : valorB - valorA;
-    });
+  const columns = [
+    { field: 'nome', headerName: 'Nome' },
+    { field: 'email', headerName: 'Email' },
+    { field: 'celular', headerName: 'Celular' },
+    { 
+      field: 'dataConfirmacao', 
+      headerName: 'Data de Confirmação',
+      renderCell: (row) => (
+        <div className="text-sm text-gray-300">
+          {new Date(row.dataConfirmacao).toLocaleDateString()}
+        </div>
+      )
+    },
+    {
+      field: 'confirmacao',
+      headerName: 'Status',
+      renderCell: (row) => (
+        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+          row.confirmacao === 1
+            ? 'bg-green-500 text-white'
+            : 'bg-rose-500 text-white'
+        }`}>
+          {row.confirmacao === 1 ? 'Confirmado' : 'Cancelado'}
+        </span>
+      )
+    }
+  ];
+
+  const actions = [
+    {
+      type: 'toggle',
+      icon: '🔒',
+      title: 'Alterar status',
+      className: (row) => `p-2 rounded-full transition-colors duration-150 ${
+        row.confirmacao === 1
+          ? 'bg-rose-500 text-white hover:bg-rose-600 cursor-pointer'
+          : 'bg-green-500 text-white hover:bg-green-600 cursor-pointer'
+      }`
+    },
+    {
+      type: 'view',
+      icon: '👁️',
+      title: 'Ver detalhes',
+      className: 'p-2 rounded-full bg-gray-700 text-rose-300 hover:bg-rose-800 hover:text-white transition-colors duration-150 cursor-pointer'
+    },
+    {
+      type: 'delete',
+      icon: '🗑️',
+      title: 'Excluir confirmação',
+      className: 'p-2 rounded-full bg-gray-700 text-red-400 hover:bg-red-900 hover:text-white transition-colors duration-150 cursor-pointer'
+    }
+  ];
 
   if (loading) {
     return (
@@ -111,120 +143,15 @@ const AdminConfirmacoes = () => {
         </div>
       )}
 
-      {/* Filtro por nome */}
-      <div className="mb-4">
-        <input
-          type="text"
-          placeholder="Filtrar por nome..."
-          value={filtroNome}
-          onChange={(e) => setFiltroNome(e.target.value)}
-          className="w-full md:w-64 px-4 py-2 rounded-md bg-gray-700 text-white border border-gray-600 focus:border-rose-500 focus:ring-1 focus:ring-rose-500"
-        />
-      </div>
-
-      <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-700">
-            <thead className="bg-gray-900">
-              <tr>
-                <th 
-                  className="px-6 py-3 text-left text-xs font-medium text-rose-200 uppercase tracking-wider cursor-pointer hover:bg-gray-800"
-                  onClick={() => handleOrdenacao('nome')}
-                >
-                  Nome {ordenacao.coluna === 'nome' && (ordenacao.direcao === 'asc' ? '↑' : '↓')}
-                </th>
-                <th 
-                  className="px-6 py-3 text-left text-xs font-medium text-rose-200 uppercase tracking-wider cursor-pointer hover:bg-gray-800"
-                  onClick={() => handleOrdenacao('email')}
-                >
-                  Email {ordenacao.coluna === 'email' && (ordenacao.direcao === 'asc' ? '↑' : '↓')}
-                </th>
-                <th 
-                  className="px-6 py-3 text-left text-xs font-medium text-rose-200 uppercase tracking-wider cursor-pointer hover:bg-gray-800"
-                  onClick={() => handleOrdenacao('celular')}
-                >
-                  Celular {ordenacao.coluna === 'celular' && (ordenacao.direcao === 'asc' ? '↑' : '↓')}
-                </th>
-                <th 
-                  className="px-6 py-3 text-left text-xs font-medium text-rose-200 uppercase tracking-wider cursor-pointer hover:bg-gray-800"
-                  onClick={() => handleOrdenacao('dataConfirmacao')}
-                >
-                  Data de Confirmação {ordenacao.coluna === 'dataConfirmacao' && (ordenacao.direcao === 'asc' ? '↑' : '↓')}
-                </th>
-                <th 
-                  className="px-6 py-3 text-left text-xs font-medium text-rose-200 uppercase tracking-wider cursor-pointer hover:bg-gray-800"
-                  onClick={() => handleOrdenacao('confirmacao')}
-                >
-                  Status {ordenacao.coluna === 'confirmacao' && (ordenacao.direcao === 'asc' ? '↑' : '↓')}
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-rose-200 uppercase tracking-wider">
-                  Ações
-                </th>
-              </tr>
-            </thead>
-            <tbody className="bg-gray-800 divide-y divide-gray-700">
-              {confirmacoesFiltradasEOrdenadas.map((confirmacao) => (
-                <tr key={confirmacao.id}>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm font-medium text-gray-100">
-                      {confirmacao.nome}
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-300">{confirmacao.email}</div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-300">{confirmacao.celular}</div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-300">
-                      {new Date(confirmacao.dataConfirmacao).toLocaleDateString()}
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                      confirmacao.confirmacao === 1
-                        ? 'bg-green-500 text-white'
-                        : 'bg-rose-500 text-white'
-                    }`}>
-                      {confirmacao.confirmacao === 1 ? 'Confirmado' : 'Cancelado'}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                    <div className="flex space-x-2">
-                      <button
-                        onClick={() => handleCancelarConfirmacao(confirmacao.id)}
-                        className={`p-2 rounded-full transition-colors duration-150 ${
-                          confirmacao.confirmacao === 1
-                            ? 'bg-rose-500 text-white hover:bg-rose-600'
-                            : 'bg-green-500 text-white hover:bg-green-600'
-                        }`}
-                        title={confirmacao.confirmacao === 1 ? 'Cancelar confirmação' : 'Confirmar presença'}
-                      >
-                        🔒
-                      </button>
-                      <button
-                        onClick={() => handleViewDetails(confirmacao)}
-                        className="p-2 rounded-full bg-gray-700 text-rose-300 hover:bg-rose-800 hover:text-white transition-colors duration-150"
-                        title="Ver detalhes"
-                      >
-                        👁️
-                      </button>
-                      <button
-                        onClick={() => setConfirmacaoParaExcluir(confirmacao)}
-                        className="p-2 rounded-full bg-gray-700 text-red-400 hover:bg-red-900 hover:text-white transition-colors duration-150"
-                        title="Excluir confirmação"
-                      >
-                        🗑️
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
+      <DataGrid
+        columns={columns}
+        data={confirmacoes}
+        onAction={handleAction}
+        actions={actions}
+        defaultSort={{ column: 'dataConfirmacao', direction: 'desc' }}
+        filterField="nome"
+        filterPlaceholder="Filtrar por nome..."
+      />
 
       {/* Modal de Detalhes */}
       {selectedConfirmacao && (
@@ -234,7 +161,7 @@ const AdminConfirmacoes = () => {
               <h2 className="text-xl font-bold text-rose-300">Detalhes da Confirmação</h2>
               <button
                 onClick={() => setSelectedConfirmacao(null)}
-                className="text-gray-400 hover:text-rose-400"
+                className="text-gray-400 hover:text-rose-400 cursor-pointer"
               >
                 ✕
               </button>
@@ -304,7 +231,7 @@ const AdminConfirmacoes = () => {
               <h2 className="text-xl font-bold text-rose-300">Confirmar Exclusão</h2>
               <button
                 onClick={() => setConfirmacaoParaExcluir(null)}
-                className="text-gray-400 hover:text-rose-400"
+                className="text-gray-400 hover:text-rose-400 cursor-pointer"
               >
                 ✕
               </button>
@@ -316,13 +243,13 @@ const AdminConfirmacoes = () => {
             <div className="flex justify-end space-x-4">
               <button
                 onClick={() => setConfirmacaoParaExcluir(null)}
-                className="px-4 py-2 bg-gray-700 text-gray-300 rounded-md hover:bg-gray-600 transition-colors duration-150"
+                className="px-4 py-2 bg-gray-700 text-gray-300 rounded-md hover:bg-gray-600 transition-colors duration-150 cursor-pointer"
               >
                 Cancelar
               </button>
               <button
                 onClick={() => handleExcluirConfirmacao(confirmacaoParaExcluir.id)}
-                className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors duration-150"
+                className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors duration-150 cursor-pointer"
               >
                 Excluir
               </button>
