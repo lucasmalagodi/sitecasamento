@@ -7,6 +7,11 @@ const AdminConfirmacoes = () => {
   const [error, setError] = useState('');
   const [selectedConfirmacao, setSelectedConfirmacao] = useState(null);
   const [confirmacaoParaExcluir, setConfirmacaoParaExcluir] = useState(null);
+  const [filtroNome, setFiltroNome] = useState('');
+  const [ordenacao, setOrdenacao] = useState({
+    coluna: 'dataConfirmacao',
+    direcao: 'desc'
+  });
 
   useEffect(() => {
     loadConfirmacoes();
@@ -16,7 +21,11 @@ const AdminConfirmacoes = () => {
     try {
       setLoading(true);
       const data = await api.getConfirmacoes();
-      setConfirmacoes(data);
+      // Ordena os dados por data de confirmação decrescente
+      const dadosOrdenados = data.sort((a, b) => 
+        new Date(b.dataConfirmacao) - new Date(a.dataConfirmacao)
+      );
+      setConfirmacoes(dadosOrdenados);
     } catch (err) {
       setError('Erro ao carregar confirmações');
     } finally {
@@ -30,10 +39,12 @@ const AdminConfirmacoes = () => {
 
   const handleCancelarConfirmacao = async (id) => {
     try {
-      await api.confirmarPresenca(id);
+      const confirmacao = confirmacoes.find(c => c.id === id);
+      const novoStatus = confirmacao.confirmacao === 1 ? 0 : 1;
+      await api.confirmarPresenca(id, novoStatus);
       await loadConfirmacoes();
     } catch (err) {
-      setError('Erro ao cancelar confirmação');
+      setError('Erro ao alterar confirmação');
     }
   };
 
@@ -46,6 +57,38 @@ const AdminConfirmacoes = () => {
       setError('Erro ao excluir confirmação');
     }
   };
+
+  const handleOrdenacao = (coluna) => {
+    setOrdenacao(prev => ({
+      coluna,
+      direcao: prev.coluna === coluna && prev.direcao === 'asc' ? 'desc' : 'asc'
+    }));
+  };
+
+  const confirmacoesFiltradasEOrdenadas = confirmacoes
+    .filter(confirmacao => 
+      confirmacao.nome.toLowerCase().includes(filtroNome.toLowerCase())
+    )
+    .sort((a, b) => {
+      const valorA = a[ordenacao.coluna];
+      const valorB = b[ordenacao.coluna];
+      
+      if (ordenacao.coluna === 'dataConfirmacao') {
+        return ordenacao.direcao === 'asc' 
+          ? new Date(valorA) - new Date(valorB)
+          : new Date(valorB) - new Date(valorA);
+      }
+      
+      if (typeof valorA === 'string') {
+        return ordenacao.direcao === 'asc'
+          ? valorA.localeCompare(valorB)
+          : valorB.localeCompare(valorA);
+      }
+      
+      return ordenacao.direcao === 'asc'
+        ? valorA - valorB
+        : valorB - valorA;
+    });
 
   if (loading) {
     return (
@@ -68,25 +111,51 @@ const AdminConfirmacoes = () => {
         </div>
       )}
 
+      {/* Filtro por nome */}
+      <div className="mb-4">
+        <input
+          type="text"
+          placeholder="Filtrar por nome..."
+          value={filtroNome}
+          onChange={(e) => setFiltroNome(e.target.value)}
+          className="w-full md:w-64 px-4 py-2 rounded-md bg-gray-700 text-white border border-gray-600 focus:border-rose-500 focus:ring-1 focus:ring-rose-500"
+        />
+      </div>
+
       <div className="bg-gray-800 rounded-lg shadow overflow-hidden">
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-700">
             <thead className="bg-gray-900">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-rose-200 uppercase tracking-wider">
-                  Nome
+                <th 
+                  className="px-6 py-3 text-left text-xs font-medium text-rose-200 uppercase tracking-wider cursor-pointer hover:bg-gray-800"
+                  onClick={() => handleOrdenacao('nome')}
+                >
+                  Nome {ordenacao.coluna === 'nome' && (ordenacao.direcao === 'asc' ? '↑' : '↓')}
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-rose-200 uppercase tracking-wider">
-                  Email
+                <th 
+                  className="px-6 py-3 text-left text-xs font-medium text-rose-200 uppercase tracking-wider cursor-pointer hover:bg-gray-800"
+                  onClick={() => handleOrdenacao('email')}
+                >
+                  Email {ordenacao.coluna === 'email' && (ordenacao.direcao === 'asc' ? '↑' : '↓')}
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-rose-200 uppercase tracking-wider">
-                  Celular
+                <th 
+                  className="px-6 py-3 text-left text-xs font-medium text-rose-200 uppercase tracking-wider cursor-pointer hover:bg-gray-800"
+                  onClick={() => handleOrdenacao('celular')}
+                >
+                  Celular {ordenacao.coluna === 'celular' && (ordenacao.direcao === 'asc' ? '↑' : '↓')}
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-rose-200 uppercase tracking-wider">
-                  Data de Confirmação
+                <th 
+                  className="px-6 py-3 text-left text-xs font-medium text-rose-200 uppercase tracking-wider cursor-pointer hover:bg-gray-800"
+                  onClick={() => handleOrdenacao('dataConfirmacao')}
+                >
+                  Data de Confirmação {ordenacao.coluna === 'dataConfirmacao' && (ordenacao.direcao === 'asc' ? '↑' : '↓')}
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-rose-200 uppercase tracking-wider">
-                  Status
+                <th 
+                  className="px-6 py-3 text-left text-xs font-medium text-rose-200 uppercase tracking-wider cursor-pointer hover:bg-gray-800"
+                  onClick={() => handleOrdenacao('confirmacao')}
+                >
+                  Status {ordenacao.coluna === 'confirmacao' && (ordenacao.direcao === 'asc' ? '↑' : '↓')}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-rose-200 uppercase tracking-wider">
                   Ações
@@ -94,7 +163,7 @@ const AdminConfirmacoes = () => {
               </tr>
             </thead>
             <tbody className="bg-gray-800 divide-y divide-gray-700">
-              {confirmacoes.map((confirmacao) => (
+              {confirmacoesFiltradasEOrdenadas.map((confirmacao) => (
                 <tr key={confirmacao.id}>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm font-medium text-gray-100">
@@ -115,8 +184,8 @@ const AdminConfirmacoes = () => {
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
                       confirmacao.confirmacao === 1
-                        ? 'bg-rose-500 text-white'
-                        : 'bg-gray-700 text-gray-300'
+                        ? 'bg-green-500 text-white'
+                        : 'bg-rose-500 text-white'
                     }`}>
                       {confirmacao.confirmacao === 1 ? 'Confirmado' : 'Cancelado'}
                     </span>
@@ -127,8 +196,8 @@ const AdminConfirmacoes = () => {
                         onClick={() => handleCancelarConfirmacao(confirmacao.id)}
                         className={`p-2 rounded-full transition-colors duration-150 ${
                           confirmacao.confirmacao === 1
-                            ? 'bg-rose-900 text-rose-300 hover:bg-rose-700'
-                            : 'bg-gray-700 text-gray-200 hover:bg-rose-800 hover:text-white'
+                            ? 'bg-rose-500 text-white hover:bg-rose-600'
+                            : 'bg-green-500 text-white hover:bg-green-600'
                         }`}
                         title={confirmacao.confirmacao === 1 ? 'Cancelar confirmação' : 'Confirmar presença'}
                       >
@@ -194,8 +263,8 @@ const AdminConfirmacoes = () => {
                 <p className="mt-1">
                   <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
                     selectedConfirmacao.confirmacao === 1
-                      ? 'bg-rose-500 text-white'
-                      : 'bg-gray-700 text-gray-300'
+                      ? 'bg-green-500 text-white'
+                      : 'bg-rose-500 text-white'
                   }`}>
                     {selectedConfirmacao.confirmacao === 1 ? 'Confirmado' : 'Cancelado'}
                   </span>

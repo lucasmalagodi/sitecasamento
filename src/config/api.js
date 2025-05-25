@@ -1,6 +1,6 @@
 const API_URL = import.meta.env.PROD 
   ? 'https://paulaelucas.site/api'
-  : (import.meta.env.VITE_API_URL || 'http://localhost:3001');
+  : (import.meta.env.VITE_API_URL || 'http://localhost:3001/api');
 
 export const api = {
   async login(email, password) {
@@ -107,7 +107,7 @@ export const api = {
     return data.data;
   },
 
-  async confirmarPresenca(id) {
+  async confirmarPresenca(id, confirmacao) {
     const token = localStorage.getItem('adminToken');
     if (!token) {
       throw new Error('Não autorizado');
@@ -116,8 +116,10 @@ export const api = {
     const response = await fetch(`${API_URL}/presenca/${id}/confirmar`, {
       method: 'PUT',
       headers: {
+        'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`,
       },
+      body: JSON.stringify({ confirmacao: confirmacao ? 1 : 0 }),
     });
 
     const data = await response.json();
