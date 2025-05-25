@@ -1,11 +1,13 @@
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+const API_URL = import.meta.env.PROD 
+  ? 'https://paulaelucas.site/api'
+  : (import.meta.env.VITE_API_URL || 'http://localhost:3001');
 
 export const api = {
   async login(email, password) {
     console.log('URL da API:', API_URL);
-    console.log('Tentando login em:', `${API_URL}/api/admin/login`);
+    console.log('Tentando login em:', `${API_URL}/admin/login`);
     
-    const response = await fetch(`${API_URL}/api/admin/login`, {
+    const response = await fetch(`${API_URL}/admin/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -30,7 +32,7 @@ export const api = {
       throw new Error('Não autorizado');
     }
 
-    const response = await fetch(`${API_URL}/api/admin/profile`, {
+    const response = await fetch(`${API_URL}/admin/profile`, {
       headers: {
         'Authorization': `Bearer ${token}`,
       },
@@ -50,7 +52,7 @@ export const api = {
       throw new Error('Não autorizado');
     }
 
-    const response = await fetch(`${API_URL}/api/admin/profile`, {
+    const response = await fetch(`${API_URL}/admin/profile`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -68,7 +70,7 @@ export const api = {
   },
 
   async register(name, email, password) {
-    const response = await fetch(`${API_URL}/api/admin/register`, {
+    const response = await fetch(`${API_URL}/admin/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -91,7 +93,7 @@ export const api = {
       throw new Error('Não autorizado');
     }
 
-    const response = await fetch(`${API_URL}/api/presenca`, {
+    const response = await fetch(`${API_URL}/presenca`, {
       headers: {
         'Authorization': `Bearer ${token}`,
       },
@@ -111,7 +113,7 @@ export const api = {
       throw new Error('Não autorizado');
     }
 
-    const response = await fetch(`${API_URL}/api/presenca/${id}/confirmar`, {
+    const response = await fetch(`${API_URL}/presenca/${id}/confirmar`, {
       method: 'PUT',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -132,7 +134,7 @@ export const api = {
       throw new Error('Não autorizado');
     }
 
-    const response = await fetch(`${API_URL}/api/presenca/${id}`, {
+    const response = await fetch(`${API_URL}/presenca/${id}`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -153,7 +155,7 @@ export const api = {
       throw new Error('Não autorizado');
     }
 
-    const response = await fetch(`${API_URL}/api/presenca/${id}`, {
+    const response = await fetch(`${API_URL}/presenca/${id}`, {
       headers: {
         'Authorization': `Bearer ${token}`,
       },
