@@ -23,7 +23,7 @@ app.use(limiter);
 
 // Rotas
 app.use('/api/presenca', presencaRoutes);
-app.use('/api/admin', authRoutes);
+app.use('/api/auth', authRoutes);
 
 app.get('/', (req, res) => {
   res.json({ message: 'Bem-vindo à API!' });
