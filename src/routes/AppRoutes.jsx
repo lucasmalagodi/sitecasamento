@@ -4,6 +4,7 @@ import Home from "../pages/Home";
 import Recepcao from "../pages/Recepcao"; // Recepcao
 import { Presenca } from "../pages/Presenca";
 import Lista from "../pages/Lista";
+import Casal from "../pages/Casal";
 // import NotFound from "../pages/NotFound";
 import Layout from "../components/Layout";
 import ScrollToTop from "../components/ScrollToTop";
@@ -23,6 +24,7 @@ const AppRoutes = () => {
             <Route path="/recepcao" element={<Recepcao />} />
             <Route path="/presenca" element={<Presenca />} />
             <Route path="/lista" element={<Lista />} />
+            <Route path="/casal" element={<Casal />} />
           </Route>
         </Routes>
       </Suspense>

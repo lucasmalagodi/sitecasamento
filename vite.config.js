@@ -7,6 +7,6 @@ export default defineConfig({
   define: {
     'process.env.VITE_API_URL': JSON.stringify(process.env.NODE_ENV === 'production' 
       ? 'https://paulaelucas.site/api/presenca'
-      : 'http://localhost:3000/api/presenca')
+      : 'http://localhost:3001/api/presenca')
   }
 });

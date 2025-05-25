@@ -41,12 +41,7 @@ const MobileMenu = ({ isScrolled }) => {
       <div className="bg-[var(--white-100)] shadow-lg rounded-xl w-11/12 max-w-md flex justify-around items-center px-1 py-5">
         <MenuItem icon={<AiOutlineHome size={24} />} text="Olá" link="/" />
         <MenuItem icon={<BiDrink size={24} />} text="Recepção" link="/recepcao" />
-
-        {/* Ícone Central */}
-        {/* <Link to="/casal" className="flex items-center justify-center bg-[var(--green)] w-16 h-16 rounded-full text-white shadow-md">
-          <FaHeart size={28} />
-        </Link> */}
-
+        <MenuItem icon={<FaHeart size={24} />} text="Casal" link="/casal" />
         <MenuItem icon={<AiOutlineCalendar size={24} />} text="Presença" link="/presenca" />
         <MenuItem icon={<AiOutlineGift size={24} />} text="Lista" link="/lista" />
       </div>
@@ -69,6 +64,7 @@ const DesktopMenu = ({ isScrolled, menuRef }) => {
         <ul className="flex space-x-8">
           <MenuItem text="Olá" link="/" />
           <MenuItem text="Recepção" link="/recepcao" />
+          <MenuItem text="Casal" link="/casal" />
           <MenuItem text="Presença" link="/presenca" />
           <MenuItem text="Lista" link="/lista" />
         </ul>

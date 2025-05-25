@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import '../global.css';
 import AnimatedOnScroll from "../components/AnimatedOnScroll";
+import ModalConfirmacao from "../components/ModalConfirmacao";
 
 export function Presenca() {
   const [formData, setFormData] = useState({
@@ -12,6 +13,7 @@ export function Presenca() {
     nomesAcompanhantes: Array(5).fill(''),
     mensagem: ''
   });
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const formatarCelular = (valor) => {
     // Remove tudo que não é número
@@ -124,8 +126,8 @@ export function Presenca() {
         mensagem: ''
       });
 
-      // Mensagem de sucesso
-      alert('Confirmação registrada com sucesso! 🎉\nUm arquivo com os dados foi baixado.');
+      // Mostra o modal de confirmação
+      setIsModalOpen(true);
     } catch (error) {
       console.error('Erro ao salvar a confirmação:', error);
       alert('Ops! Algo deu errado ao salvar sua confirmação. Por favor, tente novamente.');
@@ -165,6 +167,11 @@ export function Presenca() {
 
   return (
     <div className="w-full mx-auto transition-opacity duration-500 bg-white pb-32">
+      {/* Modal de Confirmação */}
+      <ModalConfirmacao 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+      />
 
       {/* Título da seção */}
       <AnimatedOnScroll animation="fade-in" delay={0.2}>
