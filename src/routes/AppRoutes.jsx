@@ -5,10 +5,15 @@ import Recepcao from "../pages/Recepcao"; // Recepcao
 import { Presenca } from "../pages/Presenca";
 import Lista from "../pages/Lista";
 import Casal from "../pages/Casal";
+import AdminLogin from "../pages/AdminLogin";
+import AdminConfirmacoes from "../pages/AdminConfirmacoes";
+import AdminPerfil from '../pages/AdminPerfil';
 // import NotFound from "../pages/NotFound";
 import Layout from "../components/Layout";
+import AdminLayout from "../components/AdminLayout";
 import ScrollToTop from "../components/ScrollToTop";
 import Loading from "../components/Loading";
+import ProtectedRoute from "../components/ProtectedRoute";
 
 const AppRoutes = () => {
   return (
@@ -26,6 +31,22 @@ const AppRoutes = () => {
             <Route path="/lista" element={<Lista />} />
             <Route path="/casal" element={<Casal />} />
           </Route>
+
+          {/* Rotas administrativas */}
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route
+            path="/admin/*"
+            element={
+              <ProtectedRoute>
+                <AdminLayout>
+                  <Routes>
+                    <Route path="confirmacoes" element={<AdminConfirmacoes />} />
+                    <Route path="profile" element={<AdminPerfil />} />
+                  </Routes>
+                </AdminLayout>
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </Suspense>
     </Router>

@@ -59,4 +59,42 @@ exports.buscarPresenca = async (req, res) => {
       error: error.message
     });
   }
+};
+
+// Atualizar confirmação
+exports.atualizarConfirmacao = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const presenca = await Presenca.findByPk(id);
+    
+    if (!presenca) {
+      return res.status(404).json({ success: false, message: 'Confirmação não encontrada' });
+    }
+
+    presenca.confirmacao = presenca.confirmacao === 1 ? 0 : 1;
+    await presenca.save();
+
+    res.json({ success: true, data: presenca });
+  } catch (error) {
+    console.error('Erro ao atualizar confirmação:', error);
+    res.status(500).json({ success: false, message: 'Erro ao atualizar confirmação', error: error.message });
+  }
+};
+
+// Excluir confirmação
+exports.excluirPresenca = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const presenca = await Presenca.findByPk(id);
+    
+    if (!presenca) {
+      return res.status(404).json({ success: false, message: 'Confirmação não encontrada' });
+    }
+
+    await presenca.destroy();
+    res.json({ success: true, message: 'Confirmação excluída com sucesso' });
+  } catch (error) {
+    console.error('Erro ao excluir confirmação:', error);
+    res.status(500).json({ success: false, message: 'Erro ao excluir confirmação', error: error.message });
+  }
 }; 
