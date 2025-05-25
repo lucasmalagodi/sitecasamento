@@ -44,8 +44,7 @@ const MobileMenu = ({ isScrolled }) => {
         <MenuItem icon={<FaHeart size={24} />} text="Casal" link="/casal" />
         <MenuItem icon={<AiOutlineCalendar size={24} />} text="Presença" link="/presenca" />
         <MenuItem icon={<AiOutlineGift size={24} />} text="Lista" link="/lista" />
-      </div>
-    </div>
+      </div>    </div>
   );
 };
 
