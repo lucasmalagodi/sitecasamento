@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { Suspense } from "react";
 import Home from "../pages/Home";
 import Recepcao from "../pages/Recepcao"; // Recepcao
@@ -41,6 +41,7 @@ const AppRoutes = () => {
               <ProtectedRoute>
                 <AdminLayout>
                   <Routes>
+                    <Route path="/" element={<Navigate to="/admin/confirmacoes" replace />} />
                     <Route path="confirmacoes" element={<AdminConfirmacoes />} />
                     <Route path="profile" element={<AdminPerfil />} />
                     <Route path="usuarios" element={<AdminUsuarios />} />

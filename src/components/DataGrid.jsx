@@ -68,38 +68,51 @@ const DataGrid = ({
                 {columns.map((column) => (
                   <th
                     key={column.field}
-                    className="px-6 py-3 text-left text-xs font-medium text-rose-200 uppercase tracking-wider cursor-pointer hover:bg-gray-800"
+                    className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-rose-200 uppercase tracking-wider cursor-pointer hover:bg-gray-800 whitespace-nowrap"
                     onClick={() => handleOrdenacao(column.field)}
                   >
-                    {column.headerName} {ordenacao.coluna === column.field && (ordenacao.direcao === 'asc' ? '↑' : '↓')}
+                    <div className="flex items-center space-x-1">
+                      <span>{column.headerName}</span>
+                      {ordenacao.coluna === column.field && (
+                        <span className="text-rose-400">
+                          {ordenacao.direcao === 'asc' ? '↑' : '↓'}
+                        </span>
+                      )}
+                    </div>
                   </th>
                 ))}
-                {actions && <th className="px-6 py-3 text-left text-xs font-medium text-rose-200 uppercase tracking-wider">Ações</th>}
+                {actions && (
+                  <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-rose-200 uppercase tracking-wider whitespace-nowrap">
+                    Ações
+                  </th>
+                )}
               </tr>
             </thead>
             <tbody className="bg-gray-800 divide-y divide-gray-700">
               {dadosFiltradosEOrdenados.map((row, index) => {
                 return (
-                  <tr key={row.id || index}>
+                  <tr key={row.id || index} className="hover:bg-gray-700 transition-colors duration-150">
                     {columns.map((column) => {
                       return (
-                        <td key={column.field} className="px-6 py-4 whitespace-nowrap">
-                          {column.renderCell ? (
-                            column.renderCell(row)
-                          ) : (
-                            <div className="text-sm text-gray-300">{row[column.field]}</div>
-                          )}
+                        <td key={column.field} className="px-4 sm:px-6 py-4">
+                          <div className="text-sm text-gray-300">
+                            {column.renderCell ? (
+                              column.renderCell(row)
+                            ) : (
+                              <div className="break-words">{row[column.field]}</div>
+                            )}
+                          </div>
                         </td>
                       );
                     })}
                     {actions && (
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                        <div className="flex space-x-2">
+                      <td className="px-4 sm:px-6 py-4">
+                        <div className="flex flex-wrap gap-2">
                           {actions.map((action) => (
                             <button
                               key={action.type}
                               onClick={() => onAction(action.type, row)}
-                              className={typeof action.className === 'function' ? action.className(row) : action.className}
+                              className={`${typeof action.className === 'function' ? action.className(row) : action.className} transform hover:scale-110 transition-transform duration-150`}
                               title={action.title}
                             >
                               {action.icon}

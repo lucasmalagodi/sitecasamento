@@ -143,20 +143,22 @@ const AdminConfirmacoes = () => {
         </div>
       )}
 
-      <DataGrid
-        columns={columns}
-        data={confirmacoes}
-        onAction={handleAction}
-        actions={actions}
-        defaultSort={{ column: 'dataConfirmacao', direction: 'desc' }}
-        filterField="nome"
-        filterPlaceholder="Filtrar por nome..."
-      />
+      <div className="overflow-x-auto">
+        <DataGrid
+          columns={columns}
+          data={confirmacoes}
+          onAction={handleAction}
+          actions={actions}
+          defaultSort={{ column: 'dataConfirmacao', direction: 'desc' }}
+          filterField="nome"
+          filterPlaceholder="Filtrar por nome..."
+        />
+      </div>
 
       {/* Modal de Detalhes */}
       {selectedConfirmacao && (
         <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 z-50">
-          <div className="bg-gray-900 rounded-lg p-6 max-w-lg w-full border border-rose-900 shadow-lg">
+          <div className="bg-gray-900 rounded-lg p-4 sm:p-6 max-w-lg w-full border border-rose-900 shadow-lg max-h-[90vh] overflow-y-auto">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-xl font-bold text-rose-300">Detalhes da Confirmação</h2>
               <button
@@ -169,15 +171,15 @@ const AdminConfirmacoes = () => {
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-rose-200">Nome</label>
-                <p className="mt-1 text-gray-100">{selectedConfirmacao.nome}</p>
+                <p className="mt-1 text-gray-100 break-words">{selectedConfirmacao.nome}</p>
               </div>
               <div>
                 <label className="block text-sm font-medium text-rose-200">Email</label>
-                <p className="mt-1 text-gray-100">{selectedConfirmacao.email}</p>
+                <p className="mt-1 text-gray-100 break-words">{selectedConfirmacao.email}</p>
               </div>
               <div>
                 <label className="block text-sm font-medium text-rose-200">Celular</label>
-                <p className="mt-1 text-gray-100">{selectedConfirmacao.celular}</p>
+                <p className="mt-1 text-gray-100 break-words">{selectedConfirmacao.celular}</p>
               </div>
               <div>
                 <label className="block text-sm font-medium text-rose-200">Data de Confirmação</label>
@@ -205,7 +207,7 @@ const AdminConfirmacoes = () => {
                     {selectedConfirmacao.nomesAcompanhantes.length > 0 && (
                       <ul className="mt-2 list-disc list-inside">
                         {selectedConfirmacao.nomesAcompanhantes.map((nome, index) => (
-                          <li key={index} className="text-sm text-gray-300">{nome}</li>
+                          <li key={index} className="text-sm text-gray-300 break-words">{nome}</li>
                         ))}
                       </ul>
                     )}
@@ -215,7 +217,7 @@ const AdminConfirmacoes = () => {
               {selectedConfirmacao.mensagem && (
                 <div>
                   <label className="block text-sm font-medium text-rose-200">Mensagem</label>
-                  <p className="mt-1 text-sm text-gray-300">{selectedConfirmacao.mensagem}</p>
+                  <p className="mt-1 text-sm text-gray-300 break-words">{selectedConfirmacao.mensagem}</p>
                 </div>
               )}
             </div>
@@ -226,7 +228,7 @@ const AdminConfirmacoes = () => {
       {/* Modal de Confirmação de Exclusão */}
       {confirmacaoParaExcluir && (
         <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 z-50">
-          <div className="bg-gray-900 rounded-lg p-6 max-w-md w-full border border-rose-900 shadow-lg">
+          <div className="bg-gray-900 rounded-lg p-4 sm:p-6 max-w-md w-full border border-rose-900 shadow-lg">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-xl font-bold text-rose-300">Confirmar Exclusão</h2>
               <button
@@ -236,20 +238,20 @@ const AdminConfirmacoes = () => {
                 ✕
               </button>
             </div>
-            <p className="text-gray-300 mb-6">
+            <p className="text-gray-300 mb-6 break-words">
               Tem certeza que deseja excluir a confirmação de <strong className="text-rose-300">{confirmacaoParaExcluir.nome}</strong>?
               Esta ação não pode ser desfeita.
             </p>
-            <div className="flex justify-end space-x-4">
+            <div className="flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-4">
               <button
                 onClick={() => setConfirmacaoParaExcluir(null)}
-                className="px-4 py-2 bg-gray-700 text-gray-300 rounded-md hover:bg-gray-600 transition-colors duration-150 cursor-pointer"
+                className="w-full sm:w-auto px-4 py-2 bg-gray-700 text-gray-300 rounded-md hover:bg-gray-600 transition-colors duration-150 cursor-pointer"
               >
                 Cancelar
               </button>
               <button
                 onClick={() => handleExcluirConfirmacao(confirmacaoParaExcluir.id)}
-                className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors duration-150 cursor-pointer"
+                className="w-full sm:w-auto px-4 py-2 bg-rose-600 text-white rounded-md hover:bg-rose-700 transition-colors duration-150 cursor-pointer"
               >
                 Excluir
               </button>

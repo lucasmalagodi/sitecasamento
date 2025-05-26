@@ -174,9 +174,8 @@ export const api = {
       throw new Error(await response.json().then(data => data.error) || 'Erro ao buscar usuários administradores');
     }
 
-    // Verificando se data.data existe, se não, retorna o próprio data
-    const result = (await response.json()).data || await response.json();
-    return result;
+    const data = await response.json();
+    return data.data || data;
   },
 
   async updateAdminStatus(id, active) {
