@@ -82,7 +82,7 @@ const Home = () => {
               Olá!
             </h2>
             <div className="space-y-4 text-lg font-[var(--font-chillax-Extralight)] text-gray-500">
-              <p>Seja bem-vindo à Plataforma 9¾ oficial do casamento de Paula e Lucas! 🏰✨</p>
+              <p>Que bom ter você aqui na Plataforma 9¾ oficial do casamento de Paula e Lucas! 🏰✨</p>
               <p>Como você já deve imaginar, esse não é um portal de casamento muito tradicional... e é exatamente assim que a gente gosta. 😏</p>
               <p>Quem se aventurar a atravessar essa parede (seja correndo 🏃‍♂️ ou andando 🚶‍♀️) certamente está movido por dois grandes sentimentos: amor e curiosidade. 💖 Amor pelo casal e curiosidade para saber como essa dupla nerd decidiu juntar os controles de videogame 🎮 e chegou até este momento épico de suas vidas.</p>
               <p>Mas antes de mergulhar nesse mundo mágico, conheça um pouco dos protagonistas dessa história que estarão em missão juntos até depois do final de One Piece 🏴‍☠️ e da Ordem Jedi cair… de novo. 🌌⚔️</p>
@@ -161,7 +161,7 @@ const Home = () => {
                     Lucas através do scanner Saiyajin de Paula 🔍🦸‍♂️
                   </h2>
                   <div className="space-y-5 text-base md:text-lg font-[var(--font-chillax-Extralight)] text-with-shadow leading-relaxed text-gray-500">
-                    <p>Se o poder de luta de Lucas fosse medido por um scouter Saiyajin, ele provavelmente explodiria o aparelho de tão multifuncional que é (ou talvez de tão atrapalhado 🤭). <span className="italic">Analítico como um detetive de anime, dedicado como um Cavaleiro de Bronze e teimoso como um hobbit em missão</span>, Lucas é aquele tipo de pessoa que não desiste de um desafio – seja vencer uma boss fight complicada ou descobrir qual é o melhor café para o dia. ☕</p>
+                    <p>Se o poder de luta de Lucas fosse medido por um scouter Saiyajin, ele provavelmente explodiria o aparelho de tão multifuncional que é (ou talvez de tão atrapalhado 🤭). <span className="italic">Analítico como um detetive de anime, dedicado como um Cavaleiro de Bronze e teimoso como um hobbit em missão</span>, Lucas é aquele tipo de pessoa que não desiste de um desafio – seja vencer uma boss fight complicada ou descobrir qual será o prato da próxima refeição do dia.</p>
                     <p>Lucas é o tipo de Player 1 que, quando coloca um objetivo na cabeça, segue até o fim, nem que precise grindar XP por horas a fio. Fiel ao seu código de honra Jedi, sempre tenta resolver tudo da forma mais justa (mesmo quando seria mais fácil usar um feitiço estilo Avada Kedavra nos problemas do dia a dia). Entre suas habilidades principais estão:</p>
                     <ul className="list-none space-y-3 pl-4 mt-4">
                       <li className="flex items-start">

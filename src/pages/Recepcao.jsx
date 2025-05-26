@@ -56,10 +56,10 @@ const referenciasTrajes = [
   {
     img: getImage("trajes", "peaky-blinders.png"),
     alt: "Peaky Blinders",
-    texto: "Peaky Blinders? Suspensórios, coletes e boinas para os senhores, vestidos vintage para as damas. 🏴‍☠️🍷"
+    texto: "Peaky Blinders? Suspensórios, coletes e boinas para os senhores, vestidos vintage para as damas. 🍷"
   },
   {
-    img: getImage("ruptura.png"),
+    img: getImage("trajes", "ruptura.png"),
     alt: "Ruptura",
     texto: "Se Ruptura te chama mais a atenção, traga um ar misterioso e corporativo com um look formal minimalista e monocromático. 🏢💼"
   }
@@ -77,20 +77,20 @@ const Recepcao = () => {
       >
         {/* Título da seção */}
         <AnimatedOnScroll animation="fade-in" delay={0.2}>
-          <div className="max-w-5xl mx-auto pt-12 pb-6 px-6 text-black text-center content-section">
+          <div className="max-w-5xl mx-auto pt-12  px-6 text-black text-center content-section">
             <h2 className="text-3xl font-bold font-[var(--font-bitter-rose)] text-[var(--green)] mb-4 shine">
               A cerimônia e a recepção: Restaurante Fogão Mineiro
             </h2>
             <div className="space-y-4 text-lg font-[var(--font-chillax-Extralight)] text-with-shadow text-gray-500">
               <p>Agora que você já sabe tudo sobre os protagonistas, vamos falar sobre o palco dessa grande celebração! E não, não será em um castelo medieval ou numa taverna de RPG (embora a gente adorasse essa ideia), mas sim em um restaurante icônico em Sousas. Inaugurado em 2004, o espaço é uma verdadeira joia da culinária brasileira, oferecendo pratos que fariam até um Hobbit pedir repeteco! 🍛</p>
             </div>
-            <div className="section-divider"></div>
+            {/* <div className="section-divider"></div> */}
           </div>
         </AnimatedOnScroll>
 
         {/* Detalhes do evento */}
         <AnimatedOnScroll animation="slide-in-right" delay={0.5}>
-          <div className="max-w-5xl mx-auto py-8 px-6 content-section mt-10">
+          <div className="max-w-5xl mx-auto py-8 px-6 content-section mt-6">
             <div className="mb-12 text-center">
               <h2 className="text-2xl font-bold font-[var(--font-bitter-rose)] text-[var(--purple)] mb-6 character-title text-center">
                 O Casamento 💍
@@ -123,7 +123,7 @@ const Recepcao = () => {
                       </li>
                       <li className="flex items-start">
                         <span className="text-[var(--purple)] mr-2 text-xl">🍲</span> 
-                        <span>Escondidinhos e pratos executivos para agradar todos os paladares</span>
+                        <span>Escondidinho, camarão e mandioca frita para agradar todos os paladares</span>
                       </li>
                       <li className="flex items-start">
                         <span className="text-[var(--purple)] mr-2 text-xl">🐟</span> 
@@ -175,7 +175,7 @@ const Recepcao = () => {
                   <p>Espaço reservado do restaurante</p>
                 </div>
               </div>
-              <p className="mt-6 font-semibold text-xl text-[var(--green-100)]">E aqui vai um alerta importante: não seja o vacilão que se atrasa! ⏳ A única pessoa que tem direito a chegar depois da hora marcada é a noiva – e acredite, ela vai usar esse direito! 😆</p>
+              <p className="mt-6 font-semibold text-xl text-[var(--green-100)]">E aqui vai um alerta importante: não seja o vacilão que se atrasa! ⏳ <br /> A única pessoa que tem direito a chegar depois da hora marcada é a noiva – e acredite, ela vai usar esse direito! 😆</p>
               <div className="mt-6 bg-white p-4 rounded-lg shadow-md inline-block mx-2">
                 <h3 className="text-xl font-bold text-[var(--purple)] mb-2">Endereço:</h3>
                 <p>R. Cel Alfredo Augusto do Nascimento, 1052 - Sousas, Campinas - SP, 13106-001</p>
@@ -213,7 +213,7 @@ const Recepcao = () => {
               </div>
               
               <div className="bg-[var(--white-200)] p-6 rounded-lg mt-4 border-l-4 border-[var(--purple)]">
-                <h3 className="text-xl font-bold text-[var(--red-300)] mb-4">⚪ Regra de ouro:</h3>
+                <h3 className="text-xl font-bold text-[var(--green)] mb-4">🟡 Regra de ouro:</h3>
                 <p>Apenas a noiva usa branco! Então, qualquer outra cor está liberada.</p>
               </div>
               
@@ -251,7 +251,7 @@ const Recepcao = () => {
                 </div>
               </div>
               
-              <p className="text-center mt-8 text-[var(--purple)] font-semibold">Então solte sua criatividade e venha vestido para celebrar, mas sem sofrer como uma heroína de algum romance de Jane Austen! 🎉</p>
+              <p className="text-center mt-8 text-[var(--purple)] font-semibold">Solte sua criatividade e venha vestido para celebrar, mas sem sofrer como uma heroína de algum romance de Jane Austen! 🎉</p>
             </div>
           </div>
         </AnimatedOnScroll>
@@ -260,7 +260,7 @@ const Recepcao = () => {
         <AnimatedOnScroll animation="fade-in" delay={1.1}>
           <div className="max-w-5xl mx-auto py-10 px-6 text-center">
             <div className="space-y-4 text-lg font-[var(--font-chillax-Extralight)] text-with-shadow text-gray-500 max-w-3xl mx-auto">
-              <p>Então preparem-se para celebrar com comida farta, drinks para todos os gostos e, claro, muito amor!</p>
+              <p>Então preparem-se para celebrar com comida farta, drinks para todos os gostos e, claro, muito amor! 💖</p>
               <p className="italic mt-8 text-[var(--green)] font-semibold bounce">Nos vemos no grande dia!</p>
             </div>
           </div>
