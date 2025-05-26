@@ -3,56 +3,58 @@ import AnimatedOnScroll from "../components/AnimatedOnScroll";
 
 // Importa todas as imagens da pasta trajes
 const images = import.meta.glob('../assets/trajes/*.{png,jpg,jpeg,webp}', { eager: true });
+// Importa a imagem do Fogão Mineiro
+import fogaomineiroImg from '../assets/recepcao/fogaomineiro.png';
 
 // Função para obter a imagem pelo nome
-const getImage = (imageName) => {
-  const imagePath = `../assets/trajes/${imageName}`;
+const getImage = (path, imageName) => {
+  const imagePath = `../assets/${path}/${imageName}`;
   return images[imagePath]?.default || null;
 };
 
 const referenciasTrajes = [
   {
-    img: getImage("hobbit.png"),
+    img: getImage("trajes", "hobbit.png"),
     alt: "Hobbit",
     texto: "Algo no estilo Hobbit que vai para a festa de aniversário de Bilbo Bolseiro? Um look confortável e rústico, mas elegante! 🍂"
   },
   {
-    img: getImage("lannister.png"),
+    img: getImage("trajes", "lannister.png"),
     alt: "Lannister",
     texto: "Um Lannister sempre paga suas dívidas... e veste ouro e vermelho. 🦁🔥"
   },
   {
-    img: getImage("matrix.png"),
+    img: getImage("trajes", "matrix.png"),
     alt: "Matrix",
     texto: "Inspiração Matrix? Um look monocromático e estiloso, com óculos de sol pode funcionar. 🕶️"
   },
   {
-    img: getImage("tony-stark.png"),
+    img: getImage("trajes", "tony-stark.png"),
     alt: "Tony Stark",
     texto: "Casual geek no estilo Tony Stark: um blazer descolado, porque classe e conforto andam juntos! 🕶️"
   },
   {
-    img: getImage("naruto.png"),
+    img: getImage("trajes", "naruto.png"),
     alt: "Naruto",
     texto: "Naruto vibes? Um laranja discreto pode ser a escolha ousada do dia. 🍜"
   },
   {
-    img: getImage("jogos-vorazes.png"),
+    img: getImage("trajes", "jogos-vorazes.png"),
     alt: "Jogos Vorazes",
     texto: "Se quiser chegar no espírito Jogos Vorazes, uma roupa revolucionária com penteado estonteante nunca decepciona. 🔥🏹"
   },
   {
-    img: getImage("the-office.png"),
+    img: getImage("trajes", "the-office.png"),
     alt: "The Office",
     texto: "The Office style? Um terno ou vestido social despretensioso e confortável! 📄"
   },
   {
-    img: getImage("stranger-things.png"),
+    img: getImage("trajes", "stranger-things.png"),
     alt: "Stranger Things",
     texto: "Stranger Things? Um visual retrô anos 80 com jaquetas coloridas ou camisas estampadas cairia bem. 🚲⚡"
   },
   {
-    img: getImage("peaky-blinders.png"),
+    img: getImage("trajes", "peaky-blinders.png"),
     alt: "Peaky Blinders",
     texto: "Peaky Blinders? Suspensórios, coletes e boinas para os senhores, vestidos vintage para as damas. 🏴‍☠️🍷"
   },
@@ -88,7 +90,7 @@ const Recepcao = () => {
 
         {/* Detalhes do evento */}
         <AnimatedOnScroll animation="slide-in-right" delay={0.5}>
-          <div className="max-w-5xl mx-auto py-8 px-6 content-section mt-30">
+          <div className="max-w-5xl mx-auto py-8 px-6 content-section mt-10">
             <div className="mb-12 text-center">
               <h2 className="text-2xl font-bold font-[var(--font-bitter-rose)] text-[var(--purple)] mb-6 character-title text-center">
                 O Casamento 💍
@@ -97,11 +99,15 @@ const Recepcao = () => {
             <div className="flex flex-col items-center gap-8">
               {/* Imagem agora fica em cima */}
               <div className="w-full flex justify-center">
-                <div className="w-full max-w-3xl h-64 md:h-80 rounded-lg overflow-hidden shadow-xl" style={{ backgroundImage: "url('/assets/recepcao/comida-mineira.jpg')", backgroundSize: "cover", backgroundPosition: "center" }}>
-                  {/* Imagem da comida */}
-                  <div className="w-full h-full flex items-center justify-center bg-[var(--purple-100)] bg-opacity-30">
+                <div className="w-full max-w-3xl h-64 md:h-80 rounded-lg overflow-hidden shadow-xl relative">
+                  <img 
+                    src={fogaomineiroImg} 
+                    alt="Fogão Mineiro" 
+                    className="w-full h-full object-cover"
+                  />
+                  {/* <div className="absolute inset-0 flex items-center justify-center bg-[var(--purple-100)] bg-opacity-30">
                     <span className="font-bold text-white text-xl">Comida Mineira</span>
-                  </div>
+                  </div> */}
                 </div>
               </div>
               
@@ -138,7 +144,7 @@ const Recepcao = () => {
 
         {/* Data, Horário e Local */}
         <AnimatedOnScroll animation="fade-in" delay={0.7}>
-          <div className="max-w-5xl mx-auto py-8 px-6 p-[30px] bg-[var(--white-100)] rounded-lg shadow-inner mx-8 mt-30">
+          <div className="max-w-5xl mx-auto py-8 px-6 p-[30px] bg-[var(--white-100)] rounded-lg shadow-inner mx-8 mt-10">
             <div className="mb-12 text-center">
               <h2 className="text-2xl font-bold font-[var(--font-bitter-rose)] text-[var(--purple)] mb-6 character-title text-center">
                 O grande dia e horário ⏳
@@ -192,7 +198,7 @@ const Recepcao = () => {
 
         {/* Traje */}
         <AnimatedOnScroll animation="slide-in-left" delay={0.7}>
-          <div className="max-w-5xl mx-auto py-10 px-6 content-section mt-30">
+          <div className="max-w-5xl mx-auto py-10 px-6 content-section mt-10">
             <div className="mb-12 text-center">
               <h2 className="text-2xl font-bold font-[var(--font-bitter-rose)] text-[var(--purple)] mb-6 character-title text-center">
                 Traje 👔👗
