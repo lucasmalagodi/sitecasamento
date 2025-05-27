@@ -4,7 +4,7 @@ const API_URL = import.meta.env.PROD
 
 export const api = {
   async login(email, password) {
-    const response = await fetch(`${API_URL}/admin/login`, {
+    const response = await fetch(`${API_URL}/momozilla/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -25,7 +25,7 @@ export const api = {
       throw new Error('Não autorizado');
     }
 
-    const response = await fetch(`${API_URL}/admin/profile`, {
+    const response = await fetch(`${API_URL}/momozilla/profile`, {
       headers: {
         'Authorization': `Bearer ${token}`,
       },
@@ -44,7 +44,7 @@ export const api = {
       throw new Error('Não autorizado');
     }
 
-    const response = await fetch(`${API_URL}/admin/profile`, {
+    const response = await fetch(`${API_URL}/momozilla/profile`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -61,7 +61,7 @@ export const api = {
   },
 
   async register(name, email, password) {
-    const response = await fetch(`${API_URL}/admin/register`, {
+    const response = await fetch(`${API_URL}/momozilla/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -164,7 +164,7 @@ export const api = {
       throw new Error('Não autorizado');
     }
 
-    const response = await fetch(`${API_URL}/admin/admins`, {
+    const response = await fetch(`${API_URL}/momozilla/admins`, {
       headers: {
         'Authorization': `Bearer ${token}`,
       },
@@ -183,7 +183,7 @@ export const api = {
     if (!token) {
       throw new Error('Não autorizado');
     }
-    const response = await fetch(`${API_URL}/admin/admins/${id}/status`, {
+    const response = await fetch(`${API_URL}/momozilla/admins/${id}/status`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -202,7 +202,7 @@ export const api = {
     if (!token) {
       throw new Error('Não autorizado');
     }
-    const response = await fetch(`${API_URL}/admin/admins/${id}`, {
+    const response = await fetch(`${API_URL}/momozilla/admins/${id}`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -222,5 +222,5 @@ export const isAuthenticated = () => {
 export const logout = () => {
   localStorage.removeItem('adminToken');
   localStorage.removeItem('adminName');
-  window.location.href = '/admin/login';
+  window.location.href = '/momozilla/login';
 }; 

@@ -30,29 +30,29 @@ const AdminLayout = ({ children }) => {
   const menuItems = [
     {
       name: 'Confirmações',
-      path: '/admin/confirmacoes',
+      path: '/momozilla/confirmacoes',
       icon: <ClipboardDocumentListIcon className="h-5 w-5" />
     },
     {
       name: 'Presentes',
-      path: '/admin/presentes',
+      path: '/momozilla/presentes',
       icon: <GiftIcon className="h-5 w-5" />
     },
     {
       name: 'Usuários',
-      path: '/admin/usuarios',
+      path: '/momozilla/usuarios',
       icon: <UserGroupIcon className="h-5 w-5" />
     },
     {
       name: 'Meu Perfil',
-      path: '/admin/profile',
+      path: '/momozilla/profile',
       icon: <UserCircleIcon className="h-5 w-5" />
     }
   ];
 
   const handleLogout = () => {
     logout();
-    navigate('/admin/login');
+    navigate('/momozilla/login');
   };
 
   return (

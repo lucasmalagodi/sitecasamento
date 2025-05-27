@@ -35,14 +35,14 @@ const AppRoutes = () => {
           </Route>
 
           {/* Rotas administrativas */}
-          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/momozilla/login" element={<AdminLogin />} />
           <Route
-            path="/admin/*"
+            path="/momozilla/*"
             element={
               <ProtectedRoute>
                 <AdminLayout>
                   <Routes>
-                    <Route path="/" element={<Navigate to="/admin/confirmacoes" replace />} />
+                    <Route path="/" element={<Navigate to="/momozilla/confirmacoes" replace />} />
                     <Route path="confirmacoes" element={<AdminConfirmacoes />} />
                     <Route path="profile" element={<AdminPerfil />} />
                     <Route path="usuarios" element={<AdminUsuarios />} />

@@ -19,7 +19,7 @@ const AdminLogin = () => {
       const data = await api.login(email, password);
       localStorage.setItem('adminToken', data.token);
       localStorage.setItem('adminName', data.admin.name);
-      navigate('/admin/confirmacoes');
+      navigate('/momozilla/confirmacoes');
     } catch (err) {
       setError(err.message || 'Erro ao fazer login');
     } finally {

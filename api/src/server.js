@@ -24,7 +24,7 @@ app.use(limiter);
 
 // Rotas
 app.use('/api/presenca', presencaRoutes);
-app.use('/api/admin', authRoutes);
+app.use('/api/momozilla', authRoutes);
 app.use('/api/gifts', giftRoutes);
 
 app.get('/', (req, res) => {
