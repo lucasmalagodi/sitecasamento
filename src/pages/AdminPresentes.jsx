@@ -3,7 +3,9 @@ import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { EnvelopeIcon, GiftIcon, UserIcon, CalendarIcon, CurrencyDollarIcon } from '@heroicons/react/24/outline';
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
+const API_BASE_URL = import.meta.env.PROD 
+  ? 'https://paulaelucas.site/api'
+  : (import.meta.env.VITE_API_URL || 'http://localhost:3001/api');
 
 const AdminPresentes = () => {
   const [presentes, setPresentes] = useState([]);
@@ -20,7 +22,7 @@ const AdminPresentes = () => {
   const carregarPresentes = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`${API_BASE_URL}/api/gifts`);
+      const response = await fetch(`${API_BASE_URL}/gifts`);
       if (!response.ok) {
         throw new Error('Erro ao carregar presentes');
       }

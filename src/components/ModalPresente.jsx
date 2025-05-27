@@ -2,6 +2,10 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import PixQrCode from './PixQrCode';
 
+const API_BASE_URL = import.meta.env.PROD 
+  ? 'https://paulaelucas.site/api'
+  : (import.meta.env.VITE_API_URL || 'http://localhost:3001/api');
+
 const ModalPresente = ({ isOpen, onClose, presente, onSubmit }) => {
   const [valorFormatado, setValorFormatado] = useState('');
   const [mostrarQRCode, setMostrarQRCode] = useState(false);
@@ -63,7 +67,7 @@ const ModalPresente = ({ isOpen, onClose, presente, onSubmit }) => {
       };
 
       // Enviar para o backend
-      const response = await fetch('http://localhost:3001/api/gifts', {
+      const response = await fetch(`${API_BASE_URL}/gifts`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
