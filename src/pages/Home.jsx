@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Logo from "../components/Logo";
 import Title from "../components/Title";
 import Menu from "../components/Menu";
@@ -9,33 +9,54 @@ import AnimatedOnScroll from "../components/AnimatedOnScroll";
 
 const Home = () => {
   const [isScrollEnabled, setIsScrollEnabled] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false); // 🔥 Modal começa fechado
-  const [hasSeenModal, setHasSeenModal] = useState(false); // 🔥 O modal ainda não foi visto
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [hasSeenModal, setHasSeenModal] = useState(false);
   const sectionRef = useRef(null);
   const [isFlashing, setIsFlashing] = useState(false);
 
-  
+  // Verifica o localStorage quando o componente monta
+  useEffect(() => {
+    const modalSeen = localStorage.getItem('modalSeen');
+    if (modalSeen) {
+      setIsScrollEnabled(true);
+    }
+
+    // Adiciona o evento para limpar o localStorage quando o usuário fechar o site
+    const handleBeforeUnload = () => {
+      localStorage.removeItem('modalSeen');
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    // Limpa o evento quando o componente for desmontado
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, []);
+
   // 🔥 Abre o modal apenas se ainda não foi visto
   const handleMenuEnter = () => {
-    if (!hasSeenModal) {
+    const modalSeen = localStorage.getItem('modalSeen');
+    if (!modalSeen) {
       setIsModalOpen(true);
     }
   };
 
-  // 🔥 Fecha o modal, ativa o scroll e impede que ele apareça novamente
+  // 🔥 Fecha o modal, ativa o scroll e salva no localStorage
   const handleCloseModal = () => {
-    setIsFlashing(true); // Ativa o flash
+    setIsFlashing(true);
     setTimeout(() => {
-      setIsFlashing(false); // Remove o flash
+      setIsFlashing(false);
       setIsScrollEnabled(true);
       setIsModalOpen(false);
       setHasSeenModal(true);
-  
+      localStorage.setItem('modalSeen', 'true');
+
       // Rola para a Seção 1 após o flash
       setTimeout(() => {
         sectionRef.current?.scrollIntoView({ behavior: "smooth" });
       }, 100);
-    }, 400); // Tempo do efeito de flash
+    }, 400);
   };
 
   return (
