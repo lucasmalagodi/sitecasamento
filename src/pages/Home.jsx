@@ -128,12 +128,12 @@ const Home = () => {
             </AnimatedOnScroll>
             <AnimatedOnScroll animation="fade-in" delay={0.5}>
               <div className="w-full  order-1 md:order-2 flex justify-center md:justify-end mb-6 md:mb-0">
-                <div className="w-64 h-64 md:w-72 md:h-72 bg-[var(--white-100)] rounded-full border-4 border-[var(--purple)] overflow-hidden shadow-xl profile-image-hover float-animation" style={{ backgroundImage: "url('/assets/profile/paula-profile.jpg')", backgroundSize: "cover", backgroundPosition: "center" }}>
+                <div className="w-64 h-64 md:w-72 md:h-72 bg-[var(--white-100)] rounded-full border-4 border-[var(--purple)] overflow-hidden shadow-xl profile-image-hover float-animation" style={{ backgroundImage: "url('/assets/profile/paula-profile.png')", backgroundSize: "cover", backgroundPosition: "center" }}>
                   {/* Placeholder para foto da Paula */}
                   {/* Se não existir a imagem real, mostrar um placeholder */}
-                  <div className="w-full h-full flex items-center justify-center text-center bg-[var(--green-100)] bg-opacity-50">
+                  {/* <div className="w-full h-full flex items-center justify-center text-center bg-[var(--green-100)] bg-opacity-50">
                     <span className="font-bold text-white">Foto da Paula</span>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </AnimatedOnScroll>

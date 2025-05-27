@@ -10,9 +10,8 @@ const Header = () => {
   const pageTitles = {
     "/recepcao": { title: "30 Agosto 2025", subtitle: "Fogão Mineiro" },
     "/presenca": { title: "Confirme aqui", subtitle: "Sua presença é essencial!" },
-    "/lista": { title: "Lista de Presentes", subtitle: "" },
-    "/casal": { title: "Nossa História", subtitle: "Um conto de amor nerd" },
-    "/contato": { title: "Entre em Contato", subtitle: "Fale com a gente!" },
+    "/lista": { title: "Lista de Presentes", subtitle: "Itens dignos de um inventário épico" },
+    "/casal": { title: "Nossa Jornada", subtitle: "Um conto de amor nerd" },
   };
 
   // 🔥 Obtendo o título correto baseado na página atual

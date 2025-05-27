@@ -38,7 +38,7 @@ const PixQrCode = ({ valor, nome, mensagem }) => {
 
   const gerarQRCode = () => {
     try {
-      const chavePix = '39400684894';
+      const chavePix = 'cfd823bc-1152-4d84-8e85-f5f55682f9da';
       const nomeRecebedor = 'Lucas Malagodi';
       const cidade = 'SAO PAULO';
       const txid = 'CasamentoPaulaLucas';

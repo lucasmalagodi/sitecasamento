@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import AnimatedOnScroll from "../components/AnimatedOnScroll";
 import PresenteOption from "../components/PresenteOption";
 import ModalPresente from "../components/ModalPresente";
@@ -19,7 +19,7 @@ const categorias = {
     icone: "💍",
     presentes: [
       { title: "Um anel para todos governar (Gollum incluso)", image: getImage('1.png') },
-      { title: "Tour guiado por um hobbit para visitar os locais icônicos da terra média", image: getImage('2.png') },
+      { title: "Tour guiado para visitar locais icônicos da terra média", image: getImage('2.png') },
       { title: "Degustação de bebidas élficas", image: getImage('3.png') },
       { title: "Workshop de culinária hobbit (com Samwise)", image: getImage('4.png') },
       { title: "Cota de malha e machado anão", image: getImage('5.png') },
@@ -74,6 +74,17 @@ const categorias = {
       { title: "Hospedagem na academia do Luke en Ahch-To", image: getImage('42.png') }
     ]
   },
+  momo: {
+    titulo: "Momo",
+    icone: "🐶",
+    presentes: [
+      { title: "Passeio de carro com a momo", image: getImage('87.png') },
+      { title: "Sessão exclusiva de latidos com a momo", image: getImage('88.png') },
+      { title: "Passeio pela praça com a momo", image: getImage('89.png') },
+      { title: "Coach com a momo: como superar seus medos", image: getImage('90.png') },
+      { title: "Tentativa de fazer carinho na momo (mordidas podem ocorrer)", image: getImage('91.png') }
+    ]
+  },
   outros: {
     titulo: "Outros",
     icone: "🎮",
@@ -84,7 +95,7 @@ const categorias = {
       { title: "Passeio a bordo do castelo animado", image: getImage('46.png') },
       { title: "Passagem de ônibus no Catbus", image: getImage('47.png') },
       { title: "Ingresso conjunto com o Sem Face na casa de banhos", image: getImage('48.png') },
-      { title: "Lugar no banquete com os pais de Chihiro (podem ocorrer transformações)", image: getImage('49.png') },
+      { title: "Jantar com os pais de Chihiro (podem ocorrer transformações)", image: getImage('49.png') },
       { title: "Aula de crochê com Zeniba", image: getImage('50.png') },
       { title: "Alimente o Calcifer", image: getImage('51.png') },
       { title: "Viagem de barco com Luffy no Going Merry", image: getImage('52.png') },
@@ -93,7 +104,7 @@ const categorias = {
       { title: "Um pedido para Shenlong", image: getImage('55.png') },
       { title: "Tour guiado pela aldeia da folha com Naruto", image: getImage('56.png') },
       { title: "Set completo das Cartas Clow", image: getImage('57.png') },
-      { title: "Aula completa de taijutsu com Rock Lee (abertura dos oito portões não incluso)", image: getImage('58.png') },
+      { title: "Aula com Rock Lee (abertura dos oito portões não incluso)", image: getImage('58.png') },
       { title: "Uma pílula vermelha (ou azul)", image: getImage('59.png') },
       { title: "Cookies do Oráculo", image: getImage('60.png') },
       { title: "Uma ronda com o Batman", image: getImage('61.png') },
@@ -131,6 +142,21 @@ const Lista = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [presenteSelecionado, setPresenteSelecionado] = useState(null);
 
+  // Função para embaralhar array
+  const shuffleArray = (array) => {
+    const newArray = [...array];
+    for (let i = newArray.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+    }
+    return newArray;
+  };
+
+  // Usando useMemo para evitar reembaralhamento desnecessário
+  const presentesEmbaralhados = useMemo(() => {
+    return shuffleArray(categorias[categoriaAtual].presentes);
+  }, [categoriaAtual]);
+
   const handleContribuir = (presente) => {
     setPresenteSelecionado(presente);
     setModalOpen(true);
@@ -153,16 +179,16 @@ const Lista = () => {
       {/* Título da seção */}
       <AnimatedOnScroll animation="fade-in" delay={0.2}>
         <div className="max-w-5xl mx-auto pt-12 pb-6 px-6 text-black text-center content-section">
-          <h2 className="text-3xl font-bold font-[var(--font-bitter-rose)] text-[var(--green)] mb-4">
+          {/* <h2 className="text-3xl font-bold font-[var(--font-bitter-rose)] text-[var(--green)] mb-4">
             Lista de Presentes
-          </h2>
+          </h2> */}
           <div className="space-y-4 text-lg font-[var(--font-chillax-Extralight)] text-with-shadow text-gray-500">
             <p>Grandes heróis sempre receberam presentes icônicos: Luke recebeu o Sabre de Luz de Anakin 🔵⚔️, Harry herdou a Capa da Invisibilidade 🧥, Seiya ganhou a Armadura de Pégaso🛡️, Sakura ganhou o Cajado Estrela 🌟, e Link começou sua jornada com nada menos que a Espada Mestra 🗡️.</p>
-            <p className="text-lg font-bold text-[var(--green)]"> Nós, por outro lado, estamos felizes apenas com a sua presença no evento! 💖</p>
+            <p className="text-lg font-bold text-[var(--green)] animate-pulse"> Nós, por outro lado, estamos felizes apenas com a sua presença no evento! 💖</p>
             <p>Mas... se você sentir um desejo quase irresistível de nos presentear - assim como Gollum não resistia o Um Anel - não vamos recusar! 😆 </p>
             <p>Nossa lista de presentes é 100% online, via Pix, e o valor é o quanto seu coração sentir. Não há valor fixo, pois o que realmente importa é celebrarmos juntos!</p>
           </div>
-          <div className="section-divider"></div>
+          {/* <div className="section-divider"></div> */}
         </div>
       </AnimatedOnScroll>
 
@@ -194,7 +220,7 @@ const Lista = () => {
 
         {/* Grid de Presentes */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {categorias[categoriaAtual].presentes.map((presente, index) => (
+          {presentesEmbaralhados.map((presente, index) => (
             <PresenteOption
               key={index}
               title={presente.title}

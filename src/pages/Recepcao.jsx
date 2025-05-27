@@ -197,7 +197,7 @@ const Recepcao = () => {
         </AnimatedOnScroll>
 
         {/* Traje */}
-        <AnimatedOnScroll animation="slide-in-left" delay={0.7}>
+        <AnimatedOnScroll animation="slide-in-left" delay={0.5}>
           <div className="max-w-5xl mx-auto py-10 px-6 content-section mt-10">
             <div className="mb-12 text-center">
               <h2 className="text-2xl font-bold font-[var(--font-bitter-rose)] text-[var(--purple)] mb-6 character-title text-center">
@@ -260,7 +260,7 @@ const Recepcao = () => {
         <AnimatedOnScroll animation="fade-in" delay={1.1}>
           <div className="max-w-5xl mx-auto py-10 px-6 text-center">
             <div className="space-y-4 text-lg font-[var(--font-chillax-Extralight)] text-with-shadow text-gray-500 max-w-3xl mx-auto">
-              <p>Então preparem-se para celebrar com comida farta, drinks para todos os gostos e, claro, muito amor! 💖</p>
+              <p>Então preparem-se para essa comemoração com comida farta, drinks para todos os gostos e, claro, muito amor! 💖</p>
               <p className="italic mt-8 text-[var(--green)] font-semibold bounce">Nos vemos no grande dia!</p>
             </div>
           </div>

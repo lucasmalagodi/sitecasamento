@@ -102,7 +102,7 @@ const ModalPresente = ({ isOpen, onClose, presente, onSubmit }) => {
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label htmlFor="nome" className="block text-sm font-medium text-gray-700 mb-1">
-                  Seu Nome
+                  Seu nome
                 </label>
                 <input
                   type="text"

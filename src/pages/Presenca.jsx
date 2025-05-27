@@ -143,11 +143,14 @@ export function Presenca() {
         [name]: formatarCelular(value)
       }));
     } else if (name === 'acompanhantes') {
+      const valor = Math.min(Math.max(0, parseInt(value) || 0), 5);
       setFormData(prev => ({
         ...prev,
-        [name]: value,
-        // Limpa os nomes dos acompanhantes quando a quantidade muda
-        nomesAcompanhantes: Array(5).fill('')
+        [name]: valor.toString(),
+        // Limpa os nomes apenas se a quantidade for reduzida
+        nomesAcompanhantes: valor < parseInt(prev.acompanhantes) 
+          ? [...prev.nomesAcompanhantes.slice(0, valor), ...Array(5 - valor).fill('')]
+          : prev.nomesAcompanhantes
       }));
     } else if (name.startsWith('acompanhante-')) {
       const index = parseInt(name.split('-')[1]);
@@ -181,9 +184,9 @@ export function Presenca() {
           </h2>
           <div className="space-y-4 text-lg font-[var(--font-chillax-Extralight)] text-with-shadow text-gray-500">
             <p> Toda grande jornada exige comprometimento, e essa não é diferente. 
-            Sua missão é simples, mas crucial: confirmar presença até o dia 30 de julho!</p>
+            Sua missão é simples, mas crucial: confirmar presença <strong className="text-xl text-[var(--green)] animate-[pulse_1s_ease-in-out_infinite] hover:text-[var(--purple)]">até o dia 30 de julho!</strong></p>
           </div>
-          <div className="section-divider"></div>
+          {/* <div className="section-divider"></div> */}
         </div>
       </AnimatedOnScroll>
 
@@ -192,7 +195,7 @@ export function Presenca() {
         <div className="max-w-5xl mx-auto py-8 px-6 content-section">
           <div className="mb-12 text-center">
             <h2 className="text-2xl font-bold font-[var(--font-bitter-rose)] text-[var(--purple)] mb-6 character-title">
-              Por que sua resposta é importante?🤨
+              Por que preciso confirmar minha presença?🤨
             </h2>
           </div>
           <div className="space-y-4 text-base md:text-lg font-[var(--font-chillax-Extralight)] text-with-shadow leading-relaxed text-gray-500">
@@ -209,7 +212,7 @@ export function Presenca() {
         <div className="max-w-5xl mx-auto py-8 px-6 content-section">
           <div className="mb-12 text-center">
             <h2 className="text-2xl font-bold font-[var(--font-bitter-rose)] text-[var(--purple)] mb-6 character-title">
-              Importante! ‼️
+              Importante ‼️
             </h2>
           </div>
           <div className="space-y-4 text-base md:text-lg font-[var(--font-chillax-Extralight)] text-with-shadow leading-relaxed text-gray-500">
@@ -226,13 +229,13 @@ export function Presenca() {
         <div className="max-w-5xl mx-auto py-8 px-6 content-section">
           <div className="bg-white p-8 rounded-lg shadow-lg">
             <h2 className="text-2xl font-bold font-[var(--font-bitter-rose)] text-[var(--purple)] mb-6 text-center">
-              Confirme aqui sua presença!
+              Confirme aqui 
             </h2>
             {/* <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScoHirdQzFBA7OU-wF294gqrF9Eh8A4Uoy4Pc1ZbZ9HnIz2zg/viewform?embedded=true" width="100%" height="1500" frameborder="0" marginheight="0" marginwidth="0">Carregando…</iframe> */}
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label htmlFor="nome" className="block text-sm font-medium text-[var(--green)] mb-2">
-                  Nome do Aventureiro
+                  Nome do aventureiro
                 </label>
                 <input
                   type="text"
@@ -247,7 +250,7 @@ export function Presenca() {
 
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-[var(--green)] mb-2">
-                  Email (para receber o mapa do tesouro)
+                  E-mail (para cadastrar na corrente de bom dia)
                 </label>
                 <input
                   type="email"
@@ -308,19 +311,27 @@ export function Presenca() {
                       max="5"
                       required
                       value={formData.acompanhantes}
-                      onChange={handleChange}
+                      onChange={(e) => {
+                        const valor = Math.min(Math.max(0, parseInt(e.target.value) || 0), 5);
+                        handleChange({
+                          target: {
+                            name: 'acompanhantes',
+                            value: valor.toString()
+                          }
+                        });
+                      }}
                       className="mt-1 block w-full h-10 px-4 rounded-md border-[var(--green-100)] shadow-sm focus:border-[var(--purple)] focus:ring-[var(--purple)] text-base"
                     />
-                    <p className="mt-1 text-sm text-gray-500">Máximo de 5 companheiros por aventureiro</p>
+                    <p className="mt-1 text-sm text-gray-500">Máximo de 5 companheiros por aventureiro(a)</p>
                   </div>
 
                   {parseInt(formData.acompanhantes) > 0 && (
                     <div className="mt-6 space-y-4">
-                      <h3 className="text-lg font-medium text-[var(--purple)]">Nomes dos Companheiros de Aventura</h3>
+                      <h3 className="text-lg font-medium text-[var(--purple)]">Nomes dos companheiros(as) de aventura</h3>
                       {Array.from({ length: parseInt(formData.acompanhantes) }, (_, index) => (
                         <div key={index}>
                           <label htmlFor={`acompanhante-${index}`} className="block text-sm font-medium text-[var(--green)] mb-2">
-                            Nome do Companheiro {index + 1} 🧙‍♂️
+                            Nome do companheiro(a) {index + 1} 🧙‍♂️
                           </label>
                           <input
                             type="text"
@@ -369,7 +380,7 @@ export function Presenca() {
       <AnimatedOnScroll animation="fade-in" delay={1.1}>
         <div className="max-w-5xl mx-auto py-10 px-6 text-center">
           <div className="space-y-4 text-lg font-[var(--font-chillax-Extralight)] text-with-shadow text-gray-500 max-w-3xl mx-auto">
-            <p>Obrigado por fazer parte dessa jornada conosco!</p>
+            <p>Estamos felizes por fazer parte dessa jornada conosco!</p>
             <p className="italic mt-8 text-[var(--green)] font-semibold bounce">Que a Força esteja com você! 🦉✨</p>
           </div>
         </div>
