@@ -1,12 +1,17 @@
 import { useState, useEffect } from 'react';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
+import { EnvelopeIcon, GiftIcon, UserIcon, CalendarIcon, CurrencyDollarIcon } from '@heroicons/react/24/outline';
+
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
 
 const AdminPresentes = () => {
   const [presentes, setPresentes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [totalValor, setTotalValor] = useState(0);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedMessage, setSelectedMessage] = useState('');
 
   useEffect(() => {
     carregarPresentes();
@@ -15,7 +20,7 @@ const AdminPresentes = () => {
   const carregarPresentes = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:3001/api/gifts');
+      const response = await fetch(`${API_BASE_URL}/api/gifts`);
       if (!response.ok) {
         throw new Error('Erro ao carregar presentes');
       }
@@ -43,6 +48,16 @@ const AdminPresentes = () => {
     return format(new Date(data), "dd 'de' MMMM 'de' yyyy 'às' HH:mm", { locale: ptBR });
   };
 
+  const handleOpenModal = (message) => {
+    setSelectedMessage(message || 'Nenhuma mensagem');
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+    setSelectedMessage('');
+  };
+
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -67,17 +82,39 @@ const AdminPresentes = () => {
       {/* Cabeçalho */}
       <div className="bg-gray-800 rounded-lg shadow-lg p-6">
         <div className="flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-rose-400">
+          <h1 className="text-2xl font-bold text-rose-400 flex items-center gap-2">
+            <GiftIcon className="h-6 w-6" />
             Lista de Presentes
           </h1>
           <div className="text-right">
             <p className="text-sm text-gray-400">Total Recebido</p>
-            <p className="text-2xl font-bold text-rose-400">
+            <p className="text-2xl font-bold text-rose-400 flex items-center gap-2">
+              <CurrencyDollarIcon className="h-6 w-6" />
               {formatarValor(totalValor)}
             </p>
           </div>
         </div>
       </div>
+
+      {/* Modal */}
+      {modalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-gray-800 rounded-lg p-6 max-w-lg w-full mx-4">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-xl font-semibold text-rose-400">Mensagem</h3>
+              <button
+                onClick={handleCloseModal}
+                className="text-gray-400 hover:text-white"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <p className="text-gray-200 whitespace-pre-wrap">{selectedMessage}</p>
+          </div>
+        </div>
+      )}
 
       {/* Tabela */}
       <div className="bg-gray-800 rounded-lg shadow-lg overflow-hidden">
@@ -121,9 +158,13 @@ const AdminPresentes = () => {
                     </div>
                   </td>
                   <td className="px-6 py-4">
-                    <div className="text-sm text-gray-200 max-w-xs truncate">
-                      {presente.message || '-'}
-                    </div>
+                    <button
+                      onClick={() => handleOpenModal(presente.message)}
+                      className="text-rose-400 hover:text-rose-300 transition-colors duration-150 cursor-pointer"
+                      title="Ver mensagem"
+                    >
+                      <EnvelopeIcon className="h-5 w-5" />
+                    </button>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm text-gray-400">

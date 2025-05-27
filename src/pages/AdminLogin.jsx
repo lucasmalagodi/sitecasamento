@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { api } from '../config/api';
+import { LockClosedIcon, UserCircleIcon } from '@heroicons/react/24/outline';
 
 const AdminLogin = () => {
   const [email, setEmail] = useState('');
@@ -29,7 +30,8 @@ const AdminLogin = () => {
   return (
     <div className="min-h-screen bg-gray-900 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-rose-300">
+        <h2 className="mt-6 text-center text-3xl font-extrabold text-rose-300 flex items-center justify-center gap-2">
+          <UserCircleIcon className="h-8 w-8" />
           Área Administrativa
         </h2>
         <p className="mt-2 text-center text-sm text-gray-400">
@@ -86,8 +88,9 @@ const AdminLogin = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-rose-600 hover:bg-rose-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full flex justify-center items-center gap-2 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-rose-600 hover:bg-rose-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500 disabled:opacity-50 disabled:cursor-not-allowed"
               >
+                <LockClosedIcon className="h-5 w-5" />
                 {loading ? 'Entrando...' : 'Entrar'}
               </button>
             </div>

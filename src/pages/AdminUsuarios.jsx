@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { api } from '../config/api';
 import DataGrid from '../components/DataGrid';
+import { TrashIcon } from '@heroicons/react/24/outline';
 
 const AdminUsuarios = () => {
   const [usuarios, setUsuarios] = useState([]);
@@ -142,7 +143,7 @@ const AdminUsuarios = () => {
             title="Excluir usuário"
             onClick={() => handleDeleteUser(row)}
           >
-            <span role="img" aria-label="Excluir">🗑️</span>
+            <TrashIcon className="h-5 w-5" />
           </button>
         )
       )

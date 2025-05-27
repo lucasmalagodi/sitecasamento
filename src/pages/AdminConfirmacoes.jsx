@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { api } from '../config/api';
 import DataGrid from '../components/DataGrid';
+import { UserGroupIcon, EyeIcon, TrashIcon, LockClosedIcon, XCircleIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
 
 const AdminConfirmacoes = () => {
   const [confirmacoes, setConfirmacoes] = useState([]);
@@ -100,7 +101,7 @@ const AdminConfirmacoes = () => {
   const actions = [
     {
       type: 'toggle',
-      icon: '🔒',
+      icon: <LockClosedIcon className="h-5 w-5" />,
       title: 'Alterar status',
       className: (row) => `p-2 rounded-full transition-colors duration-150 ${
         row.confirmacao === 1
@@ -110,13 +111,13 @@ const AdminConfirmacoes = () => {
     },
     {
       type: 'view',
-      icon: '👁️',
+      icon: <EyeIcon className="h-5 w-5" />,
       title: 'Ver detalhes',
       className: 'p-2 rounded-full bg-gray-700 text-rose-300 hover:bg-rose-800 hover:text-white transition-colors duration-150 cursor-pointer'
     },
     {
       type: 'delete',
-      icon: '🗑️',
+      icon: <TrashIcon className="h-5 w-5" />,
       title: 'Excluir confirmação',
       className: 'p-2 rounded-full bg-gray-700 text-red-400 hover:bg-red-900 hover:text-white transition-colors duration-150 cursor-pointer'
     }
@@ -133,7 +134,10 @@ const AdminConfirmacoes = () => {
   return (
     <div>
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-rose-300">Confirmações</h1>
+        <h1 className="text-2xl font-bold text-rose-300 flex items-center gap-2">
+          <UserGroupIcon className="h-6 w-6" />
+          Confirmações
+        </h1>
         <p className="text-gray-300">Gerencie as confirmações de presença</p>
       </div>
 
@@ -165,7 +169,7 @@ const AdminConfirmacoes = () => {
                 onClick={() => setSelectedConfirmacao(null)}
                 className="text-gray-400 hover:text-rose-400 cursor-pointer"
               >
-                ✕
+                <XCircleIcon className="h-5 w-5" />
               </button>
             </div>
             <div className="space-y-4">
@@ -235,7 +239,7 @@ const AdminConfirmacoes = () => {
                 onClick={() => setConfirmacaoParaExcluir(null)}
                 className="text-gray-400 hover:text-rose-400 cursor-pointer"
               >
-                ✕
+                <XCircleIcon className="h-5 w-5" />
               </button>
             </div>
             <p className="text-gray-300 mb-6 break-words">

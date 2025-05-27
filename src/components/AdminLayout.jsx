@@ -1,6 +1,13 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { logout } from '../config/api';
+import { 
+  ClipboardDocumentListIcon, 
+  GiftIcon, 
+  UserGroupIcon, 
+  UserCircleIcon,
+  ArrowRightOnRectangleIcon 
+} from '@heroicons/react/24/outline';
 
 const AdminLayout = ({ children }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -24,22 +31,22 @@ const AdminLayout = ({ children }) => {
     {
       name: 'Confirmações',
       path: '/admin/confirmacoes',
-      icon: '📋'
+      icon: <ClipboardDocumentListIcon className="h-5 w-5" />
     },
     {
       name: 'Presentes',
       path: '/admin/presentes',
-      icon: '🎁'
+      icon: <GiftIcon className="h-5 w-5" />
     },
     {
       name: 'Usuários',
       path: '/admin/usuarios',
-      icon: '👥'
+      icon: <UserGroupIcon className="h-5 w-5" />
     },
     {
       name: 'Meu Perfil',
       path: '/admin/profile',
-      icon: '👤'
+      icon: <UserCircleIcon className="h-5 w-5" />
     }
   ];
 
@@ -106,7 +113,7 @@ const AdminLayout = ({ children }) => {
               onClick={handleLogout}
               className="w-full flex items-center p-2 text-rose-400 hover:bg-rose-900 hover:text-white rounded-lg transition-colors duration-150"
             >
-              <span className="mr-3">🚪</span>
+              <ArrowRightOnRectangleIcon className="h-5 w-5 mr-3" />
               Sair
             </button>
           </div>

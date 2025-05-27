@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { api } from '../config/api';
+import { UserCircleIcon, KeyIcon, CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/outline';
 
 const AdminPerfil = () => {
   const [nome, setNome] = useState('');
@@ -58,12 +59,21 @@ const AdminPerfil = () => {
 
   return (
     <div className="w-full h-full bg-gray-800 rounded-lg shadow p-8 mt-8">
-      <h1 className="text-2xl font-bold text-rose-300 mb-6">Meu Perfil</h1>
+      <h1 className="text-2xl font-bold text-rose-300 mb-6 flex items-center gap-2">
+        <UserCircleIcon className="h-6 w-6" />
+        Meu Perfil
+      </h1>
       {error && (
-        <div className="bg-rose-900 border border-rose-400 text-rose-200 px-4 py-3 rounded mb-4">{error}</div>
+        <div className="bg-rose-900 border border-rose-400 text-rose-200 px-4 py-3 rounded mb-4 flex items-center gap-2">
+          <XCircleIcon className="h-5 w-5" />
+          {error}
+        </div>
       )}
       {success && (
-        <div className="bg-emerald-900 border border-emerald-400 text-emerald-200 px-4 py-3 rounded mb-4">{success}</div>
+        <div className="bg-emerald-900 border border-emerald-400 text-emerald-200 px-4 py-3 rounded mb-4 flex items-center gap-2">
+          <CheckCircleIcon className="h-5 w-5" />
+          {success}
+        </div>
       )}
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
@@ -117,8 +127,9 @@ const AdminPerfil = () => {
         <button
           type="submit"
           disabled={loading}
-          className="w-full py-2 px-4 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-md transition-colors duration-150 disabled:opacity-50"
+          className="w-full py-2 px-4 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-md transition-colors duration-150 disabled:opacity-50 flex items-center justify-center gap-2"
         >
+          <KeyIcon className="h-5 w-5" />
           {loading ? 'Salvando...' : 'Salvar Alterações'}
         </button>
       </form>
