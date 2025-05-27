@@ -97,8 +97,8 @@ const ModalPresente = ({ isOpen, onClose, presente, onSubmit }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-[rgba(0,0,0,0.3)] flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-2xl max-w-lg w-full p-6 relative animate-fade-in shadow-2xl">
+    <div className="fixed inset-0 bg-[rgba(0,0,0,0.3)] flex items-center justify-center z-50 p-4 overflow-y-auto">
+      <div className="bg-white rounded-2xl max-w-lg w-full p-6 relative animate-fade-in shadow-2xl my-4">
         {/* Botão de fechar */}
         <button
           onClick={handleFechar}
