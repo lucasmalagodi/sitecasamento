@@ -97,8 +97,8 @@ const ModalPresente = ({ isOpen, onClose, presente, onSubmit }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-[rgba(0,0,0,0.3)] flex items-center justify-center z-50 p-4 overflow-y-auto">
-      <div className="bg-white rounded-2xl max-w-lg w-full p-6 relative animate-fade-in shadow-2xl my-4">
+    <div className="fixed inset-0 bg-[rgba(0,0,0,0.3)] flex justify-center z-50 p-4 overflow-y-auto">
+      <div className="bg-white rounded-2xl max-w-lg w-full p-6 pt-8 relative animate-fade-in shadow-2xl my-4 max-h-[90vh] overflow-y-auto">
         {/* Botão de fechar */}
         <button
           onClick={handleFechar}
@@ -218,17 +218,19 @@ const ModalPresente = ({ isOpen, onClose, presente, onSubmit }) => {
             </button>
           </div>
         ) : (
-          <div className="text-center">
+          <div className="text-center py-4">
             <h2 className="text-2xl font-[var(--font-bitter-rose)] text-[var(--green)] mb-4">
               Pagamento via PIX
             </h2>
             
             {/* Componente QR Code */}
-            <PixQrCode
-              valor={dadosFormulario.valor}
-              nome={dadosFormulario.nome}
-              mensagem={dadosFormulario.mensagem}
-            />
+            <div className="mb-6 mt-4 flex justify-center">
+              <PixQrCode
+                valor={dadosFormulario.valor}
+                nome={dadosFormulario.nome}
+                mensagem={dadosFormulario.mensagem}
+              />
+            </div>
 
             {erro && (
               <div className="text-red-500 mb-4">
