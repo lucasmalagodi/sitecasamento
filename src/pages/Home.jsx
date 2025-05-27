@@ -108,7 +108,7 @@ const Home = () => {
               <p>Quem se aventurar a atravessar essa parede (seja correndo 🏃‍♂️ ou andando 🚶‍♀️) certamente está movido por dois grandes sentimentos: amor e curiosidade. 💖 Amor pelo casal e curiosidade para saber como essa dupla nerd decidiu juntar os controles de videogame 🎮 e chegou até este momento épico de suas vidas.</p>
               <p>Mas antes de mergulhar nesse mundo mágico, conheça um pouco dos protagonistas dessa história que estarão em missão juntos até depois do final de One Piece 🏴‍☠️ e da Ordem Jedi cair… de novo. 🌌⚔️</p>
             </div>
-            <div className="section-divider"></div>
+            {/* <div className="section-divider"></div> */}
           </div>
         </AnimatedOnScroll>
 
@@ -166,12 +166,12 @@ const Home = () => {
           <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
             <AnimatedOnScroll animation="fade-in" delay={0.7}>
               <div className="w-full  flex justify-center md:justify-start mb-6 md:mb-0">
-                <div className="w-64 h-64 md:w-72 md:h-72 bg-[var(--white-100)] rounded-full border-4 border-[var(--green)] overflow-hidden shadow-xl profile-image-hover float-animation-reverse" style={{ backgroundImage: "url('/assets/profile/lucas-profile.jpg')", backgroundSize: "cover", backgroundPosition: "center" }}>
+                <div className="w-64 h-64 md:w-72 md:h-72 bg-[var(--white-100)] rounded-full border-4 border-[var(--green)] overflow-hidden shadow-xl profile-image-hover float-animation-reverse" style={{ backgroundImage: "url('/assets/profile/lucas-profile.png')", backgroundSize: "cover" }}>
                   {/* Placeholder para foto do Lucas */}
                   {/* Se não existir a imagem real, mostrar um placeholder */}
-                  <div className="w-full h-full flex items-center justify-center text-center bg-[var(--green-100)] bg-opacity-50">
+                  {/* <div className="w-full h-full flex items-center justify-center text-center bg-[var(--green-100)] bg-opacity-50">
                     <span className="font-bold text-white">Foto do Lucas</span>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </AnimatedOnScroll>

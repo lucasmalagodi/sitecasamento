@@ -82,8 +82,8 @@ const MenuItem = ({ icon, text, link }) => {
       className={`flex flex-col items-center text-[var(--green)] transition-colors duration-200 px-3 py-2 rounded-full
         ${
           isActive
-            ? "md:bg-[var(--green-100)] md:text-white" // Fundo ativo só no Desktop
-            : "md:hover:bg-[var(--green-100)] md:hover:text-white" // Hover só no Desktop
+            ? "text-[var(--purple)]" // Estilo ativo para mobile e desktop
+            : "hover:text-[var(--purple)]" // Hover para mobile e desktop
         }`}
     >
       {icon}

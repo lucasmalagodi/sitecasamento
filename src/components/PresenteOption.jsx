@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 
 const PresenteOption = ({ title, image, onClick }) => {
-  console.log('Rendering PresenteOption:', { title, image }); // Debug log
 
   return (
     <div className="bg-[var(--white-200)] p-6 rounded-lg border-l-4 border-[var(--green)] hover:shadow-lg transition-shadow flex flex-col h-[400px]">

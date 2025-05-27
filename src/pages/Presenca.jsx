@@ -171,7 +171,7 @@ export function Presenca() {
       }));
     }
   };
-  console.log(formData.confirmacao);
+
   return (
     <div className="w-full mx-auto transition-opacity duration-500 bg-white pb-32">
       {/* Modal de Confirmação */}
