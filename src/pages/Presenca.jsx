@@ -292,8 +292,8 @@ export function Presenca() {
                   onChange={handleChange}
                   className="mt-1 block w-full h-10 px-4 rounded-md border-[var(--green-100)] shadow-sm focus:border-[var(--purple)] focus:ring-[var(--purple)] text-base"
                 >
-                  <option value="sim">Sim, aceito a missão! 🦉</option>
-                  <option value="nao">Infelizmente não poderei comparecer 😢</option>
+                  <option value="1">Sim, aceito a missão! 🦉</option>
+                  <option value="0">Infelizmente não poderei comparecer 😢</option>
                 </select>
               </div>
 
