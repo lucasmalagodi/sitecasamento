@@ -8,7 +8,7 @@ export function Presenca() {
     nome: '',
     email: '',
     celular: '',
-    confirmacao: 'sim',
+    confirmacao: '1',
     acompanhantes: '0',
     nomesAcompanhantes: Array(5).fill(''),
     mensagem: ''
@@ -107,7 +107,7 @@ export function Presenca() {
               Nome: ${formData.nome}
               Email: ${formData.email}
               Celular: ${formData.celular}
-              Confirmação: ${formData.confirmacao === 'sim' ? 'Sim' : 'Não'}
+              Confirmação: ${formData.confirmacao === '1' ? 'Sim' : 'Não'}
               ${acompanhantes > 0 ? `Quantidade de Acompanhantes: ${acompanhantes}
               Nomes dos Acompanhantes: ${nomesAcompanhantes.join(', ')}` : ''}
               ${formData.mensagem ? `Mensagem: ${formData.mensagem}` : ''}
@@ -120,7 +120,7 @@ export function Presenca() {
         nome: '',
         email: '',
         celular: '',
-        confirmacao: 'sim',
+        confirmacao: '1',
         acompanhantes: '0',
         nomesAcompanhantes: Array(5).fill(''),
         mensagem: ''
@@ -297,7 +297,7 @@ export function Presenca() {
                 </select>
               </div>
 
-              {formData.confirmacao === 'sim' && (
+              {formData.confirmacao === '1' && (
                 <>
                   <div>
                     <label htmlFor="acompanhantes" className="block text-sm font-medium text-[var(--green)] mb-2">

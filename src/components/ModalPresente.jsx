@@ -7,6 +7,8 @@ const ModalPresente = ({ isOpen, onClose, presente, onSubmit }) => {
   const [mostrarQRCode, setMostrarQRCode] = useState(false);
   const [pagamentoConfirmado, setPagamentoConfirmado] = useState(false);
   const [dadosFormulario, setDadosFormulario] = useState(null);
+  const [erro, setErro] = useState(null);
+  const [mostrarAgradecimento, setMostrarAgradecimento] = useState(false);
 
   if (!isOpen) return null;
 
@@ -44,16 +46,50 @@ const ModalPresente = ({ isOpen, onClose, presente, onSubmit }) => {
     setMostrarQRCode(true);
   };
 
-  const handleConfirmarPagamento = () => {
-    setPagamentoConfirmado(true);
-    // Aqui você pode adicionar a lógica para enviar a confirmação para o backend
-    setTimeout(() => {
-      onSubmit(dadosFormulario);
-      onClose();
-      setMostrarQRCode(false);
+  const handleConfirmarPagamento = async () => {
+    try {
+      setErro(null);
+      setPagamentoConfirmado(true);
+
+      // Converter o valor formatado para número
+      const valorNumerico = parseFloat(dadosFormulario.valor.replace('.', '').replace(',', '.'));
+
+      // Preparar os dados para enviar ao backend
+      const dadosParaEnviar = {
+        guestName: dadosFormulario.nome,
+        giftName: dadosFormulario.presente,
+        value: valorNumerico,
+        message: dadosFormulario.mensagem || ''
+      };
+
+      // Enviar para o backend
+      const response = await fetch('http://localhost:3001/api/gifts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(dadosParaEnviar)
+      });
+
+      if (!response.ok) {
+        throw new Error('Erro ao salvar o presente');
+      }
+
+      // Mostrar tela de agradecimento
+      setMostrarAgradecimento(true);
+    } catch (error) {
+      setErro(error.message);
       setPagamentoConfirmado(false);
-      setDadosFormulario(null);
-    }, 2000);
+    }
+  };
+
+  const handleFechar = () => {
+    onSubmit(dadosFormulario);
+    onClose();
+    setMostrarQRCode(false);
+    setPagamentoConfirmado(false);
+    setDadosFormulario(null);
+    setMostrarAgradecimento(false);
   };
 
   return (
@@ -61,7 +97,7 @@ const ModalPresente = ({ isOpen, onClose, presente, onSubmit }) => {
       <div className="bg-white rounded-2xl max-w-lg w-full p-6 relative animate-fade-in shadow-2xl">
         {/* Botão de fechar */}
         <button
-          onClick={onClose}
+          onClick={handleFechar}
           className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -154,6 +190,29 @@ const ModalPresente = ({ isOpen, onClose, presente, onSubmit }) => {
               </button>
             </form>
           </>
+        ) : mostrarAgradecimento ? (
+          <div className="text-center py-8">
+            <div className="mb-6">
+              <img
+                src="https://i.gifer.com/NdR.gif"
+                alt="Agradecimento"
+                className="w-64 h-64 mx-auto mb-4"
+              />
+            </div>
+            <h2 className="text-2xl font-[var(--font-bitter-rose)] text-[var(--green)] mb-4">
+              Muito Obrigado!
+            </h2>
+            <p className="text-gray-600 mb-6">
+              Agradecemos imensamente pelo seu presente e carinho. 
+              Sua presença e generosidade tornam este momento ainda mais especial.
+            </p>
+            <button
+              onClick={handleFechar}
+              className="w-full bg-[var(--green)] text-white py-3 rounded-lg font-medium hover:bg-[var(--green-100)] transition-colors duration-300"
+            >
+              Fechar
+            </button>
+          </div>
         ) : (
           <div className="text-center">
             <h2 className="text-2xl font-[var(--font-bitter-rose)] text-[var(--green)] mb-4">
@@ -166,6 +225,12 @@ const ModalPresente = ({ isOpen, onClose, presente, onSubmit }) => {
               nome={dadosFormulario.nome}
               mensagem={dadosFormulario.mensagem}
             />
+
+            {erro && (
+              <div className="text-red-500 mb-4">
+                {erro}
+              </div>
+            )}
 
             {/* Botão de Confirmação */}
             <button

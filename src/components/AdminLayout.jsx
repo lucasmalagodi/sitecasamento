@@ -27,6 +27,11 @@ const AdminLayout = ({ children }) => {
       icon: '📋'
     },
     {
+      name: 'Presentes',
+      path: '/admin/presentes',
+      icon: '🎁'
+    },
+    {
       name: 'Usuários',
       path: '/admin/usuarios',
       icon: '👥'

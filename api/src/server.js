@@ -6,6 +6,7 @@ const sequelize = require('./config/database');
 
 const presencaRoutes = require('./routes/presencaRoutes');
 const authRoutes = require('./routes/authRoutes');
+const giftRoutes = require('./routes/giftRoutes');
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use(limiter);
 // Rotas
 app.use('/api/presenca', presencaRoutes);
 app.use('/api/admin', authRoutes);
+app.use('/api/gifts', giftRoutes);
 
 app.get('/', (req, res) => {
   res.json({ message: 'Bem-vindo à API!' });
