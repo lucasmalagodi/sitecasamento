@@ -14,6 +14,7 @@ export function Presenca() {
     mensagem: ''
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [confirmacaoAtual, setConfirmacaoAtual] = useState('1');
 
   const formatarCelular = (valor) => {
     // Remove tudo que não é número
@@ -115,6 +116,9 @@ export function Presenca() {
               `;
       // salvarArquivo(conteudo);
       
+      // Salva a confirmação atual antes de limpar o formulário
+      setConfirmacaoAtual(formData.confirmacao);
+      
       // Limpa o formulário após o envio
       setFormData({
         nome: '',
@@ -167,13 +171,14 @@ export function Presenca() {
       }));
     }
   };
-
+  console.log(formData.confirmacao);
   return (
     <div className="w-full mx-auto transition-opacity duration-500 bg-white pb-32">
       {/* Modal de Confirmação */}
       <ModalConfirmacao 
         isOpen={isModalOpen} 
         onClose={() => setIsModalOpen(false)} 
+        resposta={confirmacaoAtual}
       />
 
       {/* Título da seção */}
