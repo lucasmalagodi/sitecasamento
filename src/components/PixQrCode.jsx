@@ -130,7 +130,7 @@ const PixQrCode = ({ valor, nome, mensagem }) => {
             </div>
             <button
               onClick={copiarPix}
-              className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center justify-center mx-auto"
+              className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center justify-center mx-auto cursor-pointer"
             >
               {copiado ? (
                 <>

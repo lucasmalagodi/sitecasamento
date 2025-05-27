@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import PixQrCode from './PixQrCode';
+import useScrollLock from '../hooks/useScrollLock';
 
 const API_BASE_URL = import.meta.env.PROD 
   ? 'https://paulaelucas.site/api'
@@ -13,6 +14,8 @@ const ModalPresente = ({ isOpen, onClose, presente, onSubmit }) => {
   const [dadosFormulario, setDadosFormulario] = useState(null);
   const [erro, setErro] = useState(null);
   const [mostrarAgradecimento, setMostrarAgradecimento] = useState(false);
+
+  useScrollLock(isOpen);
 
   if (!isOpen) return null;
 
@@ -113,7 +116,7 @@ const ModalPresente = ({ isOpen, onClose, presente, onSubmit }) => {
           <>
             {/* Conteúdo do Modal */}
             <div className="text-center mb-6">
-              <h2 className="text-2xl font-[var(--font-bitter-rose)] text-[var(--green)] mb-2">
+              <h2 className="text-2xl font-[var(--font-bitter-rose)] text-[var(--green)] mb-2 cursor-pointer">
                 Comprar presente
               </h2>
               <p className="text-gray-600 font-[var(--font-chillax-Extralight)]">
@@ -188,7 +191,7 @@ const ModalPresente = ({ isOpen, onClose, presente, onSubmit }) => {
 
               <button
                 type="submit"
-                className="w-full bg-[var(--green)] text-white py-3 rounded-lg font-medium hover:bg-[var(--green-100)] transition-colors duration-300"
+                className="w-full bg-[var(--green)] text-white py-3 rounded-lg font-medium hover:bg-[var(--green-100)] transition-colors duration-300 cursor-pointer"
               >
                 Gerar QR Code
               </button>
@@ -212,7 +215,7 @@ const ModalPresente = ({ isOpen, onClose, presente, onSubmit }) => {
             </p>
             <button
               onClick={handleFechar}
-              className="w-full bg-[var(--green)] text-white py-3 rounded-lg font-medium hover:bg-[var(--green-100)] transition-colors duration-300"
+              className="w-full bg-[var(--green)] text-white py-3 rounded-lg font-medium hover:bg-[var(--green-100)] transition-colors duration-300 cursor-pointer"
             >
               Fechar
             </button>
@@ -242,7 +245,7 @@ const ModalPresente = ({ isOpen, onClose, presente, onSubmit }) => {
             <button
               onClick={handleConfirmarPagamento}
               disabled={pagamentoConfirmado}
-              className={`w-full py-3 rounded-lg font-medium transition-colors duration-300 ${
+              className={`w-full py-3 rounded-lg font-medium transition-colors duration-300 cursor-pointer ${
                 pagamentoConfirmado
                   ? 'bg-green-500 text-white'
                   : 'bg-[var(--green)] text-white hover:bg-[var(--green-100)]'

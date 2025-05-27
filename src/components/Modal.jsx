@@ -1,6 +1,9 @@
 import PropTypes from "prop-types";
+import useScrollLock from '../hooks/useScrollLock';
 
 const Modal = ({ isOpen, onClose }) => {
+  useScrollLock(isOpen);
+
   if (!isOpen) return null; // Se o modal não estiver aberto, não renderiza nada
 
   return (

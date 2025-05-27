@@ -1,8 +1,11 @@
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
+import useScrollLock from '../hooks/useScrollLock';
 
 const ModalConfirmacao = ({ isOpen, onClose, resposta }) => {
   const navigate = useNavigate();
+  
+  useScrollLock(isOpen);
   
   if (!isOpen) return null;
 

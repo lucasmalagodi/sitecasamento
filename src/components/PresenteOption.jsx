@@ -19,7 +19,7 @@ const PresenteOption = ({ title, image, onClick }) => {
       </div>
       <h3 className="text-xl font-bold text-[var(--green)] mb-4 line-clamp-3 min-h-[4.5rem]">{title}</h3>
       <button 
-        className="w-full bg-[var(--green)] text-white py-2 rounded hover:opacity-90 transition-colors mt-auto"
+        className="w-full bg-[var(--green)] text-white py-2 rounded hover:opacity-90 transition-colors mt-auto cursor-pointer"
         onClick={onClick}
       >
         Comprar presente

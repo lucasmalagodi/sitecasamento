@@ -207,7 +207,7 @@ const Lista = () => {
             <button
               key={key}
               onClick={() => setCategoriaAtual(key)}
-              className={`px-6 py-3 rounded-full transition-all duration-300 whitespace-nowrap
+              className={`px-6 py-3 rounded-full transition-all duration-300 whitespace-nowrap cursor-pointer
                 ${categoriaAtual === key 
                   ? 'bg-[var(--green)] text-white shadow-lg' 
                   : 'bg-[var(--white-100)] text-[var(--green)] hover:bg-[var(--green-100)]'
