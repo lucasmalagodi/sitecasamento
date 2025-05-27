@@ -41,7 +41,7 @@ const categorias = {
       { title: "Degustação de cerveja amanteigada em Hogsmead", image: getImage('15.png') },
       { title: "Um beijo de dementador", image: getImage('16.png') },
       { title: "Oficina de criação de varinhas com Ollivander", image: getImage('17.png') },
-      { title: "Aula de poções mágina com o Professor Snape", image: getImage('18.png') },
+      { title: "Aula de poções mágicas com o Professor Snape", image: getImage('18.png') },
       { title: "MBA em Hogwarts", image: getImage('19.png') },
       { title: "Simulação em VR de uma partida de Quadribol", image: getImage('20.png') },
       { title: "Uma capa da invisibilidade", image: getImage('21.png') },
@@ -89,7 +89,7 @@ const categorias = {
       { title: "Ritual sagrado de carinho com o pé", image: getImage('95.png') },
       { title: "Parabéns para você com segunda voz da Momo", image: getImage('96.png') },
       { title: "Encontre a bolinha preta perdida e conquiste (temporariamente) a Momo", image: getImage('97.png') },
-      { title: "Senta e dá a patinha, Momo - a base de muito petisco", image: getImage('98.png') },
+      { title: "Senta e dá a patinha, Momo - à base de muito petisco", image: getImage('98.png') },
       { title: "Ajude o Valente a superar seu trauma", image: getImage('99.png') }
     ]
   },

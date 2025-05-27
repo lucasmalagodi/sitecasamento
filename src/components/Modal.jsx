@@ -11,7 +11,7 @@ const Modal = ({ isOpen, onClose }) => {
           alt="Informação"
           className="w-full rounded-md"
         />
-        <h2 className="text-lg font-bold mt-4 text-black">Olá Convidado especial</h2>
+        <h2 className="text-lg font-bold mt-4 text-black">Olá, Convidado especial</h2>
         <p className="text-sm text-gray-600 mt-2">
           Em um mundo onde duas almas se encontram… Em uma jornada repleta de emoção, comida boa e música incrível… Você está prestes a viver um evento único. 
           <br/>
@@ -22,7 +22,7 @@ const Modal = ({ isOpen, onClose }) => {
           onClick={onClose}
           className="mt-4 px-6 py-2 bg-[var(--green)] text-white rounded-lg hover:bg-[var(--green-100)] transition"
         >
-          Sim Capitão!!!
+          Sim, Capitão!!!
         </button>
       </div>
     </div>

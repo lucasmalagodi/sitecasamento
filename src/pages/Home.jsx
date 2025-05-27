@@ -106,7 +106,7 @@ const Home = () => {
               <p>Que bom ter você aqui na Plataforma 9¾ oficial do casamento de Paula e Lucas! 🏰✨</p>
               <p>Como você já deve imaginar, esse não é um portal de casamento muito tradicional... e é exatamente assim que a gente gosta. 😏</p>
               <p>Quem se aventurar a atravessar essa parede (seja correndo 🏃‍♂️ ou andando 🚶‍♀️) certamente está movido por dois grandes sentimentos: amor e curiosidade. 💖 Amor pelo casal e curiosidade para saber como essa dupla nerd decidiu juntar os controles de videogame 🎮 e chegou até este momento épico de suas vidas.</p>
-              <p>Mas antes de mergulhar nesse mundo mágico, conheça um pouco dos protagonistas dessa história que estarão em missão juntos até depois do final de One Piece 🏴‍☠️ e da Ordem Jedi cair… de novo. 🌌⚔️</p>
+              <p>Mas antes de mergulhar nesse mundo mágico, conheça um pouco dos protagonistas dessa história que estarão em missão juntos até depois do final de One Piece 🏴‍☠️ de a Ordem Jedi cair… de novo. 🌌⚔️</p>
             </div>
             {/* <div className="section-divider"></div> */}
           </div>
