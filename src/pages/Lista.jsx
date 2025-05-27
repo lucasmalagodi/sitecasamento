@@ -82,7 +82,15 @@ const categorias = {
       { title: "Sessão exclusiva de latidos com a momo", image: getImage('88.png') },
       { title: "Passeio pela praça com a momo", image: getImage('89.png') },
       { title: "Coach com a momo: como superar seus medos", image: getImage('90.png') },
-      { title: "Tentativa de fazer carinho na momo (mordidas podem ocorrer)", image: getImage('91.png') }
+      { title: "Tentativa de fazer carinho na momo (mordidas podem ocorrer)", image: getImage('91.png') },
+      { title: "Maratona São Silvestre ao redor do sofá com a Momo", image: getImage('92.png') },
+      { title: "Resgate do submundo dos cobertores pela Momo", image: getImage('93.png') },
+      { title: "Cerimônia de lançamento do macaco azul", image: getImage('94.png') },
+      { title: "Ritual sagrado de carinho com o pé", image: getImage('95.png') },
+      { title: "Parabéns para você com segunda voz da Momo", image: getImage('96.png') },
+      { title: "Encontre a bolinha preta perdida e conquiste (temporariamente) a Momo", image: getImage('97.png') },
+      { title: "Senta e dá a patinha, Momo - a base de muito petisco", image: getImage('98.png') },
+      { title: "Ajude o Valente a superar seu trauma", image: getImage('99.png') }
     ]
   },
   outros: {
