@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import AnimatedOnScroll from "../components/AnimatedOnScroll";
 import PresenteOption from "../components/PresenteOption";
 import ModalPresente from "../components/ModalPresente";
@@ -149,6 +149,25 @@ const Lista = () => {
   const [categoriaAtual, setCategoriaAtual] = useState('senhorDosAneis');
   const [modalOpen, setModalOpen] = useState(false);
   const [presenteSelecionado, setPresenteSelecionado] = useState(null);
+  const [showScrollTop, setShowScrollTop] = useState(false);
+  const categoriasRef = useRef(null);
+
+  // Função para verificar scroll
+  const handleScroll = () => {
+    const scrollPosition = window.scrollY;
+    setShowScrollTop(scrollPosition > 300);
+  };
+
+  // Adiciona e remove o event listener de scroll
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Função para rolar até as categorias
+  const scrollToCategorias = () => {
+    categoriasRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   // Função para embaralhar array
   const shuffleArray = (array) => {
@@ -201,7 +220,7 @@ const Lista = () => {
       </AnimatedOnScroll>
 
       {/* Navegação das Categorias */}
-      <div className="max-w-7xl mx-auto py-8 px-2 md:px-6">
+      <div ref={categoriasRef} className="max-w-7xl mx-auto py-8 px-2 md:px-6">
         <div className="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4 mb-8 w-full pb-4">
           {Object.entries(categorias).map(([key, categoria]) => (
             <button
@@ -238,6 +257,30 @@ const Lista = () => {
           ))}
         </div>
       </div>
+
+      {/* Botão Voltar às Categorias */}
+      {showScrollTop && (
+        <button
+          onClick={scrollToCategorias}
+          className="fixed bottom-6 right-6 bg-[var(--green)] text-white p-4 rounded-full shadow-lg hover:bg-[var(--green-100)] transition-colors duration-300 cursor-pointer z-40"
+          aria-label="Voltar às categorias"
+        >
+          <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            className="h-6 w-6" 
+            fill="none" 
+            viewBox="0 0 24 24" 
+            stroke="currentColor"
+          >
+            <path 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+              strokeWidth={2} 
+              d="M5 10l7-7m0 0l7 7m-7-7v18" 
+            />
+          </svg>
+        </button>
+      )}
 
       {/* Modal de Contribuição */}
       {presenteSelecionado && (

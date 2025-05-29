@@ -189,7 +189,7 @@ export function Presenca() {
           </h2>
           <div className="space-y-4 text-lg font-[var(--font-chillax-Extralight)] text-with-shadow text-gray-500">
             <p> Toda grande jornada exige comprometimento, e essa não é diferente. 
-            Sua missão é simples, mas crucial: confirmar presença <strong className="text-xl text-[var(--green)] animate-[pulse_1s_ease-in-out_infinite] hover:text-[var(--purple)]">até o dia 30 de julho!</strong></p>
+            Sua missão é simples, mas crucial: confirmar presença <strong className="text-xl text-[var(--green)] animate-[pulse_1s_ease-in-out_infinite] hover:text-[var(--purple)]">até o dia 31 de julho!</strong></p>
           </div>
           {/* <div className="section-divider"></div> */}
         </div>

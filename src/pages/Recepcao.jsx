@@ -155,7 +155,7 @@ const Recepcao = () => {
               <div className="flex flex-col md:flex-row justify-center items-stretch gap-2 mt-6 px-2">
                 <div className="bg-white p-6 rounded-lg shadow-md w-full md:w-1/3 border-t-4 border-[var(--purple)] flex flex-col justify-between">
                   <div>
-                    <span className="text-3xl mb-2 block">📅</span>
+                    <span className="text-3xl mb-2 block">🗓️</span>
                     <h3 className="text-xl font-bold text-[var(--green)] mb-2">Data</h3>
                   </div>
                   <p>30 de agosto de 2025</p>
