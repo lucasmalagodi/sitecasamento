@@ -9,6 +9,8 @@ const AdminConfirmacoes = () => {
   const [error, setError] = useState('');
   const [selectedConfirmacao, setSelectedConfirmacao] = useState(null);
   const [confirmacaoParaExcluir, setConfirmacaoParaExcluir] = useState(null);
+  const [totalConfirmados, setTotalConfirmados] = useState(0);
+  const [totalCancelados, setTotalCancelados] = useState(0);
 
   useEffect(() => {
     loadConfirmacoes();
@@ -22,6 +24,12 @@ const AdminConfirmacoes = () => {
         new Date(b.dataConfirmacao) - new Date(a.dataConfirmacao)
       );
       setConfirmacoes(dadosOrdenados);
+
+      // Calcular totais
+      const confirmados = data.filter(c => c.confirmacao === 1).length;
+      const cancelados = data.filter(c => c.confirmacao === 0).length;
+      setTotalConfirmados(confirmados);
+      setTotalCancelados(cancelados);
     } catch (err) {
       setError('Erro ao carregar confirmações');
     } finally {
@@ -139,6 +147,32 @@ const AdminConfirmacoes = () => {
           Confirmações
         </h1>
         <p className="text-gray-300">Gerencie as confirmações de presença</p>
+      </div>
+
+      {/* Contadores */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div className="bg-gray-800 rounded-lg shadow-lg p-6">
+          <div className="flex justify-between items-center">
+            <div>
+              <p className="text-sm text-gray-400">Total Confirmados</p>
+              <p className="text-2xl font-bold text-green-400 flex items-center gap-2">
+                <CheckCircleIcon className="h-6 w-6" />
+                {totalConfirmados}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div className="bg-gray-800 rounded-lg shadow-lg p-6">
+          <div className="flex justify-between items-center">
+            <div>
+              <p className="text-sm text-gray-400">Total Cancelados</p>
+              <p className="text-2xl font-bold text-rose-400 flex items-center gap-2">
+                <XCircleIcon className="h-6 w-6" />
+                {totalCancelados}
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
 
       {error && (
