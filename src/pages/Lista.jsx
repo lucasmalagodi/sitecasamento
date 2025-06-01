@@ -155,7 +155,9 @@ const Lista = () => {
   // Função para verificar scroll
   const handleScroll = () => {
     const scrollPosition = window.scrollY;
-    setShowScrollTop(scrollPosition > 300);
+    console.log(scrollPosition);
+    const menuHeight = window.innerHeight * 0.8; // 80% da altura da janela
+    setShowScrollTop(scrollPosition > menuHeight);
   };
 
   // Adiciona e remove o event listener de scroll
@@ -212,6 +214,7 @@ const Lista = () => {
           <div className="space-y-4 text-lg font-[var(--font-chillax-Extralight)] text-with-shadow text-gray-500">
             <p>Grandes heróis sempre receberam presentes icônicos: Luke recebeu o Sabre de Luz de Anakin 🔵⚔️, Harry herdou a Capa da Invisibilidade 🧥, Seiya ganhou a Armadura de Pégaso🛡️, Sakura ganhou o Cajado Estrela 🌟, e Link começou sua jornada com nada menos que a Espada Mestra 🗡️.</p>
             <p className="text-lg font-bold text-[var(--green)] animate-pulse"> Nós, por outro lado, estamos felizes apenas com a sua presença no evento! 💖</p>
+            <div ref={categoriasRef}></div>
             <p>Mas... se você sentir um desejo quase irresistível de nos presentear - assim como Gollum não resistia o Um Anel - não vamos recusar! 😆 </p>
             <p>Nossa lista de presentes é 100% online, via Pix, e o valor é o quanto seu coração sentir. Não há valor fixo, pois o que realmente importa é celebrarmos juntos!</p>
           </div>
@@ -220,7 +223,7 @@ const Lista = () => {
       </AnimatedOnScroll>
 
       {/* Navegação das Categorias */}
-      <div ref={categoriasRef} className="max-w-7xl mx-auto py-8 px-2 md:px-6">
+      <div className="max-w-7xl mx-auto py-8 px-2 md:px-6">
         <div className="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4 mb-8 w-full pb-4">
           {Object.entries(categorias).map(([key, categoria]) => (
             <button
