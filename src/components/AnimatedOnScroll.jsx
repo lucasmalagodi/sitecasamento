@@ -7,15 +7,21 @@ const AnimatedOnScroll = ({
   delay = 0,
   triggerOnce = true
 }) => {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [hasAnimated, setHasAnimated] = useState(false);
   const ref = useRef(null);
 
   useEffect(() => {
+    const initialTimer = setTimeout(() => {
+      setIsVisible(false);
+    }, 100);
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setTimeout(() => {
             setIsVisible(true);
+            setHasAnimated(true);
           }, delay * 1000);
           
           if (triggerOnce) {
@@ -37,6 +43,7 @@ const AnimatedOnScroll = ({
     }
 
     return () => {
+      clearTimeout(initialTimer);
       if (ref.current) {
         observer.unobserve(ref.current);
       }
@@ -47,6 +54,10 @@ const AnimatedOnScroll = ({
     <div
       ref={ref}
       className={`transition-all duration-500 ${isVisible ? animation : 'opacity-0'}`}
+      style={{ 
+        willChange: 'opacity, transform',
+        backfaceVisibility: 'hidden'
+      }}
     >
       {children}
     </div>

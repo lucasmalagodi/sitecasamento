@@ -255,7 +255,7 @@ export function Presenca() {
 
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-[var(--green)] mb-2">
-                  E-mail (para cadastrar na corrente de bom dia)
+                  E-mail (para cadastro na corrente de bom dia)
                 </label>
                 <input
                   type="email"

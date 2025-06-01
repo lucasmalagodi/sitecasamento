@@ -61,7 +61,7 @@ const Casal = () => {
 
           <AnimatedOnScroll animation="fade-in" delay={0.5}>
             <div className="w-full flex justify-center my-8">
-              <div className="w-full max-w-3xl h-[600px] md:h-[600px] rounded-lg overflow-hidden shadow-xl transition-transform duration-500 hover:scale-[1.02]" style={{ backgroundImage: "url('/assets/casal/casal-atual.png')", backgroundSize: "cover", backgroundPosition: "center" }}>
+              <div className="w-full max-w-3xl h-[600px] md:h-[600px] rounded-lg overflow-hidden shadow-xl transition-transform duration-500 hover:scale-[1.02]" style={{ backgroundImage: "url('/assets/casal/casal-atual.png')", backgroundSize: "cover", backgroundPositionX: "57%" }}>
               </div>
             </div>
           </AnimatedOnScroll>

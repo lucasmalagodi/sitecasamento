@@ -262,7 +262,7 @@ const Lista = () => {
       {showScrollTop && (
         <button
           onClick={scrollToCategorias}
-          className="fixed bottom-6 right-6 bg-[var(--green)] text-white p-4 rounded-full shadow-lg hover:bg-[var(--green-100)] transition-colors duration-300 cursor-pointer z-40"
+          className="fixed bottom-33 md:bottom-6 right-6 bg-[var(--green)] text-white p-4 rounded-full shadow-lg hover:bg-[var(--green-100)] transition-colors duration-300 cursor-pointer z-50 md:z-40 w-12 h-12 flex items-center justify-center"
           aria-label="Voltar às categorias"
         >
           <svg 
