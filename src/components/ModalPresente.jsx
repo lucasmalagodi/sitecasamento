@@ -210,8 +210,7 @@ const ModalPresente = ({ isOpen, onClose, presente, onSubmit }) => {
               Muito Obrigado!
             </h2>
             <p className="text-gray-600 mb-6">
-              Agradecemos imensamente pelo seu presente e carinho. 
-              Sua presença e generosidade tornam este momento ainda mais especial.
+              Agradecemos imensamente pelo seu presente e carinho.
             </p>
             <button
               onClick={handleFechar}
