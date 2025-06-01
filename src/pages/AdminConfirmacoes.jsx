@@ -25,9 +25,21 @@ const AdminConfirmacoes = () => {
       );
       setConfirmacoes(dadosOrdenados);
 
-      // Calcular totais
-      const confirmados = data.filter(c => c.confirmacao === 1).length;
-      const cancelados = data.filter(c => c.confirmacao === 0).length;
+      // Calcular totais incluindo acompanhantes
+      const confirmados = data.reduce((total, c) => {
+        if (c.confirmacao === 1) {
+          return total + 1 + (c.acompanhantes || 0);
+        }
+        return total;
+      }, 0);
+
+      const cancelados = data.reduce((total, c) => {
+        if (c.confirmacao === 0) {
+          return total + 1 + (c.acompanhantes || 0);
+        }
+        return total;
+      }, 0);
+
       setTotalConfirmados(confirmados);
       setTotalCancelados(cancelados);
     } catch (err) {
