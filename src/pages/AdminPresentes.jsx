@@ -2,10 +2,7 @@ import { useState, useEffect } from 'react';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { EnvelopeIcon, GiftIcon, UserIcon, CalendarIcon, CurrencyDollarIcon, MagnifyingGlassIcon, TrashIcon } from '@heroicons/react/24/outline';
-
-const API_BASE_URL = import.meta.env.PROD 
-  ? 'https://paulaelucas.site/api'
-  : (import.meta.env.VITE_API_URL || 'http://localhost:3001/api');
+import { api } from '../config/api';
 
 const AdminPresentes = () => {
   const [presentes, setPresentes] = useState([]);
@@ -26,11 +23,7 @@ const AdminPresentes = () => {
   const carregarPresentes = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`${API_BASE_URL}/gifts`);
-      if (!response.ok) {
-        throw new Error('Erro ao carregar presentes');
-      }
-      const data = await response.json();
+      const data = await api.getPresentes();
       setPresentes(data);
       
       // Calcular o valor total
@@ -106,13 +99,7 @@ const AdminPresentes = () => {
 
   const handleConfirmDelete = async () => {
     try {
-      const response = await fetch(`${API_BASE_URL}/gifts/${presenteToDelete.id}`, {
-        method: 'DELETE',
-      });
-
-      if (!response.ok) {
-        throw new Error('Erro ao excluir presente');
-      }
+      await api.excluirPresente(presenteToDelete.id);
 
       // Atualizar a lista de presentes
       setPresentes(presentes.filter(p => p.id !== presenteToDelete.id));

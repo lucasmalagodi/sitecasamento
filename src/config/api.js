@@ -2,6 +2,54 @@ const API_URL = import.meta.env.PROD
   ? 'https://paulaelucas.site/api'
   : (import.meta.env.VITE_API_URL || 'http://localhost:3001/api');
 
+// Função para verificar se o token expirou
+const isTokenExpired = (token) => {
+  if (!token) return true;
+  
+  try {
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    const currentTime = Date.now() / 1000;
+    return payload.exp < currentTime;
+  } catch (error) {
+    return true;
+  }
+};
+
+// Função para fazer logout e redirecionar
+const handleLogout = () => {
+  localStorage.removeItem('adminToken');
+  localStorage.removeItem('adminName');
+  window.location.href = '/momozilla/login';
+};
+
+// Função para fazer requisições com tratamento de erro 401
+const makeAuthenticatedRequest = async (url, options = {}) => {
+  const token = localStorage.getItem('adminToken');
+  
+  // Verifica se o token existe e não expirou
+  if (!token || isTokenExpired(token)) {
+    handleLogout();
+    throw new Error('Token expirado ou inválido');
+  }
+
+  const response = await fetch(url, {
+    ...options,
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+      ...options.headers,
+    },
+  });
+
+  // Se receber 401, faz logout automaticamente
+  if (response.status === 401) {
+    handleLogout();
+    throw new Error('Sessão expirada. Por favor, faça login novamente.');
+  }
+
+  return response;
+};
+
 export const api = {
   async login(email, password) {
     const response = await fetch(`${API_URL}/momozilla/login`, {
@@ -20,17 +68,8 @@ export const api = {
   },
 
   async getProfile() {
-    const token = localStorage.getItem('adminToken');
-    if (!token) {
-      throw new Error('Não autorizado');
-    }
-
-    const response = await fetch(`${API_URL}/momozilla/profile`, {
-      headers: {
-        'Authorization': `Bearer ${token}`,
-      },
-    });
-
+    const response = await makeAuthenticatedRequest(`${API_URL}/momozilla/profile`);
+    
     if (!response.ok) {
       throw new Error(await response.json().then(data => data.error) || 'Erro ao buscar perfil');
     }
@@ -39,17 +78,8 @@ export const api = {
   },
 
   async updateProfile(profileData) {
-    const token = localStorage.getItem('adminToken');
-    if (!token) {
-      throw new Error('Não autorizado');
-    }
-
-    const response = await fetch(`${API_URL}/momozilla/profile`, {
+    const response = await makeAuthenticatedRequest(`${API_URL}/momozilla/profile`, {
       method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
       body: JSON.stringify(profileData),
     });
 
@@ -78,17 +108,8 @@ export const api = {
 
   // Métodos para confirmações
   async getConfirmacoes() {
-    const token = localStorage.getItem('adminToken');
-    if (!token) {
-      throw new Error('Não autorizado');
-    }
-
-    const response = await fetch(`${API_URL}/presenca`, {
-      headers: {
-        'Authorization': `Bearer ${token}`,
-      },
-    });
-
+    const response = await makeAuthenticatedRequest(`${API_URL}/presenca`);
+    
     if (!response.ok) {
       throw new Error(await response.json().then(data => data.error) || 'Erro ao buscar confirmações');
     }
@@ -97,17 +118,8 @@ export const api = {
   },
 
   async confirmarPresenca(id, confirmacao) {
-    const token = localStorage.getItem('adminToken');
-    if (!token) {
-      throw new Error('Não autorizado');
-    }
-
-    const response = await fetch(`${API_URL}/presenca/${id}/confirmar`, {
+    const response = await makeAuthenticatedRequest(`${API_URL}/presenca/${id}/confirmar`, {
       method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
       body: JSON.stringify({ confirmacao }),
     });
 
@@ -119,16 +131,8 @@ export const api = {
   },
 
   async excluirConfirmacao(id) {
-    const token = localStorage.getItem('adminToken');
-    if (!token) {
-      throw new Error('Não autorizado');
-    }
-
-    const response = await fetch(`${API_URL}/presenca/${id}`, {
+    const response = await makeAuthenticatedRequest(`${API_URL}/presenca/${id}`, {
       method: 'DELETE',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-      },
     });
 
     if (!response.ok) {
@@ -139,17 +143,8 @@ export const api = {
   },
 
   async getConfirmacaoDetalhes(id) {
-    const token = localStorage.getItem('adminToken');
-    if (!token) {
-      throw new Error('Não autorizado');
-    }
-
-    const response = await fetch(`${API_URL}/presenca/${id}`, {
-      headers: {
-        'Authorization': `Bearer ${token}`,
-      },
-    });
-
+    const response = await makeAuthenticatedRequest(`${API_URL}/presenca/${id}`);
+    
     if (!response.ok) {
       throw new Error(await response.json().then(data => data.error) || 'Erro ao buscar detalhes da confirmação');
     }
@@ -158,17 +153,8 @@ export const api = {
   },
 
   async atualizarConfirmacao(id, dados) {
-    const token = localStorage.getItem('adminToken');
-    if (!token) {
-      throw new Error('Não autorizado');
-    }
-
-    const response = await fetch(`${API_URL}/presenca/${id}`, {
+    const response = await makeAuthenticatedRequest(`${API_URL}/presenca/${id}`, {
       method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
       body: JSON.stringify(dados),
     });
 
@@ -180,18 +166,8 @@ export const api = {
   },
 
   async getAdmins() {
-    const token = localStorage.getItem('adminToken');
+    const response = await makeAuthenticatedRequest(`${API_URL}/momozilla/admins`);
     
-    if (!token) {
-      throw new Error('Não autorizado');
-    }
-
-    const response = await fetch(`${API_URL}/momozilla/admins`, {
-      headers: {
-        'Authorization': `Bearer ${token}`,
-      },
-    });
-
     if (!response.ok) {
       throw new Error(await response.json().then(data => data.error) || 'Erro ao buscar usuários administradores');
     }
@@ -201,18 +177,11 @@ export const api = {
   },
 
   async updateAdminStatus(id, active) {
-    const token = localStorage.getItem('adminToken');
-    if (!token) {
-      throw new Error('Não autorizado');
-    }
-    const response = await fetch(`${API_URL}/momozilla/admins/${id}/status`, {
+    const response = await makeAuthenticatedRequest(`${API_URL}/momozilla/admins/${id}/status`, {
       method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
       body: JSON.stringify({ active }),
     });
+    
     if (!response.ok) {
       throw new Error(await response.json().then(data => data.error) || 'Erro ao atualizar status do usuário');
     }
@@ -220,18 +189,34 @@ export const api = {
   },
 
   async deleteAdmin(id) {
-    const token = localStorage.getItem('adminToken');
-    if (!token) {
-      throw new Error('Não autorizado');
-    }
-    const response = await fetch(`${API_URL}/momozilla/admins/${id}`, {
+    const response = await makeAuthenticatedRequest(`${API_URL}/momozilla/admins/${id}`, {
       method: 'DELETE',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-      },
     });
+    
     if (!response.ok) {
       throw new Error(await response.json().then(data => data.error) || 'Erro ao excluir usuário');
+    }
+    return await response.json();
+  },
+
+  // Métodos para presentes
+  async getPresentes() {
+    const response = await makeAuthenticatedRequest(`${API_URL}/gifts`);
+    
+    if (!response.ok) {
+      throw new Error(await response.json().then(data => data.error) || 'Erro ao buscar presentes');
+    }
+
+    return await response.json();
+  },
+
+  async excluirPresente(id) {
+    const response = await makeAuthenticatedRequest(`${API_URL}/gifts/${id}`, {
+      method: 'DELETE',
+    });
+    
+    if (!response.ok) {
+      throw new Error(await response.json().then(data => data.error) || 'Erro ao excluir presente');
     }
     return await response.json();
   },
