@@ -3,7 +3,13 @@ const Presenca = require('../models/Presenca');
 // Criar nova confirmação de presença
 exports.criarPresenca = async (req, res) => {
   try {
-    const presenca = await Presenca.create(req.body);
+    // Garantir que confirmacao seja um número
+    const dados = {
+      ...req.body,
+      confirmacao: parseInt(req.body.confirmacao) || 1
+    };
+    
+    const presenca = await Presenca.create(dados);
     res.status(201).json({
       success: true,
       data: presenca,
@@ -65,13 +71,16 @@ exports.buscarPresenca = async (req, res) => {
 exports.atualizarConfirmacao = async (req, res) => {
   try {
     const { id } = req.params;
+    const { confirmacao } = req.body;
     const presenca = await Presenca.findByPk(id);
     
     if (!presenca) {
       return res.status(404).json({ success: false, message: 'Confirmação não encontrada' });
     }
 
-    presenca.confirmacao = presenca.confirmacao === 1 ? 0 : 1;
+    // Usar o status enviado no body ou fazer toggle se não for enviado
+    const novoStatus = confirmacao !== undefined ? parseInt(confirmacao) : (presenca.confirmacao === 1 ? 0 : 1);
+    presenca.confirmacao = novoStatus;
     await presenca.save();
 
     res.json({ success: true, data: presenca });
@@ -96,5 +105,46 @@ exports.excluirPresenca = async (req, res) => {
   } catch (error) {
     console.error('Erro ao excluir confirmação:', error);
     res.status(500).json({ success: false, message: 'Erro ao excluir confirmação', error: error.message });
+  }
+};
+
+// Atualizar dados completos da confirmação
+exports.atualizarPresenca = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const presenca = await Presenca.findByPk(id);
+    
+    if (!presenca) {
+      return res.status(404).json({ success: false, message: 'Confirmação não encontrada' });
+    }
+
+    // Atualiza os campos permitidos
+    const camposPermitidos = ['nome', 'email', 'celular', 'confirmacao', 'acompanhantes', 'nomesAcompanhantes', 'mensagem'];
+    const dadosAtualizados = {};
+    
+    camposPermitidos.forEach(campo => {
+      if (req.body[campo] !== undefined) {
+        if (campo === 'confirmacao') {
+          dadosAtualizados[campo] = parseInt(req.body[campo]) || 1;
+        } else {
+          dadosAtualizados[campo] = req.body[campo];
+        }
+      }
+    });
+
+    await presenca.update(dadosAtualizados);
+
+    res.json({ 
+      success: true, 
+      data: presenca,
+      message: 'Confirmação atualizada com sucesso'
+    });
+  } catch (error) {
+    console.error('Erro ao atualizar confirmação:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Erro ao atualizar confirmação', 
+      error: error.message 
+    });
   }
 }; 

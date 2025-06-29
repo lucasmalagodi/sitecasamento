@@ -18,6 +18,9 @@ router.get('/:id', presencaController.buscarPresenca);
 // Rota para atualizar confirmação
 router.put('/:id/confirmar', presencaController.atualizarConfirmacao);
 
+// Rota para atualizar dados completos da confirmação
+router.put('/:id', presencaController.atualizarPresenca);
+
 // Rota para excluir uma confirmação
 router.delete('/:id', presencaController.excluirPresenca);
 

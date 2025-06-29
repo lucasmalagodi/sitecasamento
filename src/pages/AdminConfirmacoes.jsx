@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { api } from '../config/api';
 import DataGrid from '../components/DataGrid';
-import { UserGroupIcon, EyeIcon, TrashIcon, LockClosedIcon, XCircleIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
+import { UserGroupIcon, EyeIcon, TrashIcon, LockClosedIcon, XCircleIcon, CheckCircleIcon, PencilIcon } from '@heroicons/react/24/outline';
 
 const AdminConfirmacoes = () => {
   const [confirmacoes, setConfirmacoes] = useState([]);
@@ -11,6 +11,8 @@ const AdminConfirmacoes = () => {
   const [confirmacaoParaExcluir, setConfirmacaoParaExcluir] = useState(null);
   const [totalConfirmados, setTotalConfirmados] = useState(0);
   const [totalCancelados, setTotalCancelados] = useState(0);
+  const [editando, setEditando] = useState(false);
+  const [dadosEditados, setDadosEditados] = useState({});
 
   useEffect(() => {
     loadConfirmacoes();
@@ -72,6 +74,68 @@ const AdminConfirmacoes = () => {
     } catch (err) {
       setError('Erro ao excluir confirmação');
     }
+  };
+
+  const handleIniciarEdicao = (confirmacao) => {
+    setDadosEditados({
+      nome: confirmacao.nome,
+      email: confirmacao.email,
+      celular: confirmacao.celular,
+      confirmacao: confirmacao.confirmacao,
+      acompanhantes: confirmacao.acompanhantes || 0,
+      nomesAcompanhantes: confirmacao.nomesAcompanhantes || [],
+      mensagem: confirmacao.mensagem || ''
+    });
+    setEditando(true);
+  };
+
+  const handleSalvarEdicao = async () => {
+    try {
+      await api.atualizarConfirmacao(selectedConfirmacao.id, dadosEditados);
+      await loadConfirmacoes();
+      setEditando(false);
+      setDadosEditados({});
+      setSelectedConfirmacao(null);
+    } catch (err) {
+      setError('Erro ao atualizar confirmação');
+    }
+  };
+
+  const handleCancelarEdicao = () => {
+    setEditando(false);
+    setDadosEditados({});
+  };
+
+  const handleInputChange = (field, value) => {
+    setDadosEditados(prev => ({
+      ...prev,
+      [field]: value
+    }));
+  };
+
+  const handleAcompanhanteChange = (index, value) => {
+    const novosAcompanhantes = [...dadosEditados.nomesAcompanhantes];
+    novosAcompanhantes[index] = value;
+    setDadosEditados(prev => ({
+      ...prev,
+      nomesAcompanhantes: novosAcompanhantes
+    }));
+  };
+
+  const adicionarAcompanhante = () => {
+    setDadosEditados(prev => ({
+      ...prev,
+      nomesAcompanhantes: [...prev.nomesAcompanhantes, '']
+    }));
+  };
+
+  const removerAcompanhante = (index) => {
+    const novosAcompanhantes = dadosEditados.nomesAcompanhantes.filter((_, i) => i !== index);
+    setDadosEditados(prev => ({
+      ...prev,
+      nomesAcompanhantes: novosAcompanhantes,
+      acompanhantes: novosAcompanhantes.length
+    }));
   };
 
   const handleAction = (type, row) => {
@@ -210,67 +274,181 @@ const AdminConfirmacoes = () => {
         <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 z-50">
           <div className="bg-gray-900 rounded-lg p-4 sm:p-6 max-w-lg w-full border border-rose-900 shadow-lg max-h-[90vh] overflow-y-auto">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-bold text-rose-300">Detalhes da Confirmação</h2>
-              <button
-                onClick={() => setSelectedConfirmacao(null)}
-                className="text-gray-400 hover:text-rose-400 cursor-pointer"
-              >
-                <XCircleIcon className="h-5 w-5" />
-              </button>
+              <h2 className="text-xl font-bold text-rose-300">
+                {editando ? 'Editar Confirmação' : 'Detalhes da Confirmação'}
+              </h2>
+              <div className="flex items-center gap-2">
+                {!editando && (
+                  <button
+                    onClick={() => handleIniciarEdicao(selectedConfirmacao)}
+                    className="p-2 rounded-full bg-blue-600 text-white hover:bg-blue-700 transition-colors duration-150 cursor-pointer"
+                    title="Editar confirmação"
+                  >
+                    <PencilIcon className="h-5 w-5" />
+                  </button>
+                )}
+                <button
+                  onClick={() => {
+                    setSelectedConfirmacao(null);
+                    setEditando(false);
+                    setDadosEditados({});
+                  }}
+                  className="text-gray-400 hover:text-rose-400 cursor-pointer"
+                >
+                  <XCircleIcon className="h-5 w-5" />
+                </button>
+              </div>
             </div>
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-rose-200">Nome</label>
-                <p className="mt-1 text-gray-100 break-words">{selectedConfirmacao.nome}</p>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-rose-200">Email</label>
-                <p className="mt-1 text-gray-100 break-words">{selectedConfirmacao.email}</p>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-rose-200">Celular</label>
-                <p className="mt-1 text-gray-100 break-words">{selectedConfirmacao.celular}</p>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-rose-200">Data de Confirmação</label>
-                <p className="mt-1 text-gray-100">
-                  {new Date(selectedConfirmacao.dataConfirmacao).toLocaleDateString()}
-                </p>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-rose-200">Status</label>
-                <p className="mt-1">
-                  <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                    selectedConfirmacao.confirmacao === 1
-                      ? 'bg-green-500 text-white'
-                      : 'bg-rose-500 text-white'
-                  }`}>
-                    {selectedConfirmacao.confirmacao === 1 ? 'Confirmado' : 'Cancelado'}
-                  </span>
-                </p>
-              </div>
-              {selectedConfirmacao.acompanhantes > 0 && (
+            
+            {editando ? (
+              // Formulário de Edição
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-rose-200">Nome</label>
+                  <input
+                    type="text"
+                    value={dadosEditados.nome}
+                    onChange={(e) => handleInputChange('nome', e.target.value)}
+                    className="mt-1 w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-md text-gray-100 focus:outline-none focus:border-rose-500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-rose-200">Email</label>
+                  <input
+                    type="email"
+                    value={dadosEditados.email}
+                    onChange={(e) => handleInputChange('email', e.target.value)}
+                    className="mt-1 w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-md text-gray-100 focus:outline-none focus:border-rose-500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-rose-200">Celular</label>
+                  <input
+                    type="text"
+                    value={dadosEditados.celular}
+                    onChange={(e) => handleInputChange('celular', e.target.value)}
+                    className="mt-1 w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-md text-gray-100 focus:outline-none focus:border-rose-500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-rose-200">Status</label>
+                  <select
+                    value={dadosEditados.confirmacao}
+                    onChange={(e) => handleInputChange('confirmacao', parseInt(e.target.value))}
+                    className="mt-1 w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-md text-gray-100 focus:outline-none focus:border-rose-500"
+                  >
+                    <option value={1}>Confirmado</option>
+                    <option value={0}>Cancelado</option>
+                  </select>
+                </div>
                 <div>
                   <label className="block text-sm font-medium text-rose-200">Acompanhantes</label>
-                  <p className="mt-1 text-gray-100">
-                    {selectedConfirmacao.acompanhantes} pessoa(s)
-                    {selectedConfirmacao.nomesAcompanhantes.length > 0 && (
-                      <ul className="mt-2 list-disc list-inside">
-                        {selectedConfirmacao.nomesAcompanhantes.map((nome, index) => (
-                          <li key={index} className="text-sm text-gray-300 break-words">{nome}</li>
-                        ))}
-                      </ul>
-                    )}
-                  </p>
+                  <div className="mt-1 space-y-2">
+                    {dadosEditados.nomesAcompanhantes.map((nome, index) => (
+                      <div key={index} className="flex gap-2">
+                        <input
+                          type="text"
+                          value={nome}
+                          onChange={(e) => handleAcompanhanteChange(index, e.target.value)}
+                          placeholder={`Nome do acompanhante ${index + 1}`}
+                          className="flex-1 px-3 py-2 bg-gray-800 border border-gray-600 rounded-md text-gray-100 focus:outline-none focus:border-rose-500"
+                        />
+                        <button
+                          onClick={() => removerAcompanhante(index)}
+                          className="px-3 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors duration-150"
+                        >
+                          Remover
+                        </button>
+                      </div>
+                    ))}
+                    <button
+                      onClick={adicionarAcompanhante}
+                      className="w-full px-3 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors duration-150"
+                    >
+                      Adicionar Acompanhante
+                    </button>
+                  </div>
                 </div>
-              )}
-              {selectedConfirmacao.mensagem && (
                 <div>
                   <label className="block text-sm font-medium text-rose-200">Mensagem</label>
-                  <p className="mt-1 text-sm text-gray-300 break-words">{selectedConfirmacao.mensagem}</p>
+                  <textarea
+                    value={dadosEditados.mensagem}
+                    onChange={(e) => handleInputChange('mensagem', e.target.value)}
+                    rows="3"
+                    className="mt-1 w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-md text-gray-100 focus:outline-none focus:border-rose-500"
+                  />
                 </div>
-              )}
-            </div>
+                <div className="flex justify-end space-x-4 pt-4">
+                  <button
+                    onClick={handleCancelarEdicao}
+                    className="px-4 py-2 bg-gray-700 text-gray-300 rounded-md hover:bg-gray-600 transition-colors duration-150"
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    onClick={handleSalvarEdicao}
+                    className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors duration-150"
+                  >
+                    Salvar
+                  </button>
+                </div>
+              </div>
+            ) : (
+              // Visualização dos Detalhes
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-rose-200">Nome</label>
+                  <p className="mt-1 text-gray-100 break-words">{selectedConfirmacao.nome}</p>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-rose-200">Email</label>
+                  <p className="mt-1 text-gray-100 break-words">{selectedConfirmacao.email}</p>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-rose-200">Celular</label>
+                  <p className="mt-1 text-gray-100 break-words">{selectedConfirmacao.celular}</p>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-rose-200">Data de Confirmação</label>
+                  <p className="mt-1 text-gray-100">
+                    {new Date(selectedConfirmacao.dataConfirmacao).toLocaleDateString()}
+                  </p>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-rose-200">Status</label>
+                  <p className="mt-1">
+                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                      selectedConfirmacao.confirmacao === 1
+                        ? 'bg-green-500 text-white'
+                        : 'bg-rose-500 text-white'
+                    }`}>
+                      {selectedConfirmacao.confirmacao === 1 ? 'Confirmado' : 'Cancelado'}
+                    </span>
+                  </p>
+                </div>
+                {selectedConfirmacao.acompanhantes > 0 && (
+                  <div>
+                    <label className="block text-sm font-medium text-rose-200">Acompanhantes</label>
+                    <p className="mt-1 text-gray-100">
+                      {selectedConfirmacao.acompanhantes} pessoa(s)
+                      {selectedConfirmacao.nomesAcompanhantes && selectedConfirmacao.nomesAcompanhantes.length > 0 && (
+                        <ul className="mt-2 list-disc list-inside">
+                          {selectedConfirmacao.nomesAcompanhantes.map((nome, index) => (
+                            <li key={index} className="text-sm text-gray-300 break-words">{nome}</li>
+                          ))}
+                        </ul>
+                      )}
+                    </p>
+                  </div>
+                )}
+                {selectedConfirmacao.mensagem && (
+                  <div>
+                    <label className="block text-sm font-medium text-rose-200">Mensagem</label>
+                    <p className="mt-1 text-sm text-gray-300 break-words">{selectedConfirmacao.mensagem}</p>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </div>
       )}

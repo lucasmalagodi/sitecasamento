@@ -108,7 +108,7 @@ export const api = {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`,
       },
-      body: JSON.stringify({ confirmacao: confirmacao ? 1 : 0 }),
+      body: JSON.stringify({ confirmacao }),
     });
 
     if (!response.ok) {
@@ -155,6 +155,28 @@ export const api = {
     }
 
     return (await response.json()).data;
+  },
+
+  async atualizarConfirmacao(id, dados) {
+    const token = localStorage.getItem('adminToken');
+    if (!token) {
+      throw new Error('Não autorizado');
+    }
+
+    const response = await fetch(`${API_URL}/presenca/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify(dados),
+    });
+
+    if (!response.ok) {
+      throw new Error(await response.json().then(data => data.error) || 'Erro ao atualizar confirmação');
+    }
+
+    return await response.json();
   },
 
   async getAdmins() {

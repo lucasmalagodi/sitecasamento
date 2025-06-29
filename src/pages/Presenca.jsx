@@ -8,13 +8,13 @@ export function Presenca() {
     nome: '',
     email: '',
     celular: '',
-    confirmacao: '1',
+    confirmacao: 1,
     acompanhantes: '0',
     nomesAcompanhantes: Array(5).fill(''),
     mensagem: ''
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [confirmacaoAtual, setConfirmacaoAtual] = useState('1');
+  const [confirmacaoAtual, setConfirmacaoAtual] = useState(1);
 
   const formatarCelular = (valor) => {
     // Remove tudo que não é número
@@ -108,7 +108,7 @@ export function Presenca() {
               Nome: ${formData.nome}
               Email: ${formData.email}
               Celular: ${formData.celular}
-              Confirmação: ${formData.confirmacao === '1' ? 'Sim' : 'Não'}
+              Confirmação: ${formData.confirmacao === 1 ? 'Sim' : 'Não'}
               ${acompanhantes > 0 ? `Quantidade de Acompanhantes: ${acompanhantes}
               Nomes dos Acompanhantes: ${nomesAcompanhantes.join(', ')}` : ''}
               ${formData.mensagem ? `Mensagem: ${formData.mensagem}` : ''}
@@ -124,7 +124,7 @@ export function Presenca() {
         nome: '',
         email: '',
         celular: '',
-        confirmacao: '1',
+        confirmacao: 1,
         acompanhantes: '0',
         nomesAcompanhantes: Array(5).fill(''),
         mensagem: ''
@@ -294,15 +294,20 @@ export function Presenca() {
                   id="confirmacao"
                   required
                   value={formData.confirmacao}
-                  onChange={handleChange}
+                  onChange={(e) => handleChange({
+                    target: {
+                      name: 'confirmacao',
+                      value: parseInt(e.target.value)
+                    }
+                  })}
                   className="mt-1 block w-full h-10 px-4 rounded-md border-[var(--green-100)] shadow-sm focus:border-[var(--purple)] focus:ring-[var(--purple)] text-base"
                 >
-                  <option value="1">Sim, aceito a missão! 🦉</option>
-                  <option value="0">Infelizmente não poderei comparecer 😢</option>
+                  <option value={1}>Sim, aceito a missão! 🦉</option>
+                  <option value={0}>Infelizmente não poderei comparecer 😢</option>
                 </select>
               </div>
 
-              {formData.confirmacao === '1' && (
+              {formData.confirmacao === 1 && (
                 <>
                   <div>
                     <label htmlFor="acompanhantes" className="block text-sm font-medium text-[var(--green)] mb-2">

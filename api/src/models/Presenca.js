@@ -15,8 +15,9 @@ const Presenca = sequelize.define('Presenca', {
     allowNull: false
   },
   confirmacao: {
-    type: DataTypes.ENUM('sim', 'nao'),
-    allowNull: false
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    defaultValue: 1
   },
   acompanhantes: {
     type: DataTypes.INTEGER,
