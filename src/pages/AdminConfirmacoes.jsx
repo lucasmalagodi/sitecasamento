@@ -77,13 +77,16 @@ const AdminConfirmacoes = () => {
   };
 
   const handleIniciarEdicao = (confirmacao) => {
+    const nomesAcompanhantes = confirmacao.nomesAcompanhantes || [];
+    const acompanhantesComNome = nomesAcompanhantes.filter(nome => nome.trim() !== '');
+    
     setDadosEditados({
       nome: confirmacao.nome,
       email: confirmacao.email,
       celular: confirmacao.celular,
       confirmacao: confirmacao.confirmacao,
-      acompanhantes: confirmacao.acompanhantes || 0,
-      nomesAcompanhantes: confirmacao.nomesAcompanhantes || [],
+      acompanhantes: acompanhantesComNome.length,
+      nomesAcompanhantes: nomesAcompanhantes,
       mensagem: confirmacao.mensagem || ''
     });
     setEditando(true);
@@ -91,7 +94,16 @@ const AdminConfirmacoes = () => {
 
   const handleSalvarEdicao = async () => {
     try {
-      await api.atualizarConfirmacao(selectedConfirmacao.id, dadosEditados);
+      // Processar dados antes de enviar
+      const dadosProcessados = {
+        ...dadosEditados,
+        // Filtrar apenas acompanhantes com nomes preenchidos
+        nomesAcompanhantes: dadosEditados.nomesAcompanhantes.filter(nome => nome.trim() !== ''),
+        // Atualizar contagem de acompanhantes
+        acompanhantes: dadosEditados.nomesAcompanhantes.filter(nome => nome.trim() !== '').length
+      };
+      
+      await api.atualizarConfirmacao(selectedConfirmacao.id, dadosProcessados);
       await loadConfirmacoes();
       setEditando(false);
       setDadosEditados({});
@@ -116,9 +128,14 @@ const AdminConfirmacoes = () => {
   const handleAcompanhanteChange = (index, value) => {
     const novosAcompanhantes = [...dadosEditados.nomesAcompanhantes];
     novosAcompanhantes[index] = value;
+    
+    // Conta apenas os acompanhantes com nomes preenchidos
+    const acompanhantesComNome = novosAcompanhantes.filter(nome => nome.trim() !== '');
+    
     setDadosEditados(prev => ({
       ...prev,
-      nomesAcompanhantes: novosAcompanhantes
+      nomesAcompanhantes: novosAcompanhantes,
+      acompanhantes: acompanhantesComNome.length
     }));
   };
 
@@ -131,10 +148,12 @@ const AdminConfirmacoes = () => {
 
   const removerAcompanhante = (index) => {
     const novosAcompanhantes = dadosEditados.nomesAcompanhantes.filter((_, i) => i !== index);
+    const acompanhantesComNome = novosAcompanhantes.filter(nome => nome.trim() !== '');
+    
     setDadosEditados(prev => ({
       ...prev,
       nomesAcompanhantes: novosAcompanhantes,
-      acompanhantes: novosAcompanhantes.length
+      acompanhantes: acompanhantesComNome.length
     }));
   };
 
